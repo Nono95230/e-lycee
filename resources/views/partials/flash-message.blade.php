@@ -2,9 +2,13 @@
   @if(session('message'))
 
     @if( session('message')[0] === 'success')
-      <p>{{ session('message')[1] }}</p>
+      <div class="alert alert-success" role="alert">
+		  {{ session('message')[1] }}
+		</div>
     @else
-      <p>{{ session('message')[1] }}</p>
+		<div class="alert alert-danger" role="alert">
+			{{ session('message')[1] }}
+		</div>
     @endif
 
   @endif

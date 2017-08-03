@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'role', 'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -26,37 +26,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    // Plusieurs posts
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
-    }
-    // Plusieurs commentaires
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
-    }
-    // Un score unique par QCM
-    public function scores()
-    {
-        return $this->hasMany('App\Score');
-    }
-
-    // Roles des USERS (teacher, first_class, final_class)
-    public function isTeacher(){
-
-        return $this->role === 'teacher'; 
-
-    }
-    public function isFirstClass(){
-
-        return $this->role === 'first_class';
-
-    }
-    public function isFinalClass(){
-
-        return $this->role === 'final_class';
-
-    }
 }

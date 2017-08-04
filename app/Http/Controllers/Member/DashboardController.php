@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\User;
+
 class DashboardController extends Controller
 {
-    
+    use UserMember;
+
     public function __construct(Request $request)
     {
 
@@ -18,6 +21,9 @@ class DashboardController extends Controller
             $categories = DB::table('categories')->select('id', 'title')->get();
             $view->with('categories',$categories);
         });*/
+
+
+        $this->setUser();
     }
 
     public function index() {

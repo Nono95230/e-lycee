@@ -9,9 +9,18 @@ use App\Post;
 
 use App\Http\Requests\RobotRequest;
 
+use App\User;
+
 
 class PostController extends Controller
 {
+    use UserMember;
+
+    public function __construct(Request $request)
+    {
+
+        $this->setUser();
+    }
     /**
      * Display a listing of the resource.
      *

@@ -17,7 +17,7 @@
     <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 </head>
 
-    @yield('style')
+    @yield('stylesheet')
 
 <body>
     @include('partials.front.header')

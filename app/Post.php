@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Post extends Model
 {
     /**
@@ -75,9 +77,9 @@ class Post extends Model
     		$this->attributes['status'] = 'unpublished';
     	}
     	
-        /*if ($this->attributes['published_at'] === null) {
+        if ($this->attributes['published_at'] === null) {
         	$this->attributes['published_at'] = ( $value === 'on' )? Carbon::now() : null;
-        } */
+        }
 
     }
 }

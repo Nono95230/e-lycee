@@ -18,8 +18,8 @@ class PostsTableSeeder extends Seeder
                 'abstract'      => 'Unsung Story repart de zéro avec un nouveau développeur',
                 'content'       => 'La bonne nouvelles pour ces derniers est que Little Orbit entend bien honorer les récompenses promises durant la campagne Kickstarter et cela sans coût additionnel. Pour rappel, la campagne de Unsung Story avait aussi basé son succès sur la présence de Akihiko Yoshida (Bravely Default, NieR Automata) aux illustrations et de Hitoshi Sakimoto (Odin Sphere, Dragon\'s Crown) aux musiques. Leur présence dans le Unsung Story de Little Orbit n\'a pas été évoquée pour le moment.',
                 'url_thumbnail' => 'unsung.jpg',
-                'status'        => 'published',
-                'published_at'  => '2017-05-18 12:34:10'
+                'status'        => 'unpublished',
+                'published_at'  => null
             ],
             [   
                 'user_id'       => '1',
@@ -27,7 +27,7 @@ class PostsTableSeeder extends Seeder
                 'abstract'      => 'Les icônes FUT comptent triple dans FIFA 18',
                 'content'       => 'EA Sports a dévoilé de nouvelles fonctionnalités pour le très lucratif mode Ultimate Team de son FIFA 18. Un épisode qui signe l\'arrivée des légendes/icônes sur toutes les plateformes principales (PS4, Xbox One, Switch et PC).',
                 'url_thumbnail' => 'fifa.jpg',
-                'status'        => 'unpublished',
+                'status'        => 'published',
                 'published_at'  => '2017-06-15 16:56:10'
             ],
             [   
@@ -54,7 +54,7 @@ class PostsTableSeeder extends Seeder
                 'content'       => 'Il fallait bien que cela arrive un jour, Runic Games a dévoilé la date de sortie de Hob, un jeu d\'exploration qui s\'est offert quelques apparitions sporadiques depuis son annonce il y a maintenant deux ans. La nouvelle création du studio jusqu\'ici connu pour Torchlight sera disponible le 26 septembre sur PS4 et PC au tarif de 20 euros.',
                 'url_thumbnail' => 'hob.jpg',
                 'status'        => 'unpublished',
-                'published_at'  => '2017-09-19 14:15:10'
+                'published_at'  => null
             ],
             
             

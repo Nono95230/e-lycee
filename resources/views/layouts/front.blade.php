@@ -48,17 +48,29 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="{{ url('jquery/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{ url('jquery/jquery-3.2.1.min.js')}}" async></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ url('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url('bootstrap/js/bootstrap.min.js')}}" async></script>
 
     <!-- Pour les deux boutons suivre -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
     <!-- Pour le bouton j'aime -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
 
 
+    <script type="text/javascript" async>
+
+      setTimeout(function(){
+        if ($('#flash-message').length === 1) {
+          $('#flash-message').fadeOut(800);
+        };
+      },2200);
+
+
+
+    </script>
+    
     @yield('javascript')
 
 </body>

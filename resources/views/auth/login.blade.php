@@ -6,18 +6,25 @@
     <div class="well text-center">
         <h4>Testing all User Role</h4>
         <hr>
-        <h5 class="text-left">For role : <strong>Teacher</strong></h5>
-        <p>username : Alexandre</p>
-        <p>password : alexandre</p>
-        <h5 class="text-left">For role : <strong>First Class</strong></h5>
-        <p>username : Alan</p>
-        <p>password : alan</p>
-        <h5 class="text-left">For role : <strong>Final Class</strong></h5>
-        <p>username : Alfred</p>
-        <p>password : alfred</p>
+        <div class="user-role-choices">
+          <h5 class="text-left">For role : <strong>Teacher</strong></h5>
+          <p>username : Alexandre</p>
+          <p>password : alexandre</p>
+          <button class="btn btn-info" onClick="useThisRole('Alexandre')">Utiliser ces informations de connexion</button>
+        </div>
+        <div class="user-role-choices">
+          <h5 class="text-left">For role : <strong>First Class</strong></h5>
+          <p>username : Alan</p>
+          <p>password : alan</p>
+          <button class="btn btn-info" onClick="useThisRole('Alan')">Utiliser ces informations de connexion</button>
+        </div>
+        <div class="user-role-choices">
+          <h5 class="text-left">For role : <strong>Final Class</strong></h5>
+          <p>username : Alfred</p>
+          <p>password : alfred</p>
+          <button class="btn btn-info" onClick="useThisRole('Alfred')">Utiliser ces informations de connexion</button>
+        </div>
     </div>
-    @parent
-
 @endsection
 
 @section('style')
@@ -89,4 +96,19 @@
 @endsection
 
 
+@section('javascript')
 
+    <script type="text/javascript" async>
+
+    function useThisRole(name){
+      var username = name,
+          password = name.toLowerCase();
+      $('#username').val(username);
+      $('#password').val(password);
+    }
+
+
+
+    </script>
+
+@endsection

@@ -14,16 +14,8 @@
 
 @section('content')
     <!-- Title -->
+	@include('partials.flash-message')
     <h1>{{ $title}}</h1>
     
-
-@endsection
-
-@section('javascript')
-
-    <script type="text/javascript">
-
-
-    </script>
 
 @endsection

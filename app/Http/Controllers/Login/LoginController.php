@@ -38,7 +38,7 @@ class LoginController extends Controller
 
 			$message = [
 				'error',
-				sprintf('Mot de passe ou Nom d\'utilisateur invalide')
+				sprintf('Nom d\'utilisateur ou Mot de passe invalide')
 			];
 
 			session()->flash('message', $message);

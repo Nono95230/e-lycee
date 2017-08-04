@@ -59,6 +59,18 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ url('bootstrap/js/bootstrap.min.js')}}"></script>
 
+    <script type="text/javascript" async>
+
+      setTimeout(function(){
+        if ($('#flash-message').length === 1) {
+          $('#flash-message').fadeOut(800);
+        };
+      },2200);
+
+
+
+    </script>
+    
     @yield('javascript')
 
 </body>

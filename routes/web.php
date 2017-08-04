@@ -44,5 +44,5 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('member/dashboard', 'Member\DashboardController@index')->name('dashboard');
     Route::resource('member/post', 'Member\PostController');
-
+    Route::post('member/post/{id}/status', 'Member\PostController@updateStatus')->name('post.status.update');
 });

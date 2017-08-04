@@ -46,7 +46,6 @@ class PostPolicy
     public function create(User $user)
     {
         return false;
-        return $user->role == 'editor';
     }
 
     /**
@@ -60,11 +59,7 @@ class PostPolicy
     {
         
         return false;
-        return $user->id === $post->user_id;
 
-        /*echo 'user : '.$user->name.'<br>';
-        echo 'robot_user : '.$robot->user->name;
-        dd();*/
     }
 
     /**
@@ -75,6 +70,18 @@ class PostPolicy
      * @return mixed
      */
     public function delete(User $user, Post $post)
+    {
+        //abort(403,'Unauthorized action');
+        return false;
+    }
+    /**
+     * Determine whether the user can published or unpublished the post.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return mixed
+     */
+    public function status(User $user, Post $post)
     {
         //abort(403,'Unauthorized action');
         return false;

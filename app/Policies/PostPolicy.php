@@ -26,6 +26,7 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can view all posts.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
@@ -37,6 +38,7 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can create post.
      *
      * @param  \App\User  $user
      * @return mixed
@@ -48,8 +50,10 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can update the post.
      *
      * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return mixed
      */
     public function update(User $user, Post $post)
@@ -64,8 +68,10 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can delete the post.
      *
      * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return mixed
      */
     public function delete(User $user, Post $post)

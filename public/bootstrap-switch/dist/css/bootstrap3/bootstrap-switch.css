@@ -7,7 +7,16 @@
   * @license Apache-2.0
   */
 
+table,th{
+  text-align:center;
+}
+.make-switch{
+  display: inline-block;
+}
+    
 .bootstrap-switch {
+  width: 107px;
+
   display: inline-block;
   direction: ltr;
   cursor: pointer;
@@ -29,6 +38,8 @@
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .bootstrap-switch .bootstrap-switch-container {
+  width: 147px;
+
   display: inline-block;
   top: 0;
   border-radius: 4px;
@@ -50,40 +61,35 @@
 }
 .bootstrap-switch .bootstrap-switch-handle-on,
 .bootstrap-switch .bootstrap-switch-handle-off {
+  width: 42px;
+  color: #fff;
+
   text-align: center;
   z-index: 1;
 }
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
-  color: #fff;
-  background: #337ab7;
+.bootstrap-switch-handle-on{
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  background: #5cb85c;
 }
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
-  color: #fff;
-  background: #5bc0de;
+.bootstrap-switch-handle-off{
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #d9534f;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
   color: #fff;
   background: #5cb85c;
 }
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
-  background: #f0ad4e;
-  color: #fff;
-}
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
   color: #fff;
   background: #d9534f;
 }
-.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
-  color: #000;
-  background: #eeeeee;
-}
 .bootstrap-switch .bootstrap-switch-label {
+  width: 63px;
+
   text-align: center;
   margin-top: -1px;
   margin-bottom: -1px;
@@ -175,13 +181,19 @@
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
-.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label,
-.bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-off .bootstrap-switch-label {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
+
+
+.bootstrap-switch-on .bootstrap-switch-container{
+  margin-left: 0px;
 }
-.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label,
-.bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-on .bootstrap-switch-label {
+.bootstrap-switch-on .bootstrap-switch-label{
+  border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.bootstrap-switch-off .bootstrap-switch-container{
+  margin-left: -42px;
+}
+.bootstrap-switch-off .bootstrap-switch-label{
   border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
 }

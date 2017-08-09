@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
+use Auth;
 
 class Post extends Model
 {
@@ -23,6 +24,13 @@ class Post extends Model
 		'status',
         'published_at'
 	];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['post_id'];
 
 
     /**
@@ -60,26 +68,38 @@ class Post extends Model
 
     }
 
+
     public function setStatusAttribute($value){
 
-        $this->attributes['status'] = $value;
-        if ($this->attributes['published_at'] === null) {
-        	$this->attributes['published_at'] = ( $value ==='published')? Carbon::now() : null;
+        if ( $value === 'on' ) {
+            $this->attributes['status'] = 'published';
         } 
 
     }
 
+
+    // public function setPublishedAtAttribute($value){
+    //     if ( $value === 'on' ) {
+    //         if ($this->attributes['published_at'] === null) {
+    //             $this->attributes['published_at'] = Carbon::now();
+    //         }
+    //     } 
+    //     else{
+    //         $this->attributes['status'] = 'unpublished';
+    //     }
+    // }
+    
+    
     public function updateStatus($value){
-
-    	if ( $value === 'on' ) {
-    		$this->attributes['status'] = 'published';
-    	} else if( $value === null ){
-    		$this->attributes['status'] = 'unpublished';
-    	}
-    	
-        if ($this->attributes['published_at'] === null) {
-        	$this->attributes['published_at'] = ( $value === 'on' )? Carbon::now() : null;
+        if ( $value === 'on' ) {
+            $this->attributes['status'] = 'published';
+            if ($this->attributes['published_at'] === null) {
+                $this->attributes['published_at'] = Carbon::now();
+            }
+        } else if( $value === null ){
+            $this->attributes['status'] = 'unpublished';
         }
-
     }
+    
+    
 }

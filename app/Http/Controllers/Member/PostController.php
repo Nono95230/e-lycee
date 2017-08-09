@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 
 use App\Post;
 
-use App\Http\Requests\RobotRequest;
+use App\Http\Requests\PostRequest;
 
 use App\User;
+use Carbon\Carbon;
 
 
 class PostController extends Controller
@@ -26,14 +27,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post,Request $request)
     {
 
         $this->authorize('view', Post::class);
-        $posts    = Post::all();
+        $perPage=5;
+        if (isset($request->perPage)) {
+            $perPage=$request->perPage;
+        }
+
+        $posts    = $post->paginate($perPage);
         $nb_posts = count($posts);
         
-        return view('back.post.index', ['title' => 'Liste des articles', 'posts' => $posts,  'nb_posts'=>$nb_posts,'limit'=>20]);
+        return view('back.post.index', ['title' => 'Liste des articles', 'posts' => $posts,  'nb_posts'=>$nb_posts,'perPage'=>$perPage]);
     }
 
     /**
@@ -43,8 +49,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Post::class);
 
-        //$this->authorize('create', Post::class);
         return view('back.post.create', ['title' => 'Ajouter un article']);
     
     }
@@ -55,9 +61,45 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        //dd($request->all());
+
+        $post = Post::create($request->all());
+
+        // Save User Id
+        $userId = $post->getUserId();
+        $post->setUserId($userId);
+
+
+        if ( $request->status_check === "on" ) {
+           $post->published_at= Carbon::now();
+        }
+        //$post->setPublishedAtAttribute($request->status_check);
+        $post->setStatusAttribute($request->status_check);
+        
+
+        // if ($request->hasFile('url_thumbnail')) {
+
+        //     $file = $request->url_thumbnail;
+        //     $ext  = $file->extension();
+
+        //     $url_thumnail = str_random(12) . '.' . $ext;
+
+        //     $file->storeAs('images', $url_thumnail );
+
+        //     $post->url_thumbnail = $url_thumnail;
+
+        // }
+        
+        $post->save();
+        $message = [
+            'success',
+            sprintf('Merci d\'avoir ajouter l\'article %s !', $post->title)
+        ];
+        
+        return redirect()->route('post.index')->with('message', $message);
+    
     }
 
     /**
@@ -79,7 +121,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $this->authorize('update', $post); 
+        $title = 'Éditer l\'article : '.$post->title;
+
+
+        return view('back.post.edit', compact('title','post'));
     }
 
     /**
@@ -89,9 +135,23 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        if ( $request->status_check === "on" ) {
+           $post->published_at= Carbon::now();
+        }
+        //$post->setPublishedAtAttribute($request->status_check);
+        $post->setStatusAttribute( $request->status_check);
+        $post->update( $request->all() );
+
+        //$message = sprintf('Mise à jour du robot %s effectuée avec succès !', $robot->name);
+        $message = [
+            'success',
+            sprintf('La modification de l\'article %s a été un succès !', $post->title)
+        ];
+
+        return redirect()->route('post.index')->with('message', $message);
+
     }
 
     /**

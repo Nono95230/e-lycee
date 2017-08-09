@@ -246,23 +246,26 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
     	{{ csrf_field() }}
+		{{ method_field('PUT') }}
+		<input type="hidden" name="post_id" value="{{$post->id}}">
 		<div class="row">
 			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
 
-				{!! Form::inputMacro('text','title','post', $errors? $errors : null ,old('title')) !!}
+				{!! Form::inputMacro('text','title','post', $errors? $errors : null ,old('title'),$post->title) !!}
+			
 			</div>
 			<div class="col-lg-2 col-md-3  col-sm-4 col-xs-5">
 
-				{!! Form::publishMacro('checkbox', 'status_check', 'post', $errors->isEmpty(), old('status_check')) !!}
-				
+				{!! Form::publishMacro('checkbox', 'status_check', 'post', old('status_check'), $post->status) !!}
+
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				{!! Form::textAreaMacro('abstract','post', $errors? $errors : null ,old('abstract')) !!}
 
+				{!! Form::textAreaMacro('abstract','post', $errors? $errors : null ,old('abstract'),$post->abstract) !!}
 
 			</div>
 
@@ -289,12 +292,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{!! Form::textAreaMacro('content','post', $errors? $errors : null ,old('content')) !!}
+
+				{!! Form::textAreaMacro('content','post', $errors? $errors : null ,old('content'),$post->content) !!}
+
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{!! Form::submitMacro('add','post') !!}
+				{!! Form::submitMacro('edit','post') !!}
 			</div>
 		</div>
 

@@ -6,8 +6,35 @@
 @section('stylesheet')
 	
 	<style>
+		/*
+		 * CSS TABLEAU
+		 */
 		table,th{
 		  text-align:center;
+		}
+		table thead tr th:first-child,
+		table tbody tr td:first-child{
+		  text-align:left;
+		}
+		table thead tr th:last-child,
+		table tbody tr td:last-child{
+		  text-align:right;
+		}
+
+		table thead tr th:last-child{
+			padding-right:calc(82px + 8px);
+		}
+
+
+		/*
+		 * CSS BTN PUBLISH
+		 */
+		.modal{
+			text-align: center
+		}
+		.modal-title{
+			display: inline-block;
+			width:95%;
 		}
 		.make-switch{
 		  display: inline-block;
@@ -187,129 +214,201 @@
 		}
 		.bootstrap-switch-on .bootstrap-switch-label{
 		  border-bottom-right-radius: 3px;
-		    border-top-right-radius: 3px;
+		  border-top-right-radius: 3px;
 		}
 		.bootstrap-switch-off .bootstrap-switch-container{
 		  margin-left: -42px;
 		}
 		.bootstrap-switch-off .bootstrap-switch-label{
 		  border-bottom-left-radius: 3px;
-		    border-top-left-radius: 3px;
+	   	  border-top-left-radius: 3px;
 		}
 
 
 
 
 
-
-
-		.modal-title{
-			display: inline-block;
+		/*
+		 * CSS REGION - CONTENT_TOP
+		 */
+		#btn-add,
+		#btn-return{
+			margin-top:22px;
 		}
-
+		.content_second{
+			min-height:80px;
+		}
+		#flash-message{
+			margin-bottom:10px;
+		}
+		#perpage{
+			padding-left:8px;
+		}
+		#total{
+			padding-right:8px;
+		}
+		.pagination .per_page_title,
+		.pagination .total{
+			padding:6px 12px;
+			text-align: center;
+			border-top-left-radius:4px;
+			border-top-right-radius:4px;
+		}
+		.pagination .total{
+			border-bottom-left-radius:4px;
+			border-bottom-right-radius:4px;
+		}
+		.pagination#perpage li a{
+		  	margin-left:0;
+		}
+		.pagination#perpage li.first a{
+			border-top-left-radius:0px;
+			border-bottom-left-radius:4px;
+		}
+		.pagination#perpage li:last-child a{
+			border-top-right-radius:0px;
+		}
 
 	</style>
 
 @endsection
 
-@section('content')
+@section('content_top')
 
-    <!-- Title -->
-    <h1>{{ $title}}</h1>
-    
+<div class="content_first">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 text-center">
+			<h1>{{ $title}}</h1>
+		</div>
+		<div class="col-md-2">
+			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('post.create')}}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> Ajouter un article</a>
+		</div>
+	</div>
+</div>
+<div class="content_second">
 	@include('partials.flash-message')
-	<table class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th>Titre</th>
-				<th>Auteur</th>
-				<th>Nombre de commentaires</th>
-				<th>PUBLICATION</th>
-				<th>ACTION</th>
-			</tr>
-		</thead>
-		<tbody>
-
-    		@foreach ($posts as $post)
-				<tr>
-					<td>
-						<a href="{{ url('post', $post->id) }}">
-							{{ $post->title }}
-						</a>
-					</td>
-					<td>{{ $post->user? $post->user->username : 'Auteur Anonyme' }}</td>
-					<td>5</td>
-					<td>{{ $post->published_at }}</td>
-					<td>
-					@if($post->status === "published")
-					    <div class="make-switch">
-					    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on">
-					    		<div class="bootstrap-switch-container">
-						    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
-							    	<span class="bootstrap-switch-label">Publié</span>
-							    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
-							    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
-    									{{ csrf_field() }}
-							    		<input name="status" checked="" type="checkbox">
-							    		<input type="submit" style="display:none;">
-							    	</form>
-							    	
-					    		</div>
-					    	</div>
-					    </div>
-					@elseif($post->status === "unpublished")
-					    <div class="make-switch">
-					    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off">
-					    		<div class="bootstrap-switch-container">
-						    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
-							    	<span class="bootstrap-switch-label">Publié</span>
-							    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
-							    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
-    									{{ csrf_field() }}
-							    		<input name="status" type="checkbox">
-							    		<input type="submit" style="display:none;">
-							    	</form>
-							    	
-					    		</div>
-					    	</div>
-					    </div>
-					@endif
-					    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-info"><i class="fa fa-pencil fa-lg fa-fw"></i></a>
-
-						<a href="#modal{{ $post->id }}" class="btn btn-danger" data-toggle="modal" data-target="#pop-in-delete-{{$post->id}}"><i class="fa fa-trash fa-lg fa-fw"></i></a>
-						<!-- Modal Structure -->
-						<div class="modal fade" id="pop-in-delete-{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{$post->id}}" aria-hidden="true">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h4 class="modal-title" id="modalLabel{{$post->id}}"><strong>Êtes-vous certains de vouloir supprimer cet article ?</strong></h4>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        <p>Prenez garde, cette action est définitive, vous ne pourrez pas revenir en arrière !</p>
-						      </div>
-						      <div class="modal-footer">
-								<form method="post" action="{{ route('post.destroy',$post->id) }}">
-						    		{{ csrf_field() }} {{-- token pour protéger votre formulaire CSRF --}}
-						    		{{ method_field('DELETE') }}
-							        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Je m'y refuse</button>
-							        <button type="submit" class="btn btn-success pull-rigth">Je le supprime</button>
-								</form>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-
-					</td>
-				</tr>
-	
-    		@endforeach
-		</tbody>
-	</table>
+</div>
 
 @endsection
+
+
+@section('content')
+
+<div class="row">
+	<div class="col-md-4">
+		<ul id="perpage" class="pagination">
+			<div class="bg-primary per_page_title"><span>Article par page</span></div>
+			<li @if($perPage == 5) class="first active" @else class="first" @endif><a href="http://127.0.0.1:8000/member/post?perPage=5">5</a></li>
+			<li @if($perPage == 10) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=10">10</a></li>
+			<li @if($perPage == 15) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=15">15</a></li>
+			<li @if($perPage == 20) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=20">20</a></li>
+		</ul>
+	</div>
+	<div class="col-md-4 text-center">{!! $posts->links() !!}</div>
+	<div class="col-md-4">
+		<ul id="total" class="pagination pull-right">
+			<div class="bg-primary total"><span>TOTAL : 13</span></div>
+		</ul>
+	</div>
+</div>
+
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Auteur</th>
+			<th>Nombre de commentaires</th>
+			<th>Publié le</th>
+			<th>ACTION</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach ($posts as $post)
+			<tr>
+				<td>
+					<a href="{{ url('post', $post->id) }}">
+						{{ $post->title }}
+					</a>
+				</td>
+				<td>{{ $post->user? $post->user->username : 'Auteur Anonyme' }}</td>
+				<td>5</td>
+				<td>{{ $post->published_at? $post->published_at : 'Non publié' }}</td>
+				<td>
+				@if($post->status === "published")
+				    <div class="make-switch">
+				    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on">
+				    		<div class="bootstrap-switch-container">
+					    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
+						    	<span class="bootstrap-switch-label">Publié</span>
+						    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
+						    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
+									{{ csrf_field() }}
+						    		<input name="status" checked="" type="checkbox">
+						    		<input type="submit" style="display:none;">
+						    	</form>
+						    	
+				    		</div>
+				    	</div>
+				    </div>
+				@elseif($post->status === "unpublished")
+				    <div class="make-switch">
+				    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off">
+				    		<div class="bootstrap-switch-container">
+					    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
+						    	<span class="bootstrap-switch-label">Publié</span>
+						    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
+						    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
+									{{ csrf_field() }}
+						    		<input name="status" type="checkbox">
+						    		<input type="submit" style="display:none;">
+						    	</form>
+						    	
+				    		</div>
+				    	</div>
+				    </div>
+				@endif
+				    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-info"><i class="fa fa-pencil fa-lg fa-fw"></i></a>
+
+					<a href="#modal{{ $post->id }}" class="btn btn-danger" data-toggle="modal" data-target="#pop-in-delete-{{$post->id}}"><i class="fa fa-trash fa-lg fa-fw"></i></a>
+					<!-- Modal Structure -->
+					<div class="modal fade" id="pop-in-delete-{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{$post->id}}" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h4 class="modal-title" id="modalLabel{{$post->id}}"><strong>Êtes-vous certains de vouloir supprimer cet article ?</strong></h4>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <p>Prenez garde, cette action est définitive, vous ne pourrez pas revenir en arrière !</p>
+					      </div>
+					      <div class="modal-footer">
+							<form method="post" action="{{ route('post.destroy',$post->id) }}">
+					    		{{ csrf_field() }} {{-- token pour protéger votre formulaire CSRF --}}
+					    		{{ method_field('DELETE') }}
+						        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Je m'y refuse</button>
+						        <button type="submit" class="btn btn-success pull-rigth">Je le supprime</button>
+							</form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+				</td>
+			</tr>
+
+		@endforeach
+	</tbody>
+</table>
+<div class="row">
+	<div class="col-md-12 text-center">{!! $posts->links() !!}</div>
+</div>
+
+@endsection
+
 
 @section('javascript')
 
@@ -319,7 +418,6 @@
 		
 
 		function publish() {
-
 			var $thisPublish = $(this).parent(".bootstrap-switch-container").parent(".bootstrap-switch-id-tete"),
 				testPublish = $thisPublish.hasClass('bootstrap-switch-on');
 				//console.log($thisPublish.find('input[type="checkbox"]').attr('name'));
@@ -334,8 +432,23 @@
 				$thisPublish.find('input[type="checkbox"]').prop('checked', true);
 				$thisPublish.find('form').submit();
 			}
-
 		}
+		function updatePaginationPerPage(){
+			var perPage = parseInt( $('#perpage li.active').text() ),
+				$pagination = $(".pagination:not(#perpage,#total)");
+
+			$pagination.find("li").each(function(){
+
+				var itemUrl = $(this).find('a').attr('href');
+
+				if (itemUrl !== undefined) {
+					itemUrl = itemUrl+'&perPage='+perPage;
+					$(this).find('a').attr('href',itemUrl);
+				}
+
+			});
+		}
+		updatePaginationPerPage();
 
 
     </script>

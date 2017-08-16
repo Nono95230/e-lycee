@@ -28,6 +28,133 @@
     <![endif]-->
 
 
+
+    <style>
+        ul.nav.top-nav{
+            padding:0;
+            margin:0;
+        }
+        #user-info a{
+            padding-left:25px;
+            padding-right:25px;
+        }
+        #user-info a i{
+            padding-right:15px;
+        }
+        #user-info .dropdown-menu a i{
+            padding-right:60px;
+        }
+        #user-info .dropdown-menu{
+            width: 100%;
+        }
+        #user-info a b.caret{
+            margin-left: 10px;
+            border-top: 7px solid #9d9d9d;
+            border-right: 7px solid transparent;
+            border-left: 7px solid transparent;
+        }
+        @media screen and (min-width: 768px) {
+
+            body{
+                margin-top: 75px;
+            }
+            #wrapper{
+                padding-left: 250px;
+            }
+
+            #menu-sidebar ul{
+                top: 75px;
+                left: 250px;
+                width: 250px;
+                margin-left: -250px;
+
+            }
+            #menu-sidebar ul li a{
+                width: 250px;
+                font-size:16px;
+            }
+            #menu-sidebar ul li a i{
+                font-size:28px;
+                margin-right: 8px;
+            }
+            /* nav .navbar-header{
+                margin-left: 225px;
+            } */
+            nav{
+                height:75px;
+            }
+            nav .navbar-header a.navbar-brand {
+                height:75px;
+                padding-top:20px;
+                padding-left:10px;
+            }
+            nav ul.top-nav a.dropdown-toggle{
+                height:75px;
+                padding-top:23px;
+            }
+
+        }
+        @media screen and (max-width: 767px) {
+
+            body{
+                margin-top: 150px;
+            }
+            #wrapper{
+                padding-left: 0px;
+            }
+
+            #button-target-menu-sidebar{
+                margin-top: 20px;
+                margin-left: 15px;
+                margin-right: 0;
+                float: left;
+            }
+
+            #button-target-menu-sidebar .icon-bar+.icon-bar{
+                margin-top: 5px;
+            }
+
+            #menu-sidebar ul{
+                top: 75px;
+
+            }
+            nav{
+                height:150px;
+            }
+            nav .navbar-header a.navbar-brand {
+                height:75px;
+                padding-top:20px;
+            }
+            nav ul.top-nav a.dropdown-toggle{
+                height:75px;
+                padding-top:23px;
+            }
+            nav .navbar-header{
+                display: block;
+                width: 100%;
+            }
+            nav .navbar-header .navbar-brand{
+                width: 246px;
+                margin:0 auto;
+                display: block;
+                float: none;
+            }
+            #menu-sidebar{
+                margin-top: 75px;
+                background-color: #222;
+            }
+            #menu-sidebar .navbar-nav{
+                margin: 0 -15px;
+            }
+            ul.nav.top-nav #user-info a{
+                padding-left:20px;
+                padding-right:20px;
+            }
+
+        }
+
+    </style>
+    
     @yield('stylesheet')
 
 </head>

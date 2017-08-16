@@ -40,16 +40,7 @@
         <nav id="second-nav" class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="{{ Request::is('/') ? 'active' : '' }}">
-                        <a href="{{route('home')}}">Home</a>
-                    </li>
-                    <li role="presentation" class="{{ Request::is('actualites') ? 'active' : '' }}">
-                        <a href="{{route('actus')}}">Actus</a>
-                    </li>
-                    <li role="presentation" class="{{ Request::is('le-lycee') ? 'active' : '' }}">
-                        <a href="{{route('le-lycee')}}">Le Lycée</a>
-                    </li>
-                    <li role="serach" class=" navbar-right">
+                    <li role="serach" class="pull-right navbar-right">
                         <form id="search-post" class="navbar-form" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="q">
@@ -58,6 +49,15 @@
                                 </div>
                             </div>
                         </form>
+                    </li>
+                    <li role="presentation" class="{{ Request::is('/') ? 'active' : '' }}">
+                        <a href="{{route('home')}}">Home</a>
+                    </li>
+                    <li role="presentation" class="{{ Request::is('actualites') ? 'active' : '' }}">
+                        <a href="{{route('actus')}}">Actus</a>
+                    </li>
+                    <li role="presentation" class="{{ Request::is('le-lycee') ? 'active' : '' }}">
+                        <a href="{{route('le-lycee')}}">Le Lycée</a>
                     </li>
                 </ul>
                 <!-- /.navbar-collapse -->

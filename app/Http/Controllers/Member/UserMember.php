@@ -6,24 +6,49 @@ use Auth;
 trait UserMember{
 	
 
-	public function setUser(){
+    public function setUser(){
     
-    	view()->composer('layouts.back', function ($view) {
+        view()->composer('layouts.back', function ($view) {
         
-        	$user = Auth::user();
+            $user = Auth::user();
             
             $view->with('user', $user);
-            $userStatut ='toto';
+            $userStatut ='...';
             if ($user->role === 'first_class') {
-            	$userStatut = 'Elève de première';
+                $userStatut = 'Elève de première';
             } else if($user->role === 'final_class') {
-            	$userStatut = 'Elève de terminale';
+                $userStatut = 'Elève de terminale';
             } else if($user->role === 'teacher') {
-            	$userStatut = 'Enseignant';
+                $userStatut = 'Enseignant';
             }
             
             $view->with('userStatut', $userStatut);
 
+        
+        });
+    
+    }
+
+    public function takeUser(){
+    
+        view()->composer('layouts.front', function ($view) {
+
+            $user = Auth::user();
+            $view->with('user', $user);
+
+            if ($user !== null) {
+                
+                if ($user->role === 'first_class') {
+                    $userStatut = 'Elève de première';
+                } else if($user->role === 'final_class') {
+                    $userStatut = 'Elève de terminale';
+                } else if($user->role === 'teacher') {
+                    $userStatut = 'Enseignant';
+                }
+                
+                $view->with('userStatut', $userStatut);
+
+            }
         
         });
     

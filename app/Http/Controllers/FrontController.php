@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+    use Member\UserMember;
+
     public function __construct(Request $request){
 
         // view()->composer('partials.nav', function($view) use($request) {
@@ -15,6 +17,8 @@ class FrontController extends Controller
         //     $categories = DB::table('categories')->select('id', 'title')->get();
         //     $view->with('categories',$categories);
         // });
+        
+        $this->takeUser();
 
     }
     public function index() {

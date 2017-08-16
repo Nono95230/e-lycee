@@ -53,7 +53,7 @@
 
 
   @include('partials.flash-message')
-  <form id="form-login" method="post" action="{{ url('login') }}" novalidate="" name="form-login" role="form">
+  <form id="form-login" method="post" action="{{ url('login') }}"  name="form-login" role="form">
 	{{ csrf_field() }}
 	<div class="text-center">
     	<p>Pour accéder à votre profil,</p>

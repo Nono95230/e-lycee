@@ -12,6 +12,9 @@ use App\Http\Requests\PostRequest;
 use App\User;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -79,18 +82,26 @@ class PostController extends Controller
         $post->setStatusAttribute($request->status_check);
         
 
-        // if ($request->hasFile('url_thumbnail')) {
 
-        //     $file = $request->url_thumbnail;
-        //     $ext  = $file->extension();
+        if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
 
-        //     $url_thumnail = str_random(12) . '.' . $ext;
+            $file = $request->url_thumbnail;
 
-        //     $file->storeAs('images', $url_thumnail );
+            $FileExtension  = $file->extension();
 
-        //     $post->url_thumbnail = $url_thumnail;
+            $fileName = $file->getClientOriginalName();
+            $lastPosition = strrpos($fileName,".");
 
-        // }
+            $fileName = substr_replace($fileName,'',$lastPosition); 
+
+            $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
+
+            //$file->storeAs('posts/images', $url_thumnail );
+            $file->move('posts/images',$url_thumnail);
+
+            $post->url_thumbnail = $url_thumnail;
+
+        }
         
         $post->save();
         $message = [
@@ -137,14 +148,48 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        $oldFile = $post->getUrlThumbnailAttribute();
+
         if ( $request->status_check === "on" ) {
-           $post->published_at= Carbon::now();
+           $post->published_at = Carbon::now();
         }
         //$post->setPublishedAtAttribute($request->status_check);
         $post->setStatusAttribute( $request->status_check);
+
+
         $post->update( $request->all() );
 
-        //$message = sprintf('Mise à jour du robot %s effectuée avec succès !', $robot->name);
+        if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
+
+
+            $oldFilePath = public_path() . '/posts/images/'.$oldFile ;
+            
+            if(file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+
+            $file = $request->url_thumbnail;
+
+            $FileExtension  = $file->extension();
+
+            $fileName = $file->getClientOriginalName();
+            $lastPosition = strrpos($fileName,".");
+
+            $fileName = substr_replace($fileName,'',$lastPosition); 
+
+            $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
+
+                        
+            //$file->storeAs('posts/images', $url_thumnail );
+            $file->move('posts/images',$url_thumnail);
+
+
+
+            $post->url_thumbnail = $url_thumnail;
+            $post->save();
+        }
+
+
         $message = [
             'success',
             sprintf('La modification de l\'article %s a été un succès !', $post->title)

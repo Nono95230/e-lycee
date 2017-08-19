@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-//use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -25,15 +24,36 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //'title' => 'bail|required|string|'.Rule::unique('posts')->ignore($this->post_id),
-            'title' => 'bail|required|string|unique:posts,title,'.$this->post_id, 
-            'content' => 'bail|required|min:100',
-            'abstract' => 'bail|required|min:50|max:200',
-            'status' => 'in:published,unpublished',
-            //'url_thumbnail' => 'bail|required|image|max:'.env('MAX_FILE_UPLOAD') 
-        
-        ];
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+            {
+                return [];
+            }
+            case 'POST':
+            {
+                return [
+                    'title' => 'bail|required|string|unique:posts,title,'.$this->post_id, 
+                    'content' => 'bail|required|min:100',
+                    'abstract' => 'bail|required|min:50|max:200',
+                    'status' => 'in:published,unpublished',
+                    'url_thumbnail' => 'bail|required|image|max:'.env('MAX_FILE_UPLOAD') 
+                ];
+            }
+            case 'PATCH':
+            case 'PUT':
+            {
+                return [
+                    'title' => 'bail|required|string|unique:posts,title,'.$this->post_id, 
+                    'content' => 'bail|required|min:100',
+                    'abstract' => 'bail|required|min:50|max:200',
+                    'status' => 'in:published,unpublished',
+                    'url_thumbnail' => 'bail|image|max:'.env('MAX_FILE_UPLOAD') 
+                ];
+            }
+            default:break;
+        }
     }
 
     /**
@@ -52,6 +72,9 @@ class PostRequest extends FormRequest
             'abstract.required'  => 'Votre article doit avoir un résumé',
             'abstract.min'  => 'Le résumé doit avoir au moins 50 caractères',
             'abstract.max'  => 'Le résumé ne doit pas avoir plus de 200 caractères',
+            'url_thumbnail.required' => 'Une image est requise',
+            'url_thumbnail.image' => 'Le fichier choisi n\'est pas une image',
+            'url_thumbnail.max' => 'Le poids maximum de votre fichier doit être inférieure à '.(env('MAX_FILE_UPLOAD')/1024).' Mo',
         ];
     }
 }

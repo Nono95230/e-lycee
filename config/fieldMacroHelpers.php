@@ -16,7 +16,9 @@ return [
                     ],
         'url_thumbnail'  => [
                         'label'         => 'Image à la une de l\'article',
-                        'placeholder'   => 'Choisissez un fichier...'
+                        'placeholder_add'   => 'Choisissez un fichier...',
+                        'placeholder_edit'   => 'Pour changer l\'image actuelle, choisissez un fichier...',
+                        'old_advice'   => 'Pour conserver l\'image actuelle de l\'article, laissez le champs ci-dessous vide'
                     ],
         'status_check' => [
                             'label'     => 'Publié l\'article'

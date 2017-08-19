@@ -13,7 +13,9 @@
 		  text-align:center;
 		}
 		table thead tr th:first-child,
-		table tbody tr td:first-child{
+		table tbody tr td:first-child,
+		table thead tr th:nth-child(2),
+		table tbody tr td:nth-child(2){
 		  text-align:left;
 		}
 		table thead tr th:last-child,
@@ -308,7 +310,7 @@
 	<div class="col-md-4 text-center">{!! $posts->links() !!}</div>
 	<div class="col-md-4">
 		<ul id="total" class="pagination pull-right">
-			<div class="bg-primary total"><span>TOTAL : 13</span></div>
+			<div class="bg-primary total"><span>TOTAL : {!! $posts->total() !!}</span></div>
 		</ul>
 	</div>
 </div>
@@ -316,6 +318,7 @@
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
+			<th>N°</th>
 			<th>Titre</th>
 			<th>Auteur</th>
 			<th>Nombre de commentaires</th>
@@ -325,8 +328,10 @@
 	</thead>
 	<tbody>
 
+		<?php $number=1; ?>
 		@foreach ($posts as $post)
 			<tr>
+				<td>{!! ( ( $posts->currentPage() - 1 )*$posts->perPage() )+ $number++ !!}</td>
 				<td>
 					<a href="{{ url('post', $post->id) }}">
 						{{ $post->title }}

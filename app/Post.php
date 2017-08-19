@@ -57,6 +57,11 @@ class Post extends Model
         return Auth::user()->id;
     }
 
+    public function getUrlThumbnailAttribute() {
+
+        return $this->attributes['url_thumbnail'];
+
+    }
     public function setUserId($value){
         $this->attributes['user_id'] = $value;
     }

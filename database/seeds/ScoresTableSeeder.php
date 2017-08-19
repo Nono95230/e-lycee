@@ -16,115 +16,45 @@ class ScoresTableSeeder extends Seeder
             [   
                 'status'       => 'fait',
                 'question_id'  => '1',
-                'user_id'      => '1',
-                'note'         => '13'
+                'user_id'      => '4',
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '2',
-                'user_id'      => '2',
-                'note'         => '14'
+                'user_id'      => '4',
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '3',
-                'user_id'      => '3',
-                'note'         => '16'
+                'user_id'      => '4',
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '4',
                 'user_id'      => '4',
-                'note'         => '09'
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '5',
-                'user_id'      => '5',
-                'note'         => '15'
+                'user_id'      => '4',
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '6',
-                'user_id'      => '6',
-                'note'         => '06'
+                'user_id'      => '4',
+                'note'         => '1'
             ],
             [   
                 'status'       => 'fait',
                 'question_id'  => '7',
-                'user_id'      => '7',
-                'note'         => '09'
-            ],
-            [   
-                'status'       => 'fait',
-                'question_id'  => '8',
-                'user_id'      => '8',
-                'note'         => '17'
-            ],
-            [   
-                'status'       => 'fait',
-                'question_id'  => '9',
-                'user_id'      => '9',
-                'note'         => '14'
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '7',
-                'user_id'      => '3',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '7',
-                'user_id'      => '3',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '7',
-                'user_id'      => '3',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '7',
-                'user_id'      => '3',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '10',
-                'user_id'      => '9',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '9',
-                'user_id'      => '16',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'fait',
-                'question_id'  => '8',
-                'user_id'      => '16',
-                'note'         => '12'
-            ],
-            [   
-                'status'       => 'pas fait',
-                'question_id'  => '9',
-                'user_id'      => '18',
-                'note'         => ''
-            ],
-            [   
-                'status'       => 'fait',
-                'question_id'  => '10',
-                'user_id'      => '10',
-                'note'         => '15'
-            ],
-            
-            
-            
-
+                'user_id'      => '4',
+                'note'         => '1'
+            ]
     	]);
     }
 }

@@ -253,7 +253,7 @@
 
 				{!! Form::inputMacro('text','title','post', $errors? $errors : null ,old('title')) !!}
 			</div>
-			<div class="col-lg-2 col-md-3  col-sm-4 col-xs-5">
+			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
 
 				{!! Form::publishMacro('checkbox', 'status_check', 'post', $errors->isEmpty(), old('status_check')) !!}
 				
@@ -262,28 +262,10 @@
 		<div class="row">
 			<div class="col-md-6">
 				{!! Form::textAreaMacro('abstract','post', $errors? $errors : null ,old('abstract')) !!}
-
-
 			</div>
-
+			
 			<div class="col-md-6">
-				<div class="form-group controls @if($errors->has('url_thumbnail')) has-feedback has-error @endif">
-				    <label for="post_url_thumbnail" class="control-label">Image de l'article</label>
-					<div id="post_url_thumbnail" class="input-group">
-						<span class="input-group-btn">
-			        		<button class="btn btn-default" type="button">Choisir</button>
-			    		</span>
-			    		<input type="text" class="form-control" placeholder='Choisissez un fichier...' />
-			    		<span class="input-group-btn">
-			       			 <button class="btn btn-warning" type="button">Effacer</button>
-			    		</span>
-					</div>
-				    @if($errors->has('url_thumbnail'))
-				    <span class="help-block">{{$errors->first('url_thumbnail')}}</span>
-				    @else
-				    <span class="help-block" style="min-height:20px;"></span>
-				    @endif
-				</div>
+				{!! Form::fileMacro('url_thumbnail', 'post', $errors? $errors : null) !!}
 
 			</div>
 		</div>

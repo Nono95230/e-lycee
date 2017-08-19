@@ -232,10 +232,8 @@ class ChoicesTableSeeder extends Seeder
                 'content'       => ' - 4,55 % ',
                 'status'        => 'no',
                 'question_id'   => '11'
-            ],
+            ]
             
-            
-
     	]);
     }
 }

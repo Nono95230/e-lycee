@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -30,19 +31,17 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post,Request $request)
+    public function index(PostRepository $postRepository,Request $request)
     {
 
         $this->authorize('view', Post::class);
-        $perPage=5;
-        if (isset($request->perPage)) {
-            $perPage=$request->perPage;
-        }
 
-        $posts    = $post->paginate($perPage);
-        $nb_posts = count($posts);
-        
-        return view('back.post.index', ['title' => 'Liste des articles', 'posts' => $posts,  'nb_posts'=>$nb_posts,'perPage'=>$perPage]);
+        $postPaginate = $postRepository->getPaginate($request->perPage);
+
+        return view('back.post.index', ['title' => 'Liste des articles',
+            'posts' => $postPaginate['posts'],
+            'nb_posts'=> $postPaginate['nb_posts'],
+            'perPage'=> $postPaginate['perPage']]);
     }
 
     /**

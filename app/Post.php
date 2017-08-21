@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 use Auth;
+use App\Presenters\DatePresenter;
 
 class Post extends Model
 {
+    use App\Presenters\DatePresenter;
     /**
      * The attributes that are mass assignable.
      *

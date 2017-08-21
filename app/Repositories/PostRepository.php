@@ -14,7 +14,7 @@ class PostRepository
         $this->post = $post;
     }
 
-    public function save($perPage = 5)
+    public function getPaginate($perPage = 5)
     {
         $posts    = $this->post->paginate($perPage);
         $nb_posts = count($posts);

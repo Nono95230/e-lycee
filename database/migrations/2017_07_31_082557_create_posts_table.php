@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('content')->nullable();
             $table->string('url_thumbnail', 100)->nullable();
             $table->string('slug', 120)->nullable();
-            $table->enum('status', ['published', 'unpublished'])->default('unpublished');
+            $table->enum('status', ['published', 'unpublished']);
             $table->dateTime('published_at')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');

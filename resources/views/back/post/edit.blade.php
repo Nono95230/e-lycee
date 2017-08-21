@@ -7,39 +7,26 @@
 	
 	<style>
 		/*
-		 * CSS TABLEAU
+		 * CSS REGION - CONTENT_TOP
 		 */
-		table,th{
-		  text-align:center;
+		#btn-add,
+		#btn-return{
+			margin-top:22px;
 		}
-		table thead tr th:first-child,
-		table tbody tr td:first-child,
-		table thead tr th:nth-child(2),
-		table tbody tr td:nth-child(2){
-		  text-align:left;
+		.content_second{
+			min-height:80px;
 		}
-		table thead tr th:last-child,
-		table tbody tr td:last-child{
-		  text-align:right;
+		#flash-message{
+			margin-bottom:10px;
 		}
 
-		table thead tr th:last-child{
-			padding-right:calc(82px + 8px);
-		}
 
 
 		/*
 		 * CSS BTN PUBLISH
 		 */
-		.modal{
-			text-align: center
-		}
 		.modal-title{
 			display: inline-block;
-			width:95%;
-		}
-		.make-switch{
-		  display: inline-block;
 		}
 		    
 		.bootstrap-switch {
@@ -229,46 +216,8 @@
 
 
 
-
-		/*
-		 * CSS REGION - CONTENT_TOP
-		 */
-		#btn-add,
-		#btn-return{
-			margin-top:22px;
-		}
-		.content_second{
-			min-height:80px;
-		}
-		#flash-message{
-			margin-bottom:10px;
-		}
-		#perpage{
-			padding-left:8px;
-		}
-		#total{
-			padding-right:8px;
-		}
-		.pagination .per_page_title,
-		.pagination .total{
-			padding:6px 12px;
-			text-align: center;
-			border-top-left-radius:4px;
-			border-top-right-radius:4px;
-		}
-		.pagination .total{
-			border-bottom-left-radius:4px;
-			border-bottom-right-radius:4px;
-		}
-		.pagination#perpage li a{
-		  	margin-left:0;
-		}
-		.pagination#perpage li.first a{
-			border-top-left-radius:0px;
-			border-bottom-left-radius:4px;
-		}
-		.pagination#perpage li:last-child a{
-			border-top-right-radius:0px;
+		textarea {
+		  resize: vertical; /* user can resize vertically, but width is fixed */
 		}
 
 	</style>
@@ -280,11 +229,12 @@
 <div class="content_first">
 	<!-- Title -->
 	<div class="row">
-		<div class="col-md-offset-2 col-md-8 text-center">
+		<div class="col-md-10">
 			<h1>{{ $title}}</h1>
 		</div>
 		<div class="col-md-2">
-			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('post.create')}}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> Ajouter un article</a>
+			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('post.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
+			 Retour à la liste</a>
 		</div>
 	</div>
 </div>
@@ -294,126 +244,51 @@
 
 @endsection
 
-
 @section('content')
 
-<div class="row">
-	<div class="col-md-4">
-		<ul id="perpage" class="pagination">
-			<div class="bg-primary per_page_title"><span>Article par page</span></div>
-			<li @if($perPage == 5) class="first active" @else class="first" @endif><a href="http://127.0.0.1:8000/member/post?perPage=5">5</a></li>
-			<li @if($perPage == 10) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=10">10</a></li>
-			<li @if($perPage == 15) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=15">15</a></li>
-			<li @if($perPage == 20) class="active" @endif><a href="http://127.0.0.1:8000/member/post?perPage=20">20</a></li>
-		</ul>
-	</div>
-	<div class="col-md-4 text-center">{!! $posts->links() !!}</div>
-	<div class="col-md-4">
-		<ul id="total" class="pagination pull-right">
-			<div class="bg-primary total"><span>TOTAL : {!! $posts->total() !!}</span></div>
-		</ul>
-	</div>
-</div>
+    <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
+    	{{ csrf_field() }}
+		{{ method_field('PUT') }}
+		<input type="hidden" name="post_id" value="{{$post->id}}">
+		<div class="row">
+			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
 
-<table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th>N°</th>
-			<th>Titre</th>
-			<th>Auteur</th>
-			<th>Nombre de commentaires</th>
-			<th>Publié le</th>
-			<th>ACTION</th>
-		</tr>
-	</thead>
-	<tbody>
+				{!! Form::inputMacro('text','title','post', $errors? $errors : null ,old('title'),$post->title) !!}
+			
+			</div>
+			<div class="col-lg-2 col-md-3  col-sm-4 col-xs-5">
 
-		<?php $number=1; ?>
-		@foreach ($posts as $post)
-			<tr>
-				<td>{!! ( ( $posts->currentPage() - 1 )*$posts->perPage() )+ $number++ !!}</td>
-				<td>
-					<a href="{{ url('post', $post->id) }}">
-						{{ $post->title }}
-					</a>
-				</td>
-				<td>{{ $post->user? $post->user->username : 'Auteur Anonyme' }}</td>
-				<td>5</td>
-				<td>{{ $post->published_at? $post->published_at : 'Non publié' }}</td>
-				<td>
-				@if($post->status === "published")
-				    <div class="make-switch">
-				    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on">
-				    		<div class="bootstrap-switch-container">
-					    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
-						    	<span class="bootstrap-switch-label">Publié</span>
-						    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
-						    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
-									{{ csrf_field() }}
-						    		<input name="status" checked="" type="checkbox">
-						    		<input type="submit" style="display:none;">
-						    	</form>
-						    	
-				    		</div>
-				    	</div>
-				    </div>
-				@elseif($post->status === "unpublished")
-				    <div class="make-switch">
-				    	<div class="bootstrap-switch-id-tete bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off">
-				    		<div class="bootstrap-switch-container">
-					    		<span class="bootstrap-switch-handle-on bootstrap-switch-success"><i class="fa fa-fw fa-check"></i></span>
-						    	<span class="bootstrap-switch-label">Publié</span>
-						    	<span class="bootstrap-switch-handle-off bootstrap-switch-danger"><i class="fa fa-fw fa-times"></i></span>
-						    	<form action="{{ route('post.status.update',['id'=>$post->id])}}" method="post">
-									{{ csrf_field() }}
-						    		<input name="status" type="checkbox">
-						    		<input type="submit" style="display:none;">
-						    	</form>
-						    	
-				    		</div>
-				    	</div>
-				    </div>
-				@endif
-				    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-info"><i class="fa fa-pencil fa-lg fa-fw"></i></a>
+				{!! Form::publishMacro('checkbox', 'status_check', 'post', old('status_check'), $post->status) !!}
 
-					<a href="#modal{{ $post->id }}" class="btn btn-danger" data-toggle="modal" data-target="#pop-in-delete-{{$post->id}}"><i class="fa fa-trash fa-lg fa-fw"></i></a>
-					<!-- Modal Structure -->
-					<div class="modal fade" id="pop-in-delete-{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{$post->id}}" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h4 class="modal-title" id="modalLabel{{$post->id}}"><strong>Êtes-vous certains de vouloir supprimer cet article ?</strong></h4>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					        <p>Prenez garde, cette action est définitive, vous ne pourrez pas revenir en arrière !</p>
-					      </div>
-					      <div class="modal-footer">
-							<form method="post" action="{{ route('post.destroy',$post->id) }}">
-					    		{{ csrf_field() }} {{-- token pour protéger votre formulaire CSRF --}}
-					    		{{ method_field('DELETE') }}
-						        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Je m'y refuse</button>
-						        <button type="submit" class="btn btn-success pull-rigth">Je le supprime</button>
-							</form>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
 
-				</td>
-			</tr>
+				{!! Form::textAreaMacro('abstract','post', $errors? $errors : null ,old('abstract'),$post->abstract) !!}
 
-		@endforeach
-	</tbody>
-</table>
-<div class="row">
-	<div class="col-md-12 text-center">{!! $posts->links() !!}</div>
-</div>
+			</div>
+
+			<div class="col-md-6">
+				{!! Form::fileMacro( 'url_thumbnail', 'post', $errors? $errors : null, $post->url_thumbnail ) !!}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+
+				{!! Form::textAreaMacro('content','post', $errors? $errors : null ,old('content'),$post->content) !!}
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				{!! Form::submitMacro('edit','post') !!}
+			</div>
+		</div>
+
+    </form>
 
 @endsection
-
 
 @section('javascript')
 
@@ -438,22 +313,6 @@
 				$thisPublish.find('form').submit();
 			}
 		}
-		function updatePaginationPerPage(){
-			var perPage = parseInt( $('#perpage li.active').text() ),
-				$pagination = $(".pagination:not(#perpage,#total)");
-
-			$pagination.find("li").each(function(){
-
-				var itemUrl = $(this).find('a').attr('href');
-
-				if (itemUrl !== undefined) {
-					itemUrl = itemUrl+'&perPage='+perPage;
-					$(this).find('a').attr('href',itemUrl);
-				}
-
-			});
-		}
-		updatePaginationPerPage();
 
 
     </script>

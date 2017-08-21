@@ -40,7 +40,7 @@ class PostsTableSeeder extends Seeder
                 'published_at'  => '2017-07-17 15:45:10'
             ],
             [   
-                'user_id'       => '2',
+                'user_id'       => '1',
                 'title'         => 'The Lost Bear',
                 'abstract'      => 'The Lost Bear cherche son chemin en VR',
                 'content'       => 'Le carnet rose a pour ambition pas si extravagante de se pencher chaque matin sur la découverte quotidienne d\'un nouveau jeu vidéo, que celui-ci ait été fraîchement annoncé ou simplement détecté tardivement par le radar de la rédaction, que l\'on parle d\'un jeu indépendant aux parents sans le moindre pédigree ou du nouveau rejeton d\'une franchise établie.',
@@ -48,7 +48,7 @@ class PostsTableSeeder extends Seeder
                 'status'        => 'published',
                 'published_at'  => '2017-08-12 09:25:10'
             ],[   
-                'user_id'       => '3',
+                'user_id'       => '1',
                 'title'         => 'Hob',
                 'abstract'      => 'Hob a maintenant une date de sortie',
                 'content'       => 'Il fallait bien que cela arrive un jour, Runic Games a dévoilé la date de sortie de Hob, un jeu d\'exploration qui s\'est offert quelques apparitions sporadiques depuis son annonce il y a maintenant deux ans. La nouvelle création du studio jusqu\'ici connu pour Torchlight sera disponible le 26 septembre sur PS4 et PC au tarif de 20 euros.',

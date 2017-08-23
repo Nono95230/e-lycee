@@ -16,7 +16,6 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id'); 
             $table->string('title', 160);
-            $table->text('content')->nullable();
 
             $table->enum('class_level', ['premiere', 'terminale'])->default('premiere');
             $table->enum('status', ['published', 'unpublished'])->default('unpublished');

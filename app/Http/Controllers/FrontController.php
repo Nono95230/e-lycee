@@ -4,38 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Repositories\PostRepository;
+
+
 class FrontController extends Controller
 {
     use Member\UserMember;
 
     public function __construct(Request $request){
-
-        // view()->composer('partials.nav', function($view) use($request) {
-
-        //     $currentPath = $request->path();
-        //     $view->with('currentPath',$currentPath);
-        //     $categories = DB::table('categories')->select('id', 'title')->get();
-        //     $view->with('categories',$categories);
-        // });
         
         $this->takeUser();
 
     }
-    public function index() {
-
-        return view('front.home', ['title' => 'Accueil']);
-
-    }
-
-    public function actus() {
-
-        return view('front.actus-all', ['title' => 'Actualités']);
+    
+    public function index(PostRepository $post) {
+    
+        return view('front.home', [
+            'title' => 'Accueil',
+            'posts' => $post->getBestActus() 
+        ]);
 
     }
 
-    public function OneActu() {
+    public function actus(PostRepository $post) {
 
-        return view('front.actu-one', ['title' => 'Une actualité']);
+        return view('front.actus-all', [
+            'title' => 'Nos actualités',
+            'posts' => $post->getAllActus()
+        ]);
+
+    }
+
+    public function OneActu(PostRepository $post, $id) {
+
+        return view('front.actu-one', [
+            'title' => 'Une actualité',
+            'post'=> $post->getOneActu($id)
+        ]);
 
     }
 

@@ -246,7 +246,7 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('post.update', $post) }}" enctype="multipart/form-data">
     	{{ csrf_field() }}
 		{{ method_field('PUT') }}
 		<input type="hidden" name="post_id" value="{{$post->id}}">

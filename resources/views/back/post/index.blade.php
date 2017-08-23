@@ -281,7 +281,7 @@
 	<!-- Title -->
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8 text-center">
-			<h1>{{ $title}}</h1>
+			<h1>{{ $title }}</h1>
 		</div>
 		<div class="col-md-2">
 			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('post.create')}}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> Ajouter un article</a>
@@ -338,8 +338,8 @@
 					</a>
 				</td>
 				<td>{{ $post->user? $post->user->username : 'Auteur Anonyme' }}</td>
-				<td>5</td>
-				<td>{{ $post->published_at? $post->published_at : 'Non publié' }}</td>
+				<td>{{ $post->comments->count() }}</td>
+				<td>{{ $post->published_at }}</td>
 				<td>
 				@if($post->status === "published")
 				    <div class="make-switch">

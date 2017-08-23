@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
 
+use App\Presenters\DatePresenter;
+
 class Post extends Model
 {
+
+    use DatePresenter;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -105,6 +110,7 @@ class Post extends Model
             $this->attributes['status'] = 'unpublished';
         }
     }
+
     
     
 }

@@ -119,6 +119,12 @@
             }
         }
 
+        
+        .page-title h1{
+            text-align:center;
+            margin:10px 0 30px;
+        }
+
     </style>
 
     @yield('stylesheet')
@@ -154,18 +160,18 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="{{ url('jquery/jquery-3.2.1.min.js')}}" async></script>
+    <script src="{{ url('jquery/jquery-3.2.1.min.js')}}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ url('bootstrap/js/bootstrap.min.js')}}" async></script>
+    <script src="{{ url('bootstrap/js/bootstrap.min.js')}}"></script>
 
-    <!-- Pour les deux boutons suivre -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
     <!-- Pour le bouton j'aime -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
+    <!-- Pour les deux boutons suivre -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
 
 
-    <script type="text/javascript" async>
+    <script type="text/javascript">
 
       setTimeout(function(){
         if ($('#flash-message').length === 1) {

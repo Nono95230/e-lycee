@@ -16,6 +16,12 @@ class UsersTableSeeder extends Seeder
 	        "teacher"=> [
 	            [
 	                "username"=> "Alexandre"
+	            ],
+	            [
+	                "username"=> "Guillaume"
+	            ],
+	            [
+	                "username"=> "Bénédicte"
 	            ]
 	        ],
 	        "first_class"=>

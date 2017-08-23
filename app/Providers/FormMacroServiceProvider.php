@@ -137,7 +137,7 @@ class FormMacroServiceProvider extends HtmlServiceProvider
             return $field;
         });
 
-        Form::macro('fileMacro', function( $fieldName, $fieldEntity, $errors, $old = null )
+        Form::macro('fileMacro', function( $fieldName, $fieldEntity, $errors, $old = null)
         {
 
             $errorsClassName = '';
@@ -161,7 +161,7 @@ class FormMacroServiceProvider extends HtmlServiceProvider
                 $field .= '<input  type="file" ';
                     $field .= '    class="input-ghost" ';
                     $field .= '    name="'. $fieldName .'" ';
-                    $field .= '    style="visibility:hidden;height:0;" ';
+                    $field .= '    style="visibility:hidden;height:0;" '; 
                     $field .= '    onchange="  $(this).next().find(\'input\').val( $(this).val().split(\'\\\\\').pop() );';
                 $field .= '">';
                 $field .= '<div id="'. $fieldEntity .'_'. $fieldName .'" class="input-group input-file" name="'. $fieldName .'">';

@@ -36,10 +36,19 @@ class FrontController extends Controller
     }
 
     public function OneActu(PostRepository $post, $id) {
+        
+        $post = $post->getOneActu($id);
 
         return view('front.actu-one', [
-            'title' => 'Une actualité',
-            'post'=> $post->getOneActu($id)
+            'title' => 'Actualité',
+            'postId'=> $post->id,
+            'postTitle'=> $post->title,
+            'postUser'=> $post->user->username,
+            'postPublished'=> $post->published_at,
+            'postContent'=> $post->content,
+            'postImage'=> $post->url_thumbnail,
+            'comments'=> $post->comments->sortByDesc('created_at')
+
         ]);
 
     }

@@ -45,4 +45,9 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('member/dashboard', 'Member\DashboardController@index')->name('dashboard');
     Route::post('member/post/{id}/status', 'Member\PostController@updateStatus')->name('post.status.update');
     Route::resource('member/post', 'Member\PostController' );
+    
+    Route::resource('member/question', 'Member\QuestionController' );
+    Route::post('member/question/{id}/status', 'Member\QuestionController@updateStatus')->name('question.status.update');
+
+    Route::resource('member/choice', 'Member\ChoiceController' );
 });

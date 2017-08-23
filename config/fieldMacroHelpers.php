@@ -8,22 +8,41 @@ return [
                     ],
         'abstract'  => [
                         'label'         => 'Résumé de l\'article',
-                        'placeholder'   => 'Définisez le résumé de l\'article...'
+                        'placeholder'   => 'Définissez le résumé de l\'article...'
                     ],
-        'content'  => [
+        'content'   => [
                         'label'         => 'Contenu de l\'article',
-                        'placeholder'   => 'Définisez le contenu de l\'article...'
+                        'placeholder'   => 'Définissez le contenu de l\'article...'
                     ],
         'url_thumbnail'  => [
-                        'label'         => 'Image à la une de l\'article',
+                        'label'             => 'Image à la une de l\'article',
                         'placeholder_add'   => 'Choisissez un fichier...',
-                        'placeholder_edit'   => 'Pour changer l\'image actuelle, choisissez un fichier...',
-                        'old_advice'   => 'Pour conserver l\'image actuelle de l\'article, laissez le champs ci-dessous vide'
+                        'placeholder_edit'  => 'Pour changer l\'image actuelle, choisissez un fichier...',
+                        'old_advice'        => 'Pour conserver l\'image actuelle de l\'article, laissez le champs ci-dessous vide'
                     ],
         'status_check' => [
                             'label'     => 'Publié l\'article'
                         ],
-        'submit_add' => 'Ajouter cet article',
+        'submit_add'  => 'Ajouter cet article',
         'submit_edit' => 'Éditer cet article'
+    ],
+    'question'=>[
+        'title'       =>[
+                        'label'         => 'Titre du QCM',
+                        'placeholder'   => 'Définissez le titre du QCM'
+                        ],
+        'class_level' =>[
+                        'label' => 'Niveau de la classe'
+                        ],
+        'nb_choice'   =>[
+                        'label' => 'Nombre de question',
+                        'placeholder'   => 'Indiquer le nombre de question'
+                        ],
+        'status'      =>[
+                        'label'     => 'Publié le QCM'
+                        ],
+        'submit_add'  => 'Ajouter ce QCM',
+        'submit_edit' => 'Éditer ce QCM'
     ]
+
 ];

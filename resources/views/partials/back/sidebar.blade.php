@@ -7,7 +7,7 @@
 	            <a href="{{ route('dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Dashboard</a>
 	        </li>
 	        <li class="{{ Request::is('member/fiche') ? 'active' : '' }}" >
-	            <a href="#"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack "></i> Fiches</a>
+	            <a href="{{route ('question.index')}}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack "></i> Fiches</a>
 	        </li>
 	        <li class="{{ Request::is('member/post') ? 'active' : '' }}" >
 	            <a href="{{ route('post.index') }}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack"></i> Articles</a>

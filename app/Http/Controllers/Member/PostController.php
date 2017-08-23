@@ -192,7 +192,7 @@ class PostController extends Controller
 
         $message = [
             'success',
-            sprintf('La modification de l\'article %s a été un succès !', $post->title)
+            sprintf('La modification de l\'article %s à été un succès !', $post->title)
         ];
 
         return redirect()->route('post.index')->with('message', $message);
@@ -217,7 +217,7 @@ class PostController extends Controller
         $status = ($request->status === 'on')? 'publié': 'dépublié';
         $message = [
             'success',
-            sprintf('L\'article %s a bien été '.$status, $title)
+            sprintf('L\'article %s à bien été '.$status, $title)
         ];
         return redirect()->route('post.index')->with('message', $message);
 

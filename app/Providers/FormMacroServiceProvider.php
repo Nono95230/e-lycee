@@ -104,6 +104,7 @@ class FormMacroServiceProvider extends HtmlServiceProvider
                 $errorsContent = $errors->first($fieldName);
             }
 
+
             $field = '<div class="form-group controls '.$errorsClassName.'">';
                 $field .= '<label for="'.$fieldEntity.'_'.$fieldName.'" class="control-label inline">'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.label').'</label>';
                 $field .= '<input type="'.$type.'" id="'.$fieldEntity.'_'.$fieldName.'" name="'.$fieldName.'" value="'.$remember.'" class="form-control" placeholder="'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.placeholder').'">';
@@ -196,6 +197,30 @@ class FormMacroServiceProvider extends HtmlServiceProvider
             $field .= '</div>';
 
 
+            return $field;
+        });
+        Form::macro('questionMacro', function( $type, $number, $fieldName, $fieldEntity,$errors, $remember=null, $old=null )
+        {
+            if ( $old != null && $remember === null) {
+                $remember = $old;
+            }
+            if ($remember===null) {
+                $remember='';
+            }
+
+            $errorsClassName = '';
+            $errorsContent = '';
+            if( $errors->has($fieldName) ){
+                $errorsClassName = 'has-feedback has-error';
+                $errorsContent = $errors->first($fieldName);
+            }
+
+
+            $field = '<div class="form-group controls '.$errorsClassName.'">';
+                $field .= '<label for="'.$fieldEntity.'_'.$fieldName.'_'.$number.'" class="control-label inline">'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.label').$number.'</label>';
+                $field .= '<input type="'.$type.'" id="'.$fieldEntity.'_'.$fieldName.'_'.$number.'" name="'.$fieldName.'_'.$number.'" value="'.$remember.'" class="form-control" placeholder="'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.placeholder').'">';
+                $field .= '<span class="help-block" style="height:20px;">'.$errorsContent.'</span>';
+            $field .= '</div>';
             return $field;
         });
 

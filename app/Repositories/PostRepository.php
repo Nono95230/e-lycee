@@ -27,7 +27,6 @@ class PostRepository
     {
         $bestActus = DB::table('posts')
             ->select(array('posts.*', 'users.username as username', DB::raw('COUNT(comments.id) as nb_comms')))
-            ->where('posts.status', '=', "published")
             ->join('comments', 'posts.id', '=', 'comments.post_id')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->groupBy('posts.id')

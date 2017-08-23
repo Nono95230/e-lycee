@@ -44,9 +44,10 @@ class ChoiceController extends Controller
 
         $this->authorize('create', $choice);
 
-        $qcm = $request->session()->get('qcm');
+        $qcm = $request->session()->get('new_qcm');
         $qcm_title = $qcm['title'];
         $qcm_nb_choice = $qcm['nb_choice'];
+
 
         return view('back.choice.create', ['title' => 'Ajouter les questions','qcm_title'=>$qcm_title,'nb_choice' => $qcm_nb_choice]);
     }
@@ -60,22 +61,42 @@ class ChoiceController extends Controller
     public function store(Request $request)
     {
         
-        $question = Question::create();
-        $choice = Choice::create($request->all());
+        $qcm = $request->session()->get('new_qcm');
         
-        // Session 
-        $qcm = $request->session()->get('qcm');
-        $qcm_title = $qcm['title'];
-        $qcm_status = $qcm['status'];
-        $qcm_class_level = $qcm['class_level'];
-        
-        // Enregistre
-        $choice->save();
+        $question = new Question;
+        $question->title = $qcm['title'];
+        $question->status = $qcm['status'];
+        $question->class_level = $qcm['class_level'];
+        $question->save();
 
+        $choice = new Choice;
+
+        foreach($request->all() as $key => $value){
+            
+            if($key !== '_token'){
+                if (isset($choice->status)) {
+                    $choice = new Choice;
+                }
+                if (strpos($key,'question') !== false ) {
+                    $choice->content = $value;
+                }
+                if(strpos($key,'answer') !== false ){
+                    $choice->status = $value;
+                    $choice->question_id = $question->id;
+                    
+                    $choice->save();
+                }
+
+            }
+
+        }
+        
         $message = [
             'success',
-            sprintf('Merci d\'avoir ajouter le QCM %s !', $question->title)
+            sprintf('Merci d\'avoir ajouter le QCM %s !', $qcm['title'])
         ];
+        return redirect()->route('question.index')->with('message', $message);
+
     }
 
     /**

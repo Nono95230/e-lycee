@@ -248,36 +248,29 @@
 
     <form method="POST" action="{{ route('choice.store') }}" enctype="multipart/form-data">
     	{{ csrf_field() }}
-		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
-
-				{!! Form::inputMacro('text','title','post', $errors? $errors : null ,old('title')) !!}
-			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
-
-				{!! Form::publishMacro('checkbox', 'status_check', 'post', $errors->isEmpty(), old('status_check')) !!}
-				
-			</div>
-		</div>
-		<div class="row">
-			
-			<div class="col-md-6">
-				{!! Form::textAreaMacro('abstract','post', $errors? $errors : null ,old('abstract')) !!}
-			</div>
-			
-			<div class="col-md-6">
-				{!! Form::fileMacro('url_thumbnail', 'post', $errors? $errors : null) !!}
-
-			</div>
-		</div>
+				@for($i = 1;$i <= $nb_choice; $i++)
+					<div class="row">
+						<div class="col-xs-12 col-md-6">
+							{!! Form::questionMacro('text',$i,'question' ,'choice', $errors? $errors : null ,old('question_'.$i)) !!}
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="answer_{{ $i }}">Réponse de la question n°{{ $i }}</label>
+								<div id="answer_{{ $i }}">
+									<label class="radio-inline">
+										<input type="radio" name="answer_{{ $i }}" value="yes"> Oui
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="answer_{{ $i }}" value="no"> Non
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				@endfor
 		<div class="row">
 			<div class="col-md-12">
-				{!! Form::textAreaMacro('content','post', $errors? $errors : null ,old('content')) !!}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				{!! Form::submitMacro('add','post') !!}
+				{!! Form::submitMacro('create','choice') !!}
 			</div>
 		</div>
 

@@ -41,8 +41,19 @@ return [
         'status'      =>[
                         'label'     => 'Publié le QCM'
                         ],
-        'submit_add'  => 'Ajouter ce QCM',
+        'submit_add'  => 'Second Formulaire',
         'submit_edit' => 'Éditer ce QCM'
+    ],
+    'choice'=>[
+        'title'       =>[
+                        'label'         => 'Titre du QCM',
+                        'placeholder'   => 'Définissez le titre du QCM'
+                        ],
+        'question' =>[
+                        'label' => 'Question n°',
+                        'placeholder' => 'Poser la question',
+                        ],
+        'submit_create'  => 'Enregistrer ce QCM'
     ]
 
 ];

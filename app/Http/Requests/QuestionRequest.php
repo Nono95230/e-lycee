@@ -24,7 +24,7 @@ class QuestionRequest extends FormRequest{
     {
         
         return [
-            'title'       => 'bail|required|string|min:5|max:30', 
+            'title'       => 'bail|required|string|min:5|max:50', 
             'class_level' => 'in:premiere,terminale',
             'nb_choice'   => 'bail|required|numeric|min:5|max:30'
         ];

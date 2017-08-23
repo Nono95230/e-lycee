@@ -29,10 +29,7 @@ class QuestionController extends Controller
     {
         
         $this->authorize('view', $question);
-        // $perPage=5;
-        // if (isset($request->perPage)) {
-        //     $perPage=$request->perPage;
-        // }
+        
         $perPage = 5;
         $questions    = $question->paginate($perPage);
 
@@ -63,16 +60,12 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {
-
-       //$question = Question::create($request->all());
-
         $qcm['title'] = $request->title;
         $qcm['nb_choice'] = $request->nb_choice;
         $qcm['class_level'] = $request->class_level;
-        $qcm['status'] = isset($request->status) ? 'published' : 'unpublished' ;
-        
+        $qcm['status'] = isset($request->status) ? 'on' : 'off' ;
         session(['new_qcm' =>  $qcm ]);
-
+        
         return redirect()->route('choice.create');
     }
 

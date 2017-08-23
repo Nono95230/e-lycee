@@ -17,7 +17,7 @@ class CommentsTableSeeder extends Seeder
                 'title'   => 'La base',
                 'content' => 'tant que ça reste raisonnable',
                 'user_id' => '7',
-                'post_id' => '1'
+                'post_id' => '2'
                 
             ],
             [   
@@ -38,7 +38,7 @@ class CommentsTableSeeder extends Seeder
                 'title'   => 'Vocaroo',
                 'content' => 'tu peux faire un vocaroo pour me montrer le ton ?',
                 'user_id' => '6',
-                'post_id' => '4'
+                'post_id' => '3'
                 
             ],
             [   
@@ -52,7 +52,7 @@ class CommentsTableSeeder extends Seeder
                 'title'   => 'mobile',
                 'content' => 'Je suis sur mobile',
                 'user_id' => '2',
-                'post_id' => '1'
+                'post_id' => '2'
                 
             ],
             [   

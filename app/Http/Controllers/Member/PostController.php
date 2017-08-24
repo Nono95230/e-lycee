@@ -31,12 +31,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostRepository $post,Request $request)
+    public function index(Request $request, PostRepository $repository)
     {
 
         $this->authorize('view', Post::class);
         
-        $indexPosts = $post->getIndexPosts($request->perPage);
+        $indexPosts = $repository->getIndexPosts($request->perPage);
 
         return view('back.post.index', ['title' => 'Liste des articles',
             'posts' => $indexPosts['posts'],
@@ -63,46 +63,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(PostRequest $request, PostRepository $repository)
     {
-        //dd($request->all());
-
-        $post = Post::create($request->all());
-
-        $post->setUserId($post->getUserId());
-
-        $post->updateStatus($request->status);
-        
-
-
-        if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
-
-            $file = $request->url_thumbnail;
-
-            $FileExtension  = $file->extension();
-
-            $fileName = $file->getClientOriginalName();
-            $lastPosition = strrpos($fileName,".");
-
-            $fileName = substr_replace($fileName,'',$lastPosition); 
-
-            $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
-
-            $file->move('posts/images',$url_thumnail);
-
-            $post->url_thumbnail = $url_thumnail;
-
-        }
-        
-        $post->save();
-
-        $message = [
-            'success',
-            sprintf('Merci d\'avoir ajouter l\'article %s !', $post->title)
-        ];
-        
-        return redirect()->route('post.index')->with('message', $message);
-    
+        return redirect()->route('post.index')->with('message', $repository->makeActionStore($request));
     }
 
     /**
@@ -125,8 +88,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update', $post); 
-        $title = 'Éditer l\'article : '.$post->title;
 
+        $title = 'Éditer l\'article : '.$post->title;
 
         return view('back.post.edit', compact('title','post'));
     }
@@ -138,49 +101,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(PostRequest $request, Post $post, PostRepository $repository)
     {
-        $oldFile = $post->getUrlThumbnailAttribute();
-
-        $post->updateStatus($request->status);
-
-        $request->offsetUnset('status');
-
-        $post->update( $request->all() );
-
-        if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
-
-            $oldFilePath = public_path() . '/posts/images/'.$oldFile ;
-            
-            if(file_exists($oldFilePath)) {
-                unlink($oldFilePath);
-            }
-
-            $file = $request->url_thumbnail;
-
-            $FileExtension  = $file->extension();
-
-            $fileName = $file->getClientOriginalName();
-            $lastPosition = strrpos($fileName,".");
-
-            $fileName = substr_replace($fileName,'',$lastPosition); 
-
-            $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
-
-            $file->move('posts/images',$url_thumnail);
-
-            $post->url_thumbnail = $url_thumnail;
-
-            $post->save();
-        }
-
-        $message = [
-            'success',
-            sprintf('La modification de l\'article %s à été un succès !', $post->title)
-        ];
-
-        return redirect()->route('post.index')->with('message', $message);
-
+        return redirect()->route('post.index')->with('message', $repository->makeActionUpdate($request, $post));
     }
 
     /**
@@ -189,21 +112,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function updateStatus(Request $request, Post $post)
+    public function updateStatus(Request $request, Post $post, PostRepository $repository )
     {
         $this->authorize('status', Post::class);
 
-        $thisPost = $post->find($request->id);
-        $title = $thisPost->title;
-
-        $thisPost->updateStatus($request->status);
-        $thisPost->update();
-        $status = ($request->status === 'on')? 'publié': 'dépublié';
-        $message = [
-            'success',
-            sprintf('L\'article %s à bien été '.$status, $title)
-        ];
-        return redirect()->route('post.index')->with('message', $message);
+        return redirect()->route('post.index')->with('message', $repository->makeActionUpdateStatus($request, $post));
 
     }
 
@@ -213,20 +126,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, PostRepository $repository )
     {
         $this->authorize('delete', $post); // politique d'accès 
         
-        $postTitle = $post->title;
-
-        $post->delete();
-
-        $message = [
-            'success',
-            sprintf('Suppression de l\'article %s effectuée avec succès !', $postTitle)
-        ];
-
-        return redirect()->route('post.index')->with('message', $message);
+        return redirect()->route('post.index')->with('message', $repository->makeActionDelete($post));
 
     }
 

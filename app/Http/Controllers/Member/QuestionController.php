@@ -13,6 +13,8 @@ use App\Http\Requests\QuestionRequest;
 
 use App\User;
 
+use App\Repositories\QuestionRepository;
+
 class QuestionController extends Controller
 {
     use UserMember;
@@ -39,16 +41,16 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Question $question)
+    public function create(Request $request, Question $question, QuestionRepository $repository)
     {
 
         $this->authorize('create', $question);
 
-        $qcm = $request->session()->get('new_qcm');
-        $qcm_title = $qcm['title'];
-        $qcm_nb_question = $qcm['nb_question'];
+        $createQuestion = $repository->makeActionCreate($request);
 
-        return view('back.question.create', ['title' => 'Ajouter les questions','qcm_title'=>$qcm_title,'nb_question' => $qcm_nb_question]);
+        return view('back.question.create', ['title' => 'Ajouter les questions',
+            'qcm_title' => $createQuestion['title'],
+            'nb_question'=> $createQuestion['nb_question']]);
     }
 
     /**
@@ -57,44 +59,10 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QuestionRequest $request)
+    public function store(QuestionRequest $request, QuestionRepository $repository)
     {
         
-        $new_qcm = $request->session()->get('new_qcm');
-        
-        $qcm = new Qcm;
-        $qcm->title = $new_qcm['title'];
-        $qcm->status = $new_qcm['status'];
-        $qcm->class_level = $new_qcm['class_level'];
-        $qcm->save();
-
-        $question = new Question;
-
-        foreach($request->all() as $key => $value){
-            
-            if($key !== '_token'){
-                if (isset($question->answer)) {
-                    $question = new Question;
-                }
-                if (strpos($key,'content') !== false ) {
-                    $question->content = $value;
-                }
-                if(strpos($key,'answer') !== false ){
-                    $question->answer = $value;
-                    $question->qcm_id = $qcm->id;
-                    
-                    $question->save();
-                }
-
-            }
-
-        }
-        
-        $message = [
-            'success',
-            sprintf('Merci d\'avoir ajouter le QCM %s !', $new_qcm['title'])
-        ];
-        return redirect()->route('qcm.index')->with('message', $message);
+        return redirect()->route('qcm.index')->with('message', $repository->makeActionStore($request));
 
     }
 

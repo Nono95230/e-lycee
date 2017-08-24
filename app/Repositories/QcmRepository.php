@@ -32,4 +32,59 @@ class QcmRepository
         return ['qcms' => $qcms, 'nb_qcms' => $nb_qcms, 'perPage' => $perPage];
     }
 
+
+    public function makeActionStore($request)
+    {
+        
+        $qcm['title'] = $request->title;
+        $qcm['nb_question'] = $request->nb_question;
+        $qcm['class_level'] = $request->class_level;
+        $qcm['status'] = isset($request->status) ? 'on' : 'off' ;
+        
+        return session(['new_qcm' =>  $qcm ]);
+
+    }
+
+
+    /*public function makeActionUpdate($request, $post)
+    {
+
+        return $message;
+    }*/
+
+
+    public function makeActionUpdateStatus($request, $qcm)
+    {
+
+        $thisQcm = $qcm->find($request->id);
+        $title = $thisQcm->title;
+
+        $thisQcm->updateStatus($request->status);
+        $thisQcm->update();
+        $status  = ($request->status === 'on')? 'publié': 'dépublié';
+        
+        $message = [
+            'success',
+            sprintf('Le QCM %s à bien été '.$status, $title)
+        ];
+
+        return $message;
+    }
+
+
+    public function makeActionDelete($qcm)
+    {
+
+        $qcmTitle = $qcm->title;
+
+        $qcm->delete();
+
+        $message = [
+            'success',
+            sprintf('Suppression du qcm %s effectuée avec succès !', $qcmTitle)
+        ];
+
+        return $message;
+    }
+
 }

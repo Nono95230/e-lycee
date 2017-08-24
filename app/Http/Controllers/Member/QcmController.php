@@ -27,12 +27,12 @@ class QcmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(QcmRepository $qcm,Request $request)
+    public function index(Request $request, QcmRepository $repository)
     {
         
         $this->authorize('view', Qcm::class);
 
-        $indexQcms = $qcm->getIndexQcms($request->perPage);
+        $indexQcms = $repository->getIndexQcms($request->perPage);
 
         return view('back.qcm.index',
             [
@@ -61,13 +61,9 @@ class QcmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QcmRequest $request)
+    public function store(QcmRequest $request, QcmRepository $repository)
     {
-        $qcm['title'] = $request->title;
-        $qcm['nb_question'] = $request->nb_question;
-        $qcm['class_level'] = $request->class_level;
-        $qcm['status'] = isset($request->status) ? 'on' : 'off' ;
-        session(['new_qcm' =>  $qcm ]);
+        $repository->makeActionStore($request);
 
         return redirect()->route('question.create');
     }
@@ -106,21 +102,11 @@ class QcmController extends Controller
         //
     }
 
-    public function updateStatus(Request $request, Qcm $qcm)
+    public function updateStatus(Request $request, Qcm $qcm, QcmRepository $repository)
     {
-        // $this->authorize('status', Question::class);
+        $this->authorize('status', Qcm::class);
 
-        $thisQcm = $qcm->find($request->id);
-        $title = $thisQcm->title;
-
-        $thisQcm->updateStatus($request->status);
-        $thisQcm->update();
-        $status  = ($request->status === 'on')? 'publié': 'dépublié';
-        $message = [
-            'success',
-            sprintf('Le QCM %s à bien été '.$status, $title)
-        ];
-        return redirect()->route('qcm.index')->with('message', $message);
+        return redirect()->route('qcm.index')->with('message', $repository->makeActionUpdateStatus($request, $qcm));
 
     }
     
@@ -130,19 +116,10 @@ class QcmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Qcm $qcm)
+    public function destroy(Qcm $qcm, QcmRepository $repository)
     {
         $this->authorize('delete', $qcm); // politique d'accès 
         
-        $qcmTitle = $qcm->title;
-
-        $qcm->delete();
-
-        $message = [
-            'success',
-            sprintf('Suppression du qcm %s effectuée avec succès !', $qcmTitle)
-        ];
-
-        return redirect()->route('qcm.index')->with('message', $message);
+        return redirect()->route('qcm.index')->with('message', $repository->makeActionDelete($qcm));
     }
 }

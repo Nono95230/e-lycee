@@ -47,8 +47,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('member/post/{id}/status', 'Member\PostController@updateStatus')->name('post.status.update');
     Route::resource('member/post', 'Member\PostController' );
     
-    Route::resource('member/question', 'Member\QuestionController' );
-    Route::post('member/question/{id}/status', 'Member\QuestionController@updateStatus')->name('question.status.update');
+    Route::resource('member/qcm', 'Member\QcmController' );
+    Route::post('member/qcm/{id}/status', 'Member\QcmController@updateStatus')->name('qcm.status.update');
 
-    Route::resource('member/choice', 'Member\ChoiceController' );
+    Route::resource('member/question', 'Member\QuestionController' );
 });

@@ -6,8 +6,8 @@
 	        <li class="{{ Request::is('member/dashboard') ? 'active' : '' }}">
 	            <a href="{{ route('dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Dashboard</a>
 	        </li>
-	        <li class="{{ Request::is('member/fiche') ? 'active' : '' }}" >
-	            <a href="{{route ('question.index')}}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack "></i> Fiches</a>
+	        <li class="{{ Request::is('member/qcm') ? 'active' : '' }}" >
+	            <a href="{{route ('qcm.index')}}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack "></i> Qcm</a>
 	        </li>
 	        <li class="{{ Request::is('member/post') ? 'active' : '' }}" >
 	            <a href="{{ route('post.index') }}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack"></i> Articles</a>

@@ -255,7 +255,7 @@
 			</div>
 			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
 
-				{!! Form::publishMacro('checkbox', 'status_check', 'post', $errors->isEmpty(), old('status_check')) !!}
+				{!! Form::publishMacro('checkbox', 'status', 'post', $errors->isEmpty(), old('status')) !!}
 				
 			</div>
 		</div>

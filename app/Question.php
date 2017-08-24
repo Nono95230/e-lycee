@@ -12,19 +12,10 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
-		'title',
-		'class_level',
-		'status'
+		'content',
+        'answer',
+        'qcm_id'
 	];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['nb_choice'];
-
-
     /**
      * The attributes that should be mutated to dates.
      *
@@ -36,32 +27,8 @@ class Question extends Model
         'deleted_at'
     ];
     //
-    public function scores()
+    public function qcm()
     {
-        return $this->hasMany('App\Score');
+        return $this->belongsTo('App\Qcm');
     }
-
-    public function choices()
-    {
-        return $this->hasMany('App\Choice');
-    }
-
-    public function updateStatus($value){
-        if ( $value === 'on' ) {
-            $this->attributes['status'] = 'published';
-        } else if( $value === null ){
-            $this->attributes['status'] = 'unpublished';
-        }
-    }
-
-    public function setStatusAttribute($value){
-        
-        if ( $value === 'on' ) {
-            $this->attributes['status'] = 'published';
-        } else{
-            $this->attributes['status'] = 'unpublished';
-        }
-    }
-    
-
 }

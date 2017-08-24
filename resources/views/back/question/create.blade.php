@@ -233,7 +233,7 @@
 			<h1>{{ $title}}</h1>
 		</div>
 		<div class="col-md-2">
-			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('question.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
+			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('qcm.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
 			 Retour à la liste</a>
 		</div>
 	</div>
@@ -246,37 +246,29 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('question.store') }}">
+    <form method="POST" action="{{ route('question.store') }}" enctype="multipart/form-data">
     	{{ csrf_field() }}
-		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
-
-				{!! Form::inputMacro('text','title','question', $errors? $errors : null ,old('title')) !!}
-			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
-
-				{!! Form::publishMacro('checkbox', 'status', 'question', $errors->isEmpty(), old('status')) !!}
-				
+		<div class="row hidden">
+			<div class="col-md-12">
+	            <div class="form-group">
+	                <button class="btn btn-primary" type="button" onClick="addQuestion()"><i class="fa fa-plus fa-fw"></i> Ajouter une question supplémentaire</button>
+	                <button class="btn btn-danger" type="button"><i class="fa fa-trash-o fa-fw"></i> Supprimer la dernière question</button>
+	            </div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">
-				<div class="form-group controls @if($errors->has('class_level')) has-feedback has-error @endif">
-					<label for="class_level" class="control-label">{{ config('fieldMacroHelpers.question.class_level.label') }}</label>
-					<select class="form-control" id="class_level" name="class_level">
-						<option value="premiere">Première</option>
-						<option value="terminale">Terminale</option>
-					</select>
-					<span class="help-block" style="height:20px;">{{ $errors->has('class_level') ? $errors->first('class_level') : '' }}</span>
+		@for($i = 1;$i <= $nb_question; $i++)
+			<div class="row">
+				<div class="col-xs-12 col-md-6">
+					{!! Form::questionMacro('text', $i, 'content' , 'question', $errors? $errors : null ,old('content_'.$i)) !!}
+				</div>
+				<div class="col-xs-12 col-md-6">
+					{!! Form::answerMacro('radio', $i, 'answer' , 'question', $errors? $errors : null ,old('answer_'.$i)) !!}
 				</div>
 			</div>
-			<div class="col-xs-4">
-				{!! Form::inputMacro('number','nb_choice','question', $errors? $errors : null ,old('nb_choice')) !!}
-			</div>
-		</div>
+		@endfor
 		<div class="row">
 			<div class="col-md-12">
-				{!! Form::submitMacro('add','question') !!}
+				{!! Form::submitMacro('create','question') !!}
 			</div>
 		</div>
 
@@ -306,6 +298,26 @@
 				$thisPublish.find('input[type="checkbox"]').prop('checked', true);
 				$thisPublish.find('form').submit();
 			}
+		}
+		function addQuestion(){
+
+			var field  = "",
+				number = $('input[type="text"].question').length + 1;
+
+			field += '<div class="row">';
+				field += '<div class="col-xs-12 col-md-6">';
+		            field += '<div class="form-group controls">';
+		                field += '<label for="content_question_'+number+'" class="control-label inline">Question n°'+number+'</label>';
+		                field += '<input type="text" id="content_question_'+number+'" name="content_'+number+'"  class="form-control question" placeholder="Poser la question">';
+		                field += '<span class="help-block" style="height:20px;"></span>';
+		            field += '</div>';
+				field += '</div>';
+			field += '</div>';
+
+            $('button[type="submit"]').closest('.row').before(field);
+
+            console.log($('button[type="submit"]').closest('.row'));
+
 		}
 
 

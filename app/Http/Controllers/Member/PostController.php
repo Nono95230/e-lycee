@@ -36,12 +36,12 @@ class PostController extends Controller
 
         $this->authorize('view', Post::class);
         
-        $postPaginate = $post->getPaginate($request->perPage);
+        $indexPosts = $post->getIndexPosts($request->perPage);
 
         return view('back.post.index', ['title' => 'Liste des articles',
-            'posts' => $postPaginate['posts'],
-            'nb_posts'=> $postPaginate['nb_posts'],
-            'perPage'=> $postPaginate['perPage']]);
+            'posts' => $indexPosts['posts'],
+            'nb_posts'=> $indexPosts['nb_posts'],
+            'perPage'=> $indexPosts['perPage']]);
     }
 
     /**
@@ -69,16 +69,9 @@ class PostController extends Controller
 
         $post = Post::create($request->all());
 
-        // Save User Id
-        $userId = $post->getUserId();
-        $post->setUserId($userId);
+        $post->setUserId($post->getUserId());
 
-
-        if ( $request->status_check === "on" ) {
-           $post->published_at= Carbon::now();
-        }
-        //$post->setPublishedAtAttribute($request->status_check);
-        $post->setStatusAttribute($request->status_check);
+        $post->updateStatus($request->status);
         
 
 
@@ -95,7 +88,6 @@ class PostController extends Controller
 
             $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
 
-            //$file->storeAs('posts/images', $url_thumnail );
             $file->move('posts/images',$url_thumnail);
 
             $post->url_thumbnail = $url_thumnail;
@@ -103,6 +95,7 @@ class PostController extends Controller
         }
         
         $post->save();
+
         $message = [
             'success',
             sprintf('Merci d\'avoir ajouter l\'article %s !', $post->title)
@@ -149,17 +142,13 @@ class PostController extends Controller
     {
         $oldFile = $post->getUrlThumbnailAttribute();
 
-        if ( $request->status_check === "on" ) {
-           $post->published_at = Carbon::now();
-        }
-        //$post->setPublishedAtAttribute($request->status_check);
-        $post->setStatusAttribute( $request->status_check);
+        $post->updateStatus($request->status);
 
+        $request->offsetUnset('status');
 
         $post->update( $request->all() );
 
         if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
-
 
             $oldFilePath = public_path() . '/posts/images/'.$oldFile ;
             
@@ -178,16 +167,12 @@ class PostController extends Controller
 
             $url_thumnail = $fileName .'_'. str_random(12) . '.' . $FileExtension;
 
-                        
-            //$file->storeAs('posts/images', $url_thumnail );
             $file->move('posts/images',$url_thumnail);
 
-
-
             $post->url_thumbnail = $url_thumnail;
+
             $post->save();
         }
-
 
         $message = [
             'success',

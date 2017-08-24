@@ -27,6 +27,7 @@ class PostRepository
     {
         $bestActus = DB::table('posts')
             ->select(array('posts.*', 'users.username as username', DB::raw('COUNT(comments.id) as nb_comms')))
+            ->where('posts.status', '=', "published")
             ->join('comments', 'posts.id', '=', 'comments.post_id')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->groupBy('posts.id')
@@ -53,13 +54,13 @@ class PostRepository
      * FOR BACK PAGE
      */
 
-    public function getPaginate($perPage)
+    public function getIndexPosts($perPage)
     {
     	if ( !isset($perPage)) {
     		$perPage = 5;
     	}
     	
-        $posts    = $this->post->paginate($perPage);
+        $posts    = $this->post->OrderBy('published_at','DESC')->paginate($perPage);
         $nb_posts = count($posts);
 
         return ['posts' => $posts, 'nb_posts' => $nb_posts, 'perPage' => $perPage];

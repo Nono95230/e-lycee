@@ -199,28 +199,58 @@ class FormMacroServiceProvider extends HtmlServiceProvider
 
             return $field;
         });
-        Form::macro('questionMacro', function( $type, $number, $fieldName, $fieldEntity,$errors, $remember=null, $old=null )
+
+        Form::macro('questionMacro', function( $type, $number, $fieldName, $fieldEntity,$errors, $remember=null )
         {
-            if ( $old != null && $remember === null) {
-                $remember = $old;
-            }
+            
             if ($remember===null) {
                 $remember='';
             }
 
             $errorsClassName = '';
             $errorsContent = '';
-            if( $errors->has($fieldName) ){
+            if( $errors->has($fieldName.'_'.$number) ){
                 $errorsClassName = 'has-feedback has-error';
-                $errorsContent = $errors->first($fieldName);
+                $errorsContent = $errors->first($fieldName.'_'.$number);
             }
 
 
             $field = '<div class="form-group controls '.$errorsClassName.'">';
                 $field .= '<label for="'.$fieldEntity.'_'.$fieldName.'_'.$number.'" class="control-label inline">'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.label').$number.'</label>';
-                $field .= '<input type="'.$type.'" id="'.$fieldEntity.'_'.$fieldName.'_'.$number.'" name="'.$fieldName.'_'.$number.'" value="'.$remember.'" class="form-control" placeholder="'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.placeholder').'">';
+                $field .= '<input type="'.$type.'" id="'.$fieldEntity.'_'.$fieldName.'_'.$number.'" name="'.$fieldName.'_'.$number.'" value="'.$remember.'" class="form-control '.$fieldEntity.'" placeholder="'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.placeholder').'">';
                 $field .= '<span class="help-block" style="height:20px;">'.$errorsContent.'</span>';
             $field .= '</div>';
+            return $field;
+        });
+
+        Form::macro('answerMacro', function( $type, $number, $fieldName, $fieldEntity,$errors, $remember=null )
+        {
+            
+            if ($remember===null) {
+                $remember='';
+            }
+
+            $errorsClassName = '';
+            $errorsContent = '';
+            if( $errors->has($fieldName.'_'.$number) ){
+                $errorsClassName = 'has-feedback has-error';
+                $errorsContent = $errors->first($fieldName.'_'.$number);
+            }
+
+            $field = '<div class="form-group controls '.$errorsClassName.'">';
+                $field .= '<label for="'.$fieldName.'_'.$number.'">'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.label').$number.'</label>';
+                $field .= '<div id="'.$fieldName.'_'.$number.'">';
+                    $field .= '<label class="radio-inline">';
+                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="yes"> Oui';
+                    $field .= '</label>';
+                    $field .= '<label class="radio-inline">';
+                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="no"> Non';
+                    $field .= '</label>';
+                    $field .= '<input class="hidden" type="radio" name="'.$fieldName.'_'.$number.'" value="null" checked>';
+                $field .= '</div>';
+                $field .= '<span class="help-block" style="height:20px;">'.$errorsContent.'</span>';
+            $field .= '</div>';
+
             return $field;
         });
 

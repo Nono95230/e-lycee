@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Choice;
+use App\Qcm;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ChoicePolicy
+class QcmPolicy
 {
     use HandlesAuthorization;
 
@@ -19,16 +19,17 @@ class ChoicePolicy
     {
         //
     }
+    
     public function before(User $user, $ability)
     {
         if( $user->isTeacher() ) return true;
     }
-
+    
     /**
-     * Determine whether the user can view all choices.
+     * Determine whether the user can view all qcms.
      *
      * @param  \App\User  $user
-     * @param  \App\Choice  $choice
+     * @param  \App\Qcm  $qcm
      * @return mixed
      */
     public function view(User $user)
@@ -37,7 +38,7 @@ class ChoicePolicy
     }
 
     /**
-     * Determine whether the user can create choice.
+     * Determine whether the user can create qcm.
      *
      * @param  \App\User  $user
      * @return mixed
@@ -48,13 +49,13 @@ class ChoicePolicy
     }
 
     /**
-     * Determine whether the user can update the choice.
+     * Determine whether the user can update the qcm.
      *
      * @param  \App\User  $user
-     * @param  \App\Choice  $choice
+     * @param  \App\Qcm  $qcm
      * @return mixed
      */
-    public function update(User $user, choice $choice)
+    public function update(User $user, Qcm $qcm)
     {
         
         return false;
@@ -62,25 +63,25 @@ class ChoicePolicy
     }
 
     /**
-     * Determine whether the user can delete the choice.
+     * Determine whether the user can delete the qcm.
      *
      * @param  \App\User  $user
-     * @param  \App\Choice  $choice
+     * @param  \App\Qcm  $qcm
      * @return mixed
      */
-    public function delete(User $user, choice $choice)
+    public function delete(User $user, Qcm $qcm)
     {
         //abort(403,'Unauthorized action');
         return false;
     }
     /**
-     * Determine whether the user can published or unpublished the choice.
+     * Determine whether the user can published or unpublished the qcm.
      *
      * @param  \App\User  $user
-     * @param  \App\Choice  $choice
+     * @param  \App\Qcm  $qcm
      * @return mixed
      */
-    public function status(User $user, choice $choice)
+    public function status(User $user, Qcm $qcm)
     {
         //abort(403,'Unauthorized action');
         return false;

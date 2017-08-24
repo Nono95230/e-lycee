@@ -8,11 +8,11 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Post;
 use App\Policies\PostPolicy;
 
+use App\Qcm;
+use App\Policies\QcmPolicy;
+
 use App\Question;
 use App\Policies\QuestionPolicy;
-
-use App\Choice;
-use App\Policies\ChoicePolicy;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,8 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         //'App\Model' => 'App\Policies\ModelPolicy',
         Post::class  => PostPolicy::class,
-        Question::class  => QuestionPolicy::class,
-        Choice::class  => ChoicePolicy::class,
+        Qcm::class  => QcmPolicy::class,
+        Question::class  => QuestionPolicy::class
     ];
 
     /**

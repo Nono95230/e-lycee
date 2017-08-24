@@ -11,13 +11,16 @@ class CreateQuestionsTable extends Migration
      *
      * @return void
      */
+    
     public function up()
     {
         Schema::create('questions', function (Blueprint $table) {
-            $table->increments('id'); 
-            $table->string('title', 160);
-            $table->enum('class_level', ['premiere', 'terminale'])->default('premiere');
-            $table->enum('status', ['published', 'unpublished'])->default('unpublished');
+            $table->increments('id');
+            $table->text('content')->nullable();
+            $table->enum('answer', ['yes', 'no'])->default('no');
+
+            $table->unsignedInteger('qcm_id')->nullable();
+            $table->foreign('qcm_id')->references('id')->on('qcms')->onDelete('SET NULL');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes()->nullable();

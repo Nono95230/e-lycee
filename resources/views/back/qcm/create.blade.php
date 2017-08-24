@@ -233,7 +233,7 @@
 			<h1>{{ $title}}</h1>
 		</div>
 		<div class="col-md-2">
-			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('question.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
+			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('qcm.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
 			 Retour à la liste</a>
 		</div>
 	</div>
@@ -246,31 +246,37 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('choice.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('qcm.store') }}">
     	{{ csrf_field() }}
-				@for($i = 1;$i <= $nb_choice; $i++)
-					<div class="row">
-						<div class="col-xs-12 col-md-6">
-							{!! Form::questionMacro('text',$i,'question' ,'choice', $errors? $errors : null ,old('question_'.$i)) !!}
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<div class="form-group">
-								<label for="answer_{{ $i }}">Réponse de la question n°{{ $i }}</label>
-								<div id="answer_{{ $i }}">
-									<label class="radio-inline">
-										<input type="radio" name="answer_{{ $i }}" value="yes"> Oui
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="answer_{{ $i }}" value="no"> Non
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				@endfor
+		<div class="row">
+			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
+
+				{!! Form::inputMacro('text','title','qcm', $errors? $errors : null ,old('title')) !!}
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
+
+				{!! Form::publishMacro('checkbox', 'status', 'qcm', $errors->isEmpty(), old('status')) !!}
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="form-group controls @if($errors->has('class_level')) has-feedback has-error @endif">
+					<label for="class_level" class="control-label">{{ config('fieldMacroHelpers.qcm.class_level.label') }}</label>
+					<select class="form-control" id="class_level" name="class_level">
+						<option value="premiere">Première</option>
+						<option value="terminale">Terminale</option>
+					</select>
+					<span class="help-block" style="height:20px;">{{ $errors->has('class_level') ? $errors->first('class_level') : '' }}</span>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				{!! Form::inputMacro('number','nb_question','qcm', $errors? $errors : null ,old('nb_question')) !!}
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{!! Form::submitMacro('create','choice') !!}
+				{!! Form::submitMacro('add','qcm') !!}
 			</div>
 		</div>
 

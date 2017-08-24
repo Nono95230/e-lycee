@@ -337,7 +337,7 @@
 						{{ $post->title }}
 					</a>
 				</td>
-				<td>{{ $post->user? $post->user->username : 'Auteur Anonyme' }}</td>
+				<td>{{ $post->user->username }}</td>
 				<td>{{ $post->comments->count() }}</td>
 				<td>{{ $post->published_at }}</td>
 				<td>

@@ -19,12 +19,12 @@ class QuestionPolicy
     {
         //
     }
-    
+
     public function before(User $user, $ability)
     {
         if( $user->isTeacher() ) return true;
     }
-    
+
     /**
      * Determine whether the user can view all questions.
      *
@@ -55,7 +55,7 @@ class QuestionPolicy
      * @param  \App\Question  $question
      * @return mixed
      */
-    public function update(User $user, question $question)
+    public function update(User $user, Question $question)
     {
         
         return false;
@@ -69,7 +69,7 @@ class QuestionPolicy
      * @param  \App\Question  $question
      * @return mixed
      */
-    public function delete(User $user, question $question)
+    public function delete(User $user, Question $question)
     {
         //abort(403,'Unauthorized action');
         return false;
@@ -81,7 +81,7 @@ class QuestionPolicy
      * @param  \App\Question  $question
      * @return mixed
      */
-    public function status(User $user, question $question)
+    public function status(User $user, Question $question)
     {
         //abort(403,'Unauthorized action');
         return false;

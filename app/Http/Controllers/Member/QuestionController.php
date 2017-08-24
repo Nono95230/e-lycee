@@ -5,19 +5,22 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Qcm;
 use App\Question;
 
+use App\Http\Requests\QcmRequest;
 use App\Http\Requests\QuestionRequest;
 
 use App\User;
-
 
 class QuestionController extends Controller
 {
     use UserMember;
 
+
     public function __construct(Request $request)
     {
+
         $this->setUser();
     }
     /**
@@ -25,19 +28,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Question $question)
+    public function index()
     {
+        //
         
-        $this->authorize('view', $question);
-        
-        $perPage = 5;
-        $questions    = $question->paginate($perPage);
-
-        return view('back.question.index',
-            ['title'     => 'Liste des QCM',
-             'questions' => $questions,
-             'perPage'   => $perPage
-             ]);
     }
 
     /**
@@ -45,11 +39,16 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Question $question)
+    public function create(Request $request, Question $question)
     {
+
         $this->authorize('create', $question);
 
-        return view('back.question.create', ['title' => 'Ajouter un QCM']);
+        $qcm = $request->session()->get('new_qcm');
+        $qcm_title = $qcm['title'];
+        $qcm_nb_question = $qcm['nb_question'];
+
+        return view('back.question.create', ['title' => 'Ajouter les questions','qcm_title'=>$qcm_title,'nb_question' => $qcm_nb_question]);
     }
 
     /**
@@ -60,13 +59,43 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {
-        $qcm['title'] = $request->title;
-        $qcm['nb_choice'] = $request->nb_choice;
-        $qcm['class_level'] = $request->class_level;
-        $qcm['status'] = isset($request->status) ? 'on' : 'off' ;
-        session(['new_qcm' =>  $qcm ]);
         
-        return redirect()->route('choice.create');
+        $new_qcm = $request->session()->get('new_qcm');
+        
+        $qcm = new Qcm;
+        $qcm->title = $new_qcm['title'];
+        $qcm->status = $new_qcm['status'];
+        $qcm->class_level = $new_qcm['class_level'];
+        $qcm->save();
+
+        $question = new Question;
+
+        foreach($request->all() as $key => $value){
+            
+            if($key !== '_token'){
+                if (isset($question->answer)) {
+                    $question = new Question;
+                }
+                if (strpos($key,'content') !== false ) {
+                    $question->content = $value;
+                }
+                if(strpos($key,'answer') !== false ){
+                    $question->answer = $value;
+                    $question->qcm_id = $qcm->id;
+                    
+                    $question->save();
+                }
+
+            }
+
+        }
+        
+        $message = [
+            'success',
+            sprintf('Merci d\'avoir ajouter le QCM %s !', $new_qcm['title'])
+        ];
+        return redirect()->route('qcm.index')->with('message', $message);
+
     }
 
     /**
@@ -103,24 +132,6 @@ class QuestionController extends Controller
         //
     }
 
-    public function updateStatus(Request $request, Question $question)
-    {
-        // $this->authorize('status', Question::class);
-
-        $thisQuestion = $question->find($request->id);
-        $title = $thisQuestion->title;
-
-        $thisQuestion->updateStatus($request->status);
-        $thisQuestion->update();
-        $status  = ($request->status === 'on')? 'publié': 'dépublié';
-        $message = [
-            'success',
-            sprintf('Le QCM %s à bien été '.$status, $title)
-        ];
-        return redirect()->route('question.index')->with('message', $message);
-
-    }
-    
     /**
      * Remove the specified resource from storage.
      *

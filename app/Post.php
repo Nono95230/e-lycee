@@ -20,14 +20,13 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-		'user_id',
 		'title',
 		'abstract',
 		'content',
 		'url_thumbnail',
-		'slug',
 		'status',
-        'published_at'
+        'published_at',
+        'user_id'
 	];
 
     /**
@@ -48,6 +47,7 @@ class Post extends Model
         'updated_at',
         'deleted_at'
     ];
+    
     public function comments()
     {
         return $this->hasMany('App\Comment');
@@ -63,47 +63,41 @@ class Post extends Model
     }
 
     public function getUrlThumbnailAttribute() {
-
         return $this->attributes['url_thumbnail'];
-
     }
+
     public function setUserId($value){
         $this->attributes['user_id'] = $value;
     }
 
     public function setTitleAttribute($value) {
-
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = str_slug($value,'-');
-
     }
 
 
-    public function setStatusAttribute($value){
-
+    /*public function setStatusAttribute($value){
         if ( $value === 'on' ) {
             $this->attributes['status'] = 'published';
-        } 
+        }
+        else{
+            $this->attributes['status'] = 'unpublished';
+        }
+    }*/
 
-    }
 
-
-    // public function setPublishedAtAttribute($value){
-    //     if ( $value === 'on' ) {
-    //         if ($this->attributes['published_at'] === null) {
-    //             $this->attributes['published_at'] = Carbon::now();
-    //         }
-    //     } 
-    //     else{
-    //         $this->attributes['status'] = 'unpublished';
-    //     }
-    // }
+    /*public function setPublishedAtAttribute($value){
+        if ( $this->attributes['status'] === 'published' ) {
+            if ($this->attributes['published_at'] === null) {
+                $this->attributes['published_at'] = Carbon::now();
+            }
+        }
+    }*/
     
     
     public function updateStatus($value){
         if ( $value === 'on' ) {
             $this->attributes['status'] = 'published';
-            if ($this->attributes['published_at'] === null) {
+            if ( !isset($this->attributes['published_at']) ) {
                 $this->attributes['published_at'] = Carbon::now();
             }
         } else if( $value === null ){

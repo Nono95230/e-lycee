@@ -26,18 +26,12 @@ class PostRequest extends FormRequest
     {
         switch($this->method())
         {
-            case 'GET':
-            case 'DELETE':
-            {
-                return [];
-            }
             case 'POST':
             {
                 return [
                     'title' => 'bail|required|string|unique:posts,title,'.$this->post_id, 
                     'content' => 'bail|required|min:100',
                     'abstract' => 'bail|required|min:50|max:200',
-                    'status' => 'in:published,unpublished',
                     'url_thumbnail' => 'bail|required|image|max:'.env('MAX_FILE_UPLOAD') 
                 ];
             }
@@ -48,7 +42,6 @@ class PostRequest extends FormRequest
                     'title' => 'bail|required|string|unique:posts,title,'.$this->post_id, 
                     'content' => 'bail|required|min:100',
                     'abstract' => 'bail|required|min:50|max:200',
-                    'status' => 'in:published,unpublished',
                     'url_thumbnail' => 'bail|image|max:'.env('MAX_FILE_UPLOAD') 
                 ];
             }

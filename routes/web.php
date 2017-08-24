@@ -44,11 +44,16 @@ Route::get('logout','Login\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('member/dashboard', 'Member\DashboardController@index')->name('dashboard');
+    
     Route::post('member/post/{id}/status', 'Member\PostController@updateStatus')->name('post.status.update');
     Route::resource('member/post', 'Member\PostController' );
     
     Route::resource('member/qcm', 'Member\QcmController' );
     Route::post('member/qcm/{id}/status', 'Member\QcmController@updateStatus')->name('qcm.status.update');
 
-    Route::resource('member/question', 'Member\QuestionController' );
+    Route::match(['get', 'head'], 'member/question/create','Member\QuestionController@create')->name('question.create');
+    Route::post('member/question', 'Member\QuestionController@store')->name('question.store');
+    Route::match(['get', 'head'], 'member/question/{question}/edit','Member\QuestionController@edit')->name('question.edit');
+    Route::match(['put', 'patch'], 'member/question/{question}','Member\QuestionController@update')->name('question.update');
+    
 });

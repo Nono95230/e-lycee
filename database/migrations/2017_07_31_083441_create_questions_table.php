@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->enum('answer', ['yes', 'no'])->default('no');
 
             $table->unsignedInteger('qcm_id')->nullable();
-            $table->foreign('qcm_id')->references('id')->on('qcms')->onDelete('SET NULL');
+            $table->foreign('qcm_id')->references('id')->on('qcms')->onDelete('CASCADE');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes()->nullable();

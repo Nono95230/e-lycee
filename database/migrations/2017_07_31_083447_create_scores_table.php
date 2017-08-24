@@ -19,9 +19,9 @@ class CreateScoresTable extends Migration
             $table->tinyInteger('note')->default(0);
 
             $table->unsignedInteger('qcm_id')->nullable();
-            $table->foreign('qcm_id')->references('id')->on('qcms')->onDelete('SET NULL');
+            $table->foreign('qcm_id')->references('id')->on('qcms')->onDelete('CASCADE');
             $table->unsignedInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes()->nullable();

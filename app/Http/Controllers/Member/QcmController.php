@@ -130,8 +130,19 @@ class QcmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Qcm $qcm)
     {
-        //
+        $this->authorize('delete', $qcm); // politique d'accès 
+        
+        $qcmTitle = $qcm->title;
+
+        $qcm->delete();
+
+        $message = [
+            'success',
+            sprintf('Suppression du qcm %s effectuée avec succès !', $qcmTitle)
+        ];
+
+        return redirect()->route('qcm.index')->with('message', $message);
     }
 }

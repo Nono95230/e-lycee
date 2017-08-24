@@ -57,9 +57,7 @@ class QcmPolicy
      */
     public function update(User $user, Qcm $qcm)
     {
-        
         return false;
-
     }
 
     /**
@@ -71,7 +69,6 @@ class QcmPolicy
      */
     public function delete(User $user, Qcm $qcm)
     {
-        //abort(403,'Unauthorized action');
         return false;
     }
     /**
@@ -83,7 +80,6 @@ class QcmPolicy
      */
     public function status(User $user, Qcm $qcm)
     {
-        //abort(403,'Unauthorized action');
         return false;
     }
 }

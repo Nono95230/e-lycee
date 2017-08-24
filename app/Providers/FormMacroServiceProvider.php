@@ -226,8 +226,19 @@ class FormMacroServiceProvider extends HtmlServiceProvider
         Form::macro('answerMacro', function( $type, $number, $fieldName, $fieldEntity,$errors, $remember=null )
         {
             
-            if ($remember===null) {
-                $remember='';
+            if ($remember === 'yes') {
+                $old_yes = 'checked';
+                $old_no = '';
+                $old_null = '';
+            } elseif($remember==='no') {
+                $old_yes = '';
+                $old_no = 'checked';
+                $old_null = '';
+            }
+            else{
+                $old_yes = '';
+                $old_no = '';
+                $old_null = 'checked';
             }
 
             $errorsClassName = '';
@@ -241,12 +252,12 @@ class FormMacroServiceProvider extends HtmlServiceProvider
                 $field .= '<label for="'.$fieldName.'_'.$number.'">'.config('fieldMacroHelpers.'.$fieldEntity.'.'.$fieldName.'.label').$number.'</label>';
                 $field .= '<div id="'.$fieldName.'_'.$number.'">';
                     $field .= '<label class="radio-inline">';
-                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="yes"> Oui';
+                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="yes"'.$old_yes.'> Oui';
                     $field .= '</label>';
                     $field .= '<label class="radio-inline">';
-                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="no"> Non';
+                        $field .= '<input type="'.$type.'" name="'.$fieldName.'_'.$number.'" value="no"'.$old_no.'> Non';
                     $field .= '</label>';
-                    $field .= '<input class="hidden" type="radio" name="'.$fieldName.'_'.$number.'" value="null" checked>';
+                    $field .= '<input class="hidden" type="radio" name="'.$fieldName.'_'.$number.'" value="null" '.$old_null.'>';
                 $field .= '</div>';
                 $field .= '<span class="help-block" style="height:20px;">'.$errorsContent.'</span>';
             $field .= '</div>';

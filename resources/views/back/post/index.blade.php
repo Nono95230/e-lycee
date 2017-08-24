@@ -391,7 +391,7 @@
 					        <p>Prenez garde, cette action est définitive, vous ne pourrez pas revenir en arrière !</p>
 					      </div>
 					      <div class="modal-footer">
-							<form method="post" action="{{ route('post.destroy',$post->id) }}">
+							<form method="post" action="{{ route('post.destroy',$post) }}">
 					    		{{ csrf_field() }} {{-- token pour protéger votre formulaire CSRF --}}
 					    		{{ method_field('DELETE') }}
 						        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Je m'y refuse</button>

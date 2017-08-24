@@ -24,7 +24,7 @@ class QcmsTableSeeder extends Seeder
                 'status'        => 'unpublished'
             ],
             [   
-                'title'         => 'Connaissances historiques Suite',
+                'title'         => 'Connaissances historiques',
                 'class_level'   => 'terminale',
                 'status'        => 'published'
             ],

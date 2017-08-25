@@ -2,32 +2,24 @@
 
 namespace App\Http\Controllers\Member;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\DashboardRepository;
 
-use App\User;
 
 class DashboardController extends Controller
 {
-    use UserMember;
 
-    public function __construct(Request $request)
-    {
+    public function index(DashboardRepository $repository) {
 
-        /*view()->composer('partials.nav', function($view) use($request) {
+        $dashboard = $repository->getDashboard();
 
-            $currentPath = $request->path();
-            $view->with('currentPath',$currentPath);
-            $categories = DB::table('categories')->select('id', 'title')->get();
-            $view->with('categories',$categories);
-        });*/
-
-
-        $this->setUser();
-    }
-
-    public function index() {
-
-        return view('back.dashboard', ['title' => 'Dashboard']);
+        return view('back.dashboard',
+         ['title'       => 'Dashboard',
+         'postsRecent'  => $dashboard['postsRecent'],
+         'qcmsRecent'   => $dashboard['qcmsRecent'],
+         'statComments' => $dashboard['statComments'],
+         'statQcms'     => $dashboard['statQcms'],
+         'statEleves'   => $dashboard['statEleves']
+         ]);
     }
 }

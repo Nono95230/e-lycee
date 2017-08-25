@@ -142,6 +142,7 @@ class PostRepository
             $post->url_thumbnail = $url_thumnail;
 
             $post->save();
+
         }
 
         $message = [
@@ -177,6 +178,14 @@ class PostRepository
 
         $postTitle = $post->title;
 
+        $oldFile = $post->getUrlThumbnailAttribute();
+
+        $oldFilePath = public_path() . '/posts/images/'.$oldFile ;
+        
+        if(file_exists($oldFilePath)) {
+            unlink($oldFilePath);
+        }
+        
         $post->delete();
 
         $message = [

@@ -21,7 +21,7 @@ return [
                             'old_advice'        => 'Pour conserver l\'image actuelle de l\'article, laissez le champs ci-dessous vide'
         ],
         'status_check'  => [
-                            'label'     => 'Publié l\'article'
+                            'label' => 'Publié l\'article'
         ],
         'submit_add'  => 'Ajouter cet article',
         'submit_edit' => 'Éditer cet article'
@@ -32,7 +32,9 @@ return [
                             'placeholder'   => 'Définissez le titre du QCM'
         ],
         'class_level'   => [
-                            'label' => 'Niveau de la classe'
+                            'label'         => 'Niveau de la classe',
+                            'premiere'      => 'Première',
+                            'terminale'     => 'Terminale'
         ],
         'nb_question'   => [
                             'label'         => 'Nombre de question',
@@ -41,7 +43,8 @@ return [
         'status'        => [
                             'label'     => 'Publié le QCM'
         ],
-        'submit_add'    => 'Ajouter les questions'
+        'submit_add'    => 'Ajouter les questions',
+        'submit_edit'   => 'Éditer le QCM'
     ],
     'question'=>[
         'content'       => [
@@ -49,7 +52,9 @@ return [
                             'placeholder' => 'Poser la question'
         ],
         'answer'        => [
-                            'label' => 'Réponse de la question n°'
+                            'label' => 'Réponse de la question n°',
+                            'yes' => 'Oui',
+                            'no' => 'Non'
         ],
         'submit_create'  => 'Enregistrer ce QCM'
     ]

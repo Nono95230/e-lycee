@@ -219,6 +219,30 @@
 		textarea {
 		  resize: vertical; /* user can resize vertically, but width is fixed */
 		}
+		.modal-body{
+			text-align:center;
+		}
+		.modal-body p{
+			margin:0;
+		}
+
+		.note-action{
+			clear:left;
+			text-align:left;
+			padding:15px 15px 0;
+		}
+		.note-action p{
+			margin:0;
+			display: inline-block;
+			vertical-align: top;
+		}
+		.note-action p:first-child{
+			width:50px;
+			text-decoration:underline;
+		}
+		.note-action p{
+			width:calc(100% - 55px);
+		}
 
 	</style>
 
@@ -259,6 +283,10 @@
 				      <div class="modal-footer">
                 		<a class="btn btn-primary pull-left" type="button" href="{{route('question.add.new')}}"><i class="fa fa-plus fa-fw"></i> Ajouter quand même</a>
                 		<a class="btn btn-danger pull-right" type="button" data-dismiss="modal">Ne pas ajouter</a>
+                		<div class="note-action">
+                			<p>Notes : </p>
+                			<p><small>Pour un qcm, le maximum de question possible est de 30.</br>Si vous tentez d'en ajouter une au delà, cela n'aura aucun effet mis à part effacer les données saisies sur cette page !</small></p>
+                		</div>
 				      </div>
 				    </div>
 				  </div>
@@ -279,6 +307,10 @@
 				      <div class="modal-footer">
                 		<a class="btn btn-danger pull-left" type="button" href="{{route('question.remove.last')}}"><i class="fa fa-trash-o fa-fw"></i> Supprimer quand même</a>
                 		<a class="btn btn-primary pull-right" type="button" data-dismiss="modal">Ne pas supprimer</a>
+                		<div class="note-action">
+                			<p>Notes : </p>
+                			<p><small>Pour un qcm, le minimum de question possible est de 5. Si vous tentez d'en supprimer une au delà, cela n'aura aucun effet mis à part effacer les données saisies sur cette page !</small></p>
+                		</div>
 				      </div>
 				    </div>
 				  </div>
@@ -293,13 +325,28 @@
 @section('content')
     <form method="POST" action="{{ route('question.store') }}">
     	{{ csrf_field() }}
-		@for($i = 1;$i <= $nb_question; $i++)
+		@for($i = 0;$i < $nb_question; $i++)
 			<div class="row">
 				<div class="col-xs-12 col-md-8 col-lg-9">
-					{!! Form::questionMacro('text', $i, 'content' , 'question', $errors? $errors : null ,old('content_'.$i)) !!}
+					{!! Form::questionMacro(
+						($i+1),
+						'content',
+						'question',
+						$errors? $errors : null,
+						old('content'.($i+1))
+						) 
+					!!}
 				</div>
 				<div class="col-xs-12 col-md-4 col-lg-3">
-					{!! Form::answerMacro('radio', $i, 'answer' , 'question', $errors? $errors : null ,old('answer_'.$i)) !!}
+					{!! Form::radioMacro(
+						($i+1),
+						'answer',
+						'question',
+						['yes','no'],
+						$errors? $errors : null
+						,old('answer'.($i+1))
+						) 
+					!!}
 				</div>
 			</div>
 		@endfor

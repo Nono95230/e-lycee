@@ -231,6 +231,7 @@
 	<div class="row">
 		<div class="col-md-8">
 			<h1>{{ $title}}</h1>
+			<h3>Titre du QCM : <small>{{$qcm->title}}</small></h3>
 		</div>
 		<div class="col-md-4">
 			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('qcm.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>
@@ -239,65 +240,83 @@
 	</div>
 </div>
 <div class="content_second">
-	@include('partials.flash-message')
+
 </div>
 
 @endsection
 
 @section('content')
 
-    <form method="POST" action="{{ route('qcm.store') }}">
+    <form method="POST" action="{{ route('qcm.update', $qcm) }}">
     	{{ csrf_field() }}
+    	{{ method_field('PUT') }}
 		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
+			<div class="col-xs-12 col-md-4 col-lg-6">
 
 				{!! Form::inputMacro(
-						'text',
-						'title',
-						'qcm', 
-						$errors? $errors : null,
-						old('title')
+					'text',
+					'title',
+					'qcm',
+					$errors? $errors : null ,
+					old('title'),
+					$qcm->title
 					)
 				!!}
 			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
-
+			<div class="col-xs-6 col-md-4 col-lg-3">
 				{!! Form::publishMacro(
 					'checkbox',
 					'status',
 					'qcm',
-					old('status')
-					) 
+					old('status'),
+					$qcm->status
+					)
 				!!}
-				
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-6 col-md-4 col-lg-3">
 				{!! Form::radioMacro(
 					0,
 					'class_level',
 					'qcm',
 					['premiere','terminale'],
 					$errors? $errors : null
-					,old('class_level')
-					) 
-				!!}
-			</div>
-			<div class="col-xs-4">
-				{!! Form::inputMacro(
-					'number',
-					'nb_question',
-					'qcm',
-					$errors? $errors : null ,
-					old('nb_question')
+					,old('class_level'),
+					$qcm->class_level
 					) 
 				!!}
 			</div>
 		</div>
+
+		@for($i = 0;$i < count($question); $i++)
+			<div class="row">
+				<div class="col-xs-12 col-md-8 col-lg-9">
+					{!! Form::questionMacro(
+						($i+1),
+						'content',
+						'question',
+						$errors? $errors : null,
+						old('content'.($i+1)),
+						$question[$i]->content
+						) 
+					!!}
+				</div>
+				<div class="col-xs-12 col-md-4 col-lg-3">
+					{!! Form::radioMacro(
+						($i+1),
+						'answer',
+						'question',
+						['yes','no'],
+						$errors? $errors : null
+						,old('answer'.($i+1)),
+						$question[$i]->answer
+						) 
+					!!}
+				</div>
+			</div>
+		@endfor
 		<div class="row">
-			<div class="col-md-12">
-				{!! Form::submitMacro('add','qcm') !!}
+			<div class="col-md-12 text-center">
+				{!! Form::submitMacro('edit','qcm') !!}
 			</div>
 		</div>
 

@@ -23,7 +23,7 @@ class QuestionRequest extends FormRequest{
     public function rules()
     {
         foreach ($this->request as $key => $value) {
-            if($key !== '_token'){
+            if($key !== '_token'  && $key !== '_method' ){
                 if (strpos($key,'content') !== false ) {
                     $rules[$key] = 'bail|required|string|max:160';
                 }
@@ -39,7 +39,7 @@ class QuestionRequest extends FormRequest{
     public function messages()
     {
         foreach ($this->request as $key => $value) {
-            if($key !== '_token'){
+            if($key !== '_token' && $key !== '_method'){
                 if (strpos($key,'content') !== false ) {
                     $messages[$key.'.required'] = 'Vous devez définir cette question';
                     $messages[$key.'.string'] = 'La question doit être une phrase';

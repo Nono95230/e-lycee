@@ -46,11 +46,20 @@ class QcmRepository
     }
 
 
-    /*public function makeActionUpdate($request, $post)
+    public function makeActionUpdate($qcm, $request)
     {
+        $qcm->title = $request->title;
+        $qcm->class_level = $request->class_level;
+        $qcm->status = isset($request->status) ? 'on' : 'off' ;
+        $qcm->update();
+
+        $message = [
+            'success',
+            sprintf('La modification du QCM %s à été un succès !', $qcm->title)
+        ];
 
         return $message;
-    }*/
+    }
 
 
     public function makeActionUpdateStatus($request, $qcm)

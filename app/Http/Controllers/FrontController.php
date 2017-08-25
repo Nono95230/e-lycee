@@ -18,7 +18,7 @@ class FrontController extends Controller
     }
     
     public function index(PostRepository $post) {
-    
+        
         return view('front.home', [
             'title' => 'Accueil',
             'posts' => $post->getBestActus() 

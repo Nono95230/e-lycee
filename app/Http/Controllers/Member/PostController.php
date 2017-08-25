@@ -41,7 +41,8 @@ class PostController extends Controller
         return view('back.post.index', ['title' => 'Liste des articles',
             'posts' => $indexPosts['posts'],
             'nb_posts'=> $indexPosts['nb_posts'],
-            'perPage'=> $indexPosts['perPage']]);
+            'perPage'=> $indexPosts['perPage']
+        ]);
     }
 
     /**

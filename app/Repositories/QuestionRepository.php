@@ -31,6 +31,26 @@ class QuestionRepository
         ];
     }
 
+
+    public function addNewQuestion($request)
+    {
+        $qcm = $request->session()->get('new_qcm');
+        $qcm['nb_question'] += 1;
+        
+        return session(['new_qcm' =>  $qcm ]);
+
+    }
+
+    public function removeLastQuestion($request)
+    {
+        $qcm = $request->session()->get('new_qcm');
+        $qcm['nb_question'] -= 1;
+        
+        return session(['new_qcm' =>  $qcm ]);
+
+    }
+
+
     public function makeActionStore($request)
     {
 

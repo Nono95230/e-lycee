@@ -38,9 +38,35 @@ class QuestionController extends Controller
 
         $createQuestion = $repository->makeActionCreate($request);
 
-        return view('back.question.create', ['title' => 'Ajouter les questions',
+        return view('back.question.create', ['title' => 'Ajouter des questions à ce QCM',
             'qcm_title' => $createQuestion['title'],
             'nb_question'=> $createQuestion['nb_question']]);
+    }
+
+    /**
+     * Add a new question in the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addQuestion(Request $request, QuestionRepository $repository)
+    {
+
+        $repository->addNewQuestion($request);
+
+        return redirect()->route('question.create');
+    }
+
+    /**
+     * Remove a question in the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeQuestion(Request $request, QuestionRepository $repository)
+    {
+
+        $repository->removeLastQuestion($request);
+
+        return redirect()->route('question.create');
     }
 
     /**

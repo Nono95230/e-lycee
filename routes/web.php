@@ -55,5 +55,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('member/question', 'Member\QuestionController@store')->name('question.store');
     Route::match(['get', 'head'], 'member/question/{question}/edit','Member\QuestionController@edit')->name('question.edit');
     Route::match(['put', 'patch'], 'member/question/{question}','Member\QuestionController@update')->name('question.update');
+    Route::get('member/question/add','Member\QuestionController@addQuestion')->name('question.add.new');
+    Route::get('member/question/remove','Member\QuestionController@removeQuestion')->name('question.remove.last');
     
 });

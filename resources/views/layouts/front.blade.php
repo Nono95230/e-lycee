@@ -166,10 +166,11 @@
     <script src="{{ url('bootstrap/js/bootstrap.min.js')}}"></script>
 
     <!-- Pour le bouton j'aime -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
+    <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171"></script>
     <!-- Pour les deux boutons suivre -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171" async></script>
-
+    <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598072eef2fd2171"></script>
+    <!-- Pour faire remonter les tweets du compte de l'école -->
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <script type="text/javascript">
 

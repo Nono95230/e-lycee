@@ -1,7 +1,6 @@
 @section('sidebar')
     <!-- Side Widget Well -->
     <div class="well">
-        <h4>Side Widget Well</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+        <a class="twitter-timeline" data-lang="fr" data-height="450" data-theme="light" data-link-color="#2B7BB9 " href="https://twitter.com/lemdev">Tweets by lemdev</a>
     </div>
 @show

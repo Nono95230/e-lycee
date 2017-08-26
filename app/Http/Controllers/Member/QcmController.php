@@ -108,44 +108,71 @@ class QcmController extends Controller
      */
     public function update(Qcm $qcm, Request $request, QcmRepository $repository)
     {
-        $rules = array(
+        //Name and Value Field Qcm
+        $inputQcm = [
+            'title'=> $request->title,
+            'class_level'=>$request->class_level
+        ];
+        //Name and Value Field Question
+        $inputQuestion = array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $inputQuestion[$key] = $value;
+            }
+            if(strpos($key,'answer') !== false ){
+                $inputQuestion[$key] = $value;
+            }
+        }
+
+        //Rules for Field Qcm
+        $rulesQcm = array(
             'title'       => 'bail|required|string|min:5|max:50', 
             'class_level' => 'in:premiere,terminale'
         );
+        //Rules for Field Question
+        $rulesQuestion=array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $rulesQuestion[$key] = 'bail|required|string|max:160';
+            }
+            if(strpos($key,'answer') !== false ){
+                $rulesQuestion[$key] = 'in:yes,no';
+            }
+        }
 
-        $messages = array(
-            'class_level.in'        => 'Veuillez choisir le bon niveau',
+        //Messages for Field Qcm
+        $messagesQcm = array(
             'title.required'        => 'Vous devez définir un titre',
             'title.string'          => 'Le titre doit être une phrase',
             'title.min'             => 'Le titre doit avoir minimum 5 caractères',
             'title.max'             => 'Le titre doit avoir maximum 50 caractères',
+            'class_level.in'        => 'Veuillez choisir le bon niveau'
         );
 
-
-        // Input::offsetUnset('_token');
-        // Input::offsetUnset('_method');
-        //echo '<pre>'.print_r(Input::all(),1).'</pre>';
-
-        //$qcmValidator = Validator::make([Input::get('title','class_level')], $rules, $messages );
-        $qcmValidator = Validator::make(['title'=> $request->title,'class_level'=>$request->class_level], $rules, $messages );
-
-        //$qcmValidator2 = Validator::make([Input::get('class_level')], $rules, $messages );
-
-        // Input::offsetUnset('title');
-        // Input::offsetUnset('status');
-        // Input::offsetUnset('class_level');
-
-        //$questionValidator = Validator::make([Input::get('title')], $rules, $messages );
-        // echo $questionValidator.'<br>';
-        // echo '<pre>'.print_r($qcmValidator,1).'</pre>';
-        // dd();
-        // Run validators, return errors on fail()
-        if($qcmValidator->fails()){
-          $errors = $qcmValidator->messages();
-
-          return redirect()->route('qcm.edit',$qcm)->withInput()->withErrors($qcmValidator);
+        //Messages for Field Question
+        $messagesQuestion=array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $messagesQuestion[$key.'.required'] = 'Vous devez définir cette question';
+                $messagesQuestion[$key.'.string'] = 'La question doit être une phrase';
+                $messagesQuestion[$key.'.max'] = 'La question ne doit pas être supérieure à 160 caractères';
+            }
+            if(strpos($key,'answer') !== false ){
+                $messagesQuestion[$key.'.in'] = 'Vous devez choisir une réponse';
+            }
         }
-        //dd($qcmValidator);
+
+
+        $validatorQcm = Validator::make($inputQcm, $rulesQcm, $messagesQcm );
+        
+        $validatorQuestion = Validator::make($inputQuestion, $rulesQuestion, $messagesQuestion );
+
+
+        if( $validatorQcm->fails() || $validatorQuestion->fails()){
+          $errors = $validatorQcm->messages()->merge($validatorQuestion->messages());
+
+          return redirect()->route('qcm.edit',$qcm)->withInput()->withErrors($errors);
+        }
 
         return redirect()->route('qcm.index')->with('message', $repository->makeActionUpdate($qcm, $request));
 

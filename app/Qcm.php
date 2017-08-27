@@ -62,4 +62,12 @@ class Qcm extends Model
         }
     }
 
+    public function updateThisQcm($value)
+    {
+        $this->attributes['title'] = $value->title;
+        $this->attributes['class_level'] = $value->class_level;
+        $this->attributes['status'] =( isset($value->status) && $value->status === 'on')? 'published' : 'unpublished' ;
+        $this->update();
+    }
+
 }

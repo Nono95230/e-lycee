@@ -250,6 +250,7 @@
     <form method="POST" action="{{ route('qcm.update', $qcm) }}">
     	{{ csrf_field() }}
     	{{ method_field('PUT') }}
+		<legend><strong>Le qcm : </strong></legend>
 		<div class="row">
 			<div class="col-xs-12 col-md-4 col-lg-6">
 
@@ -286,7 +287,7 @@
 				!!}
 			</div>
 		</div>
-
+		<legend><strong>Les questions : </strong></legend>
 		@for($i = 0;$i < count($question); $i++)
 			<div class="row">
 				<div class="col-xs-12 col-md-8 col-lg-9">

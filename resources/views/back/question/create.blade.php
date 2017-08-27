@@ -325,6 +325,7 @@
 @section('content')
     <form method="POST" action="{{ route('question.store') }}">
     	{{ csrf_field() }}
+		<legend><strong>Les questions : </strong></legend>
 		@for($i = 0;$i < $nb_question; $i++)
 			<div class="row">
 				<div class="col-xs-12 col-md-8 col-lg-9">

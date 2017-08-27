@@ -248,6 +248,7 @@
 
     <form method="POST" action="{{ route('qcm.store') }}">
     	{{ csrf_field() }}
+		<legend><strong>Le qcm : </strong></legend>
 		<div class="row">
 			<div class="col-lg-10 col-md-9 col-sm-8 col-xs-7">
 

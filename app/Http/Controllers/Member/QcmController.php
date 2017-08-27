@@ -12,8 +12,6 @@ use App\Question;
 use App\Http\Requests\QcmRequest;
 use App\Repositories\QcmRepository;
 
-use Validator;
-use Input;
 
 class QcmController extends Controller
 {
@@ -108,75 +106,26 @@ class QcmController extends Controller
      */
     public function update(Qcm $qcm, Request $request, QcmRepository $repository)
     {
-        //Name and Value Field Qcm
-        $inputQcm = [
-            'title'=> $request->title,
-            'class_level'=>$request->class_level
-        ];
-        //Name and Value Field Question
-        $inputQuestion = array();
-        foreach ($request->all() as $key => $value) {
-            if (strpos($key,'content') !== false ) {
-                $inputQuestion[$key] = $value;
-            }
-            if(strpos($key,'answer') !== false ){
-                $inputQuestion[$key] = $value;
-            }
-        }
+      //Validation Data !
+      $validatorResponse = $repository->validationBeforeUpdate($qcm, $request);
 
-        //Rules for Field Qcm
-        $rulesQcm = array(
-            'title'       => 'bail|required|string|min:5|max:50', 
-            'class_level' => 'in:premiere,terminale'
-        );
-        //Rules for Field Question
-        $rulesQuestion=array();
-        foreach ($request->all() as $key => $value) {
-            if (strpos($key,'content') !== false ) {
-                $rulesQuestion[$key] = 'bail|required|string|max:160';
-            }
-            if(strpos($key,'answer') !== false ){
-                $rulesQuestion[$key] = 'in:yes,no';
-            }
-        }
+      //Check Errors...
+      $potentialErrors = $repository->detectErrors($validatorResponse);
 
-        //Messages for Field Qcm
-        $messagesQcm = array(
-            'title.required'        => 'Vous devez définir un titre',
-            'title.string'          => 'Le titre doit être une phrase',
-            'title.min'             => 'Le titre doit avoir minimum 5 caractères',
-            'title.max'             => 'Le titre doit avoir maximum 50 caractères',
-            'class_level.in'        => 'Veuillez choisir le bon niveau'
-        );
+      //Redirect if detect an error
+      if( isset($potentialErrors)){
+        return redirect()->route('qcm.edit',$qcm)->withInput()->withErrors($potentialErrors);
+      }
+      
+      //Else Update data
+      $response = $repository->makeActionUpdate($qcm, $request);
 
-        //Messages for Field Question
-        $messagesQuestion=array();
-        foreach ($request->all() as $key => $value) {
-            if (strpos($key,'content') !== false ) {
-                $messagesQuestion[$key.'.required'] = 'Vous devez définir cette question';
-                $messagesQuestion[$key.'.string'] = 'La question doit être une phrase';
-                $messagesQuestion[$key.'.max'] = 'La question ne doit pas être supérieure à 160 caractères';
-            }
-            if(strpos($key,'answer') !== false ){
-                $messagesQuestion[$key.'.in'] = 'Vous devez choisir une réponse';
-            }
-        }
-
-
-        $validatorQcm = Validator::make($inputQcm, $rulesQcm, $messagesQcm );
-        
-        $validatorQuestion = Validator::make($inputQuestion, $rulesQuestion, $messagesQuestion );
-
-
-        if( $validatorQcm->fails() || $validatorQuestion->fails()){
-          $errors = $validatorQcm->messages()->merge($validatorQuestion->messages());
-
-          return redirect()->route('qcm.edit',$qcm)->withInput()->withErrors($errors);
-        }
-
-        return redirect()->route('qcm.index')->with('message', $repository->makeActionUpdate($qcm, $request));
+      //Redirect To Index
+      return redirect()->route('qcm.index')->with('message', $response);
 
     }
+
+
 
     public function updateStatus(Request $request, Qcm $qcm, QcmRepository $repository)
     {

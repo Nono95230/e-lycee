@@ -13,8 +13,6 @@ use App\Policies\QcmPolicy;
 
 use App\Question;
 use App\Policies\QuestionPolicy;
-use App\Comment;
-use App\Policies\CommentPolicy;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,8 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Post::class  => PostPolicy::class,
         Qcm::class  => QcmPolicy::class,
-        Question::class  => QuestionPolicy::class,
-        Comment::class  => CommentPolicy::class
+        Question::class  => QuestionPolicy::class
     ];
 
     /**

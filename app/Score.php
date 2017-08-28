@@ -39,5 +39,10 @@ class Score extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function getScore()
+    {
+        return true;//a faire
+    }
     
 }

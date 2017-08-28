@@ -128,6 +128,7 @@
 			<th>N°</th>
 			<th>Titre</th>
 			<th>Nombre de questions</th>
+			<th>Votre score</th>
 			<th>État</th>
 		</tr>
 	</thead>
@@ -140,9 +141,10 @@
 				@if( $qcm->scores->where('user_id',$userId)->count() > 0 )
 					<td>{{ $qcm->title }}</td>
 				@else
-					<td><a href="{{ route('student.qcm.make', $qcm ) }}">{{ $qcm->title }}</a></td>
+					<td><a href="{{ route('student.qcm.respond', $qcm ) }}">{{ $qcm->title }}</a></td>
 				@endif
 				<td>{{ $qcm->questions->count() }}</td>
+				<td>Mettre score si existe</td>
 				@if($qcm->scores->where('user_id',$userId)->count() > 0)
 					<td>
 						<span class="element-status green" title="Fait"></span>

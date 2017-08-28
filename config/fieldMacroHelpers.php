@@ -83,6 +83,14 @@ return [
                             'placeholder' => 'Indiquer le contenu de votre commentaire'
         ],
         'submit_add'   => 'Poster le commentaire'
+    ],
+    'qcmQuestion'=>[
+        'answer'         => [
+                            'label' => 'Choisissez votre réponse à la question n°',
+                            'yes' => 'Vrai',
+                            'no' => 'Faux'
+        ],
+        'submit_add'   => 'Calculer le score'
     ]
 
 ];

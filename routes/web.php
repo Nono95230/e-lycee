@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function(){
     
     Route::get('student/dashboard', 'Student\StudentController@index')->name('student.dashboard');
     Route::get('student/qcm', 'Student\StudentController@qcmIndex')->name('student.qcm.index');
-    Route::get('student/qcm/make/{qcm}', 'Student\StudentController@qcmMake')->name('student.qcm.make');
-    //Route::post('student/qcm', 'Student\StudentController@qcmIndex')->name('student.qcm.make');
+    Route::get('student/qcm/respond/{qcm}', 'Student\StudentController@qcmRespond')->name('student.qcm.respond');
+    Route::post('student/qcm/score/{qcm}', 'Student\StudentController@qcmCalculateScore')->name('student.qcm.calculate.score');
     
 });

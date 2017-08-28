@@ -227,11 +227,9 @@ class FormMacroServiceProvider extends HtmlServiceProvider
                 }
                 for ($i=0; $i < count($response); $i++) {
 
+                    $old_response[$i] ='';
                     if ($remember === $response[$i]) {
                         $old_response[$i] ='checked';
-                    }
-                    else{
-                        $old_response[$i] ='';
                     }
 
                     $field .= '<label class="radio-inline">';

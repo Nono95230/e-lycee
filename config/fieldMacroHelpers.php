@@ -56,7 +56,22 @@ return [
                             'yes' => 'Oui',
                             'no' => 'Non'
         ],
-        'submit_create'  => 'Enregistrer ce QCM'
+        'submit_create' => 'Enregistrer ce QCM'
+    ],
+    'contact'=>[
+        'email'         => [
+                            'label' => 'Email',
+                            'placeholder' => 'Renseigner votre email'
+        ],
+        'subject'       =>[
+                            'label' => 'Sujet',
+                            'placeholder' => 'Renseigner le sujet'
+        ],
+        'commentaire'   =>[
+                            'label' => 'Commentaire',
+                            'placeholder' => 'Indiquer votre commentaire'
+        ],
+        'submit_send'   => 'Envoyer'
     ]
 
 ];

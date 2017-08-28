@@ -27,6 +27,7 @@ Route::get('actualites', 'FrontController@actus')->name('actus');
 Route::get('actualite/{id}', 'FrontController@OneActu')->name('actu');
 Route::get('le-lycee', 'FrontController@presentationLycee')->name('le-lycee');
 Route::get('contact', 'FrontController@contact')->name('contact');
+Route::match(['post','from'],'contact/send', 'FrontController@sendContactMessage')->name('contact.send');
 Route::get('mentions-legales', 'FrontController@mentionsLegales')->name('mentions-legales');
 Route::any('login', 'Login\LoginController@login')->name('login');
 Route::get('logout','Login\LoginController@logout')->name('logout');

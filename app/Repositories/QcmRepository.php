@@ -5,6 +5,7 @@ namespace App\Repositories;
 use DB;
 use App\Qcm;
 
+use Validator;
 
 class QcmRepository
 {
@@ -46,19 +47,126 @@ class QcmRepository
     }
 
 
-    public function makeActionUpdate($qcm, $request)
+    public function validationBeforeUpdate($qcm, $request)
     {
-        $qcm->title = $request->title;
-        $qcm->class_level = $request->class_level;
-        $qcm->status = isset($request->status) ? 'on' : 'off' ;
-        $qcm->update();
+        //Name and Value Field Qcm
+        $inputQcm = [
+            'title'=> $request->title,
+            'class_level'=>$request->class_level
+        ];
+        //Name and Value Field Question
+        $inputQuestion = array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $inputQuestion[$key] = $value;
+            }
+            if(strpos($key,'answer') !== false ){
+                $inputQuestion[$key] = $value;
+            }
+        }
 
+        //Rules for Field Qcm
+        $rulesQcm = array(
+            'title'       => 'bail|required|string|min:5|max:50', 
+            'class_level' => 'in:premiere,terminale'
+        );
+        //Rules for Field Question
+        $rulesQuestion=array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $rulesQuestion[$key] = 'bail|required|string|max:160';
+            }
+            if(strpos($key,'answer') !== false ){
+                $rulesQuestion[$key] = 'in:yes,no';
+            }
+        }
+
+        //Messages for Field Qcm
+        $messagesQcm = array(
+            'title.required'        => 'Vous devez définir un titre',
+            'title.string'          => 'Le titre doit être une phrase',
+            'title.min'             => 'Le titre doit avoir minimum 5 caractères',
+            'title.max'             => 'Le titre doit avoir maximum 50 caractères',
+            'class_level.in'        => 'Veuillez choisir le bon niveau'
+        );
+
+        //Messages for Field Question
+        $messagesQuestion=array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $messagesQuestion[$key.'.required'] = 'Vous devez définir cette question';
+                $messagesQuestion[$key.'.string'] = 'La question doit être une phrase';
+                $messagesQuestion[$key.'.max'] = 'La question ne doit pas être supérieure à 160 caractères';
+            }
+            if(strpos($key,'answer') !== false ){
+                $messagesQuestion[$key.'.in'] = 'Vous devez choisir une réponse';
+            }
+        }
+
+
+        $validatorQcm = Validator::make($inputQcm, $rulesQcm, $messagesQcm );
+        
+        $validatorQuestion = Validator::make($inputQuestion, $rulesQuestion, $messagesQuestion );
+
+        return [
+            'qcm'=>$validatorQcm,
+            'question'=>$validatorQuestion
+        ];
+
+    }
+
+    public function detectErrors($testData){
+
+      if( $testData['qcm']->fails() || $testData['question']->fails() ){
+        return $testData['qcm']->messages()->merge($testData['question']->messages());
+
+      }
+    }
+
+    public function makeActionUpdate($qcm, $request){
+
+        //Update The Qcm
+        $qcm->updateThisQcm($request);
+        // $qcm->title = $request->title;
+        // $qcm->class_level = $request->class_level;
+        // $qcm->status = isset($request->status) ? 'on' : 'off' ;
+        // $qcm->update();
+
+        //Remove the useless field
+        $request->offsetUnset('_token');
+        $request->offsetUnset('_method');
+        $request->offsetUnset('title');
+        $request->offsetUnset('status');
+        $request->offsetUnset('class_level');
+
+        //Transform the array $request
+        $iteration = 0;
+        $newQuestion = array();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key,'content') !== false ) {
+                $newQuestion[$iteration]['content'] = $value;
+            }
+
+            if(strpos($key,'answer') !== false ){
+                $newQuestion[$iteration]['answer'] = $value;
+                $iteration++;
+            }
+        }
+
+        //Update All Question
+        foreach ($qcm->questions as $key => $value) {
+            $qcm->questions[$key]->updateThisQuestion($newQuestion[$key]);
+        }
+
+        //return success message in session
         $message = [
             'success',
             sprintf('La modification du QCM %s à été un succès !', $qcm->title)
         ];
 
         return $message;
+      
+
     }
 
 

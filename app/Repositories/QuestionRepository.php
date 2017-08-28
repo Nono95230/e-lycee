@@ -97,19 +97,4 @@ class QuestionRepository
         return $message;
     }
 
-
-    /*public function makeActionEdit()
-    {
-
-    }*/
-
-    /*public function makeActionUpdate()
-    {
-
-    }*/
-
-
-
-
-
 }

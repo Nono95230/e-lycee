@@ -31,4 +31,11 @@ class Question extends Model
     {
         return $this->belongsTo('App\Qcm');
     }
+
+    public function updateThisQuestion($value)
+    {
+        $this->attributes['content'] = $value['content'];
+        $this->attributes['answer'] = $value['answer'];
+        $this->update();
+    }
 }

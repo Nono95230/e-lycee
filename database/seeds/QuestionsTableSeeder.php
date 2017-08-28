@@ -261,17 +261,17 @@ class QuestionsTableSeeder extends Seeder
             [   
                 'content'       => 'La bataille de Marignan s\'est déroulé en 1515.',
                 'answer'        => 'yes',
-                'qcm_id'   => '2'
+                'qcm_id'   => '4'
             ],
             [   
                 'content'       => 'La bataille de Marignan s\'est déroulé en 1615.',
                 'answer'        => 'no',
-                'qcm_id'   => '2'
+                'qcm_id'   => '4'
             ],
             [   
                 'content'       => 'La bataille de Marignan s\'est déroulé en 1415.',
                 'answer'        => 'no',
-                'qcm_id'   => '2'
+                'qcm_id'   => '4'
             ],
             [   
                 'content'       => 'La couleur du cheval Blanc d\'henri IV était : Noir et Blanc.',

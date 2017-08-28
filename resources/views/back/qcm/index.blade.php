@@ -301,10 +301,10 @@
 	<div class="col-md-4">
 		<ul id="perpage" class="pagination">
 			<div class="bg-primary per_page_title"><span>QCM par page</span></div>
-			<li @if($perPage == 5) class="first active" @else class="first" @endif><a href="http://127.0.0.1:8000/member/qcm?perPage=5">5</a></li>
-			<li @if($perPage == 10) class="active" @endif><a href="http://127.0.0.1:8000/member/qcm?perPage=10">10</a></li>
-			<li @if($perPage == 15) class="active" @endif><a href="http://127.0.0.1:8000/member/qcm?perPage=15">15</a></li>
-			<li @if($perPage == 20) class="active" @endif><a href="http://127.0.0.1:8000/member/qcm?perPage=20">20</a></li>
+			<li @if($perPage == 5) class="first active" @else class="first" @endif><a href="{{route('qcm.index')}}?perPage=5">5</a></li>
+			<li @if($perPage == 10) class="active" @endif><a href="{{route('qcm.index')}}?perPage=10">10</a></li>
+			<li @if($perPage == 15) class="active" @endif><a href="{{route('qcm.index')}}?perPage=15">15</a></li>
+			<li @if($perPage == 20) class="active" @endif><a href="{{route('qcm.index')}}?perPage=20">20</a></li>
 		</ul>
 	</div>
 	<div class="col-md-4 text-center">{!! $qcms->links() !!}</div>
@@ -320,6 +320,8 @@
 		<tr>
 			<th>N°</th>
 			<th>Titre</th>
+			<th>Niveau</th>
+			<th>Nombre de questions</th>
 			<th>Créé le</th>
 			<th>ACTION</th>
 		</tr>
@@ -331,6 +333,8 @@
 			<tr>
 				<td>{!! ( ( $qcms->currentPage() - 1 )*$qcms->perPage() )+ $number++ !!}</td>
 				<td>{{ $qcm->title }}</td>
+				<td>{{ ($qcm->class_level==='premiere')? 'Première' :'Terminale' }}</td>
+				<td>{{ $qcm->questions->count() }}</td>
 				<td>{{ $qcm->created_at }}</td>
 				<td>
 				@if($qcm->status === "published")

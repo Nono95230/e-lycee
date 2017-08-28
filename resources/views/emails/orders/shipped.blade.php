@@ -1,16 +1,2 @@
-@component('mail::message')
-
-<ul>
-    <li>L'email du contact: {{$mailContact}}</li>
-    <li>Le sujet du mail: {{$mailSubject}}</li>
-</ul>
-
+<h1>bienvenue</h1>
 <p>{{$mailContent}}</p>
-
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
-@endcomponent

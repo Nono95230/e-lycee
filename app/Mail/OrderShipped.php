@@ -27,11 +27,10 @@ class OrderShipped extends Mailable
     {
         $this->mailDestinataire = $sendMail['mailDestinataire'];
         $this->nameDestinataire = $sendMail['nameDestinataire'];
-        $this->mailContact = $sendMail['mailContact'];
-        $this->mailSubject = $sendMail['mailSubject'];
-        $this->mailContent = $sendMail['mailContent'];
-        $this->mailDate = $sendMail['mailDate'];
-    // dd($this->mailContact);
+        $this->mailContact      = $sendMail['mailContact'];
+        $this->mailSubject      = $sendMail['mailSubject'];
+        $this->mailContent      = $sendMail['mailContent'];
+        $this->mailDate         = $sendMail['mailDate'];
     }
 
     /**
@@ -45,12 +44,12 @@ class OrderShipped extends Mailable
         //return $this->markdown('emails.orders.shipped');
 
         //return $this->from('amine.brakni@gmail.com')->subject('important')->view('emails.welcome');
-        return $this->from($this->mailContact)->subject($this->mailSubject)->markdown('emails.orders.shipped');
+        //return $this->from($this->mailContact)->subject($this->mailSubject)->markdown('emails.orders.shipped');
         //return $this->from($contact['email'])->subject($contact['subject'])->view('emails.welcome');
         //return $this->subject($this->subject)->to($this->to)->view('emails.welcome');
 
         
-        //return $this->view('emails.welcome');
+        return $this->from('amine.brakni@gmail.com')->view('emails.orders.shipped');
         //return $this->subject('Hello there!')->view('emails.welcome');
         //return $this->from('amine.brakni@gmail.com')->view('emails.welcome');
     }

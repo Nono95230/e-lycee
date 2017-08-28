@@ -72,6 +72,17 @@ return [
                             'placeholder' => 'Indiquer votre commentaire'
         ],
         'submit_send'   => 'Envoyer'
+    ],
+    'comment'=>[
+        'title'         => [
+                            'label' => 'Titre',
+                            'placeholder' => 'Indiquer le titre de votre commentaire'
+        ],
+        'content'       =>[
+                            'label' => 'Commentaire',
+                            'placeholder' => 'Indiquer le contenu de votre commentaire'
+        ],
+        'submit_add'   => 'Poster le commentaire'
     ]
 
 ];

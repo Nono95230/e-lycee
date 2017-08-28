@@ -25,6 +25,7 @@ Route::get('/', 'FrontController@index')->name('home');
 
 Route::get('actualites', 'FrontController@actus')->name('actus');
 Route::get('actualite/{id}', 'FrontController@OneActu')->name('actu');
+Route::post('actualite/{id}/add/comment', 'FrontController@addComment')->name('add.comment');
 Route::get('le-lycee', 'FrontController@presentationLycee')->name('le-lycee');
 Route::get('contact', 'FrontController@contact')->name('contact');
 Route::match(['post','from'],'contact/send', 'FrontController@sendContactMessage')->name('contact.send');

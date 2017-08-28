@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
 use App\User;
 use App\Http\Requests\ContactRequest;
+use App\Http\Requests\CommentRequest;
 
 use Mail;
 use App\Mail\OrderShipped;
@@ -60,6 +61,11 @@ class FrontController extends Controller
 
         ]);
 
+    }
+
+    public function addComment($id, CommentRequest $request, PostRepository $repository) {
+
+        return redirect()->route('actu',$id)->with('message', $repository->addComment($id,$request));
     }
 
     public function presentationLycee() {

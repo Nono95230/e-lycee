@@ -18,7 +18,6 @@ class Comment extends Model
     protected $fillable = [
         'title',
         'content',
-        'user_id',
         'post_id'
     ];
 
@@ -38,9 +37,8 @@ class Comment extends Model
         return $this->belongsTo('App\Post');
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
+    public function setPostId($value){
+        $this->attributes['post_id'] = $value;
     }
 
 }

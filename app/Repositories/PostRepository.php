@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use DB;
 use App\Post;
+use App\Comment;
 
 
 class PostRepository
@@ -47,7 +48,19 @@ class PostRepository
     {
         return $this->post->findOrFail($value);
     }
+    public function addCOmment($id,$request){
 
+        $request->offsetUnset('_token');
+        $comment = Comment::create($request->all());
+        $comment->setPostId($id);
+        $comment->save();
+
+        $message = [
+            'success',
+            sprintf('Merci d\'avoir ajouter un commentaire à cet Article !')
+        ];
+        return $message;
+    }
 
 
     /*

@@ -22,7 +22,7 @@ class QuestionPolicy
 
     public function before(User $user, $ability)
     {
-        if( $user->isTeacher() ) return true;
+        return $user->isTeacher();
     }
 
     /**

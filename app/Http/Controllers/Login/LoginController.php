@@ -24,15 +24,20 @@ class LoginController extends Controller
 			if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
 
 				$userName = Auth::user()->username;
+				$userRole = Auth::user()->role;
 
 				$message = [
 					'success',
 					sprintf('Bienvenue %s',$userName)
 				];
-				session()->flash('message', $message); // enregistrer en variable de session
+				session()->flash('message', $message);
 
-				return redirect()->intended('member/dashboard'); // redirection propre au niveau de la sécurité
-
+				//Redirection selon le role
+				if ($userRole === 'teacher') {
+					return redirect()->intended('member/dashboard');
+				} else {
+					return redirect()->intended('student/dashboard');
+				}
 
 			}
 

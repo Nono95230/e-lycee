@@ -103,7 +103,7 @@
                 <div class="panel-heading">
                     <h3>Gestion des articles</h3>
                     <div class="entityCountContainer">
-                        <span class="entityCount">{{ count($postsRecent) }}</span>
+                        <span class="entityCount">{{ $countPosts }}</span>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -127,7 +127,7 @@
                 <div class="panel-heading">
                     <h3>Gestion des QCM</h3>
                     <div class="entityCountContainer">
-                        <span class="entityCount">{{ count($qcmsRecent) }}</span>
+                        <span class="entityCount">{{ $countQcms }}</span>
                     </div>
                     
                 </div>

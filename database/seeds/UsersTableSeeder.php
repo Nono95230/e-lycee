@@ -82,7 +82,7 @@ class UsersTableSeeder extends Seeder
 	        ]
 		];
 
-		$all_user = array();
+		$allUser = array();
 
 
 		foreach ($users as $key => $value) {
@@ -95,13 +95,11 @@ class UsersTableSeeder extends Seeder
 		        	"password"=>password_hash(strtolower($value[$i]['username']), PASSWORD_DEFAULT),
 		        	"role"=> $key
 		        	];
-		        array_push($all_user, $thisUser);
+		        array_push($allUser, $thisUser);
 			}
 		}
 
-		//echo '<pre>'.print_r($all_user,1).'</pre>';
 
-
-        DB::table('users')->insert($all_user);
+        DB::table('users')->insert($allUser);
     }
 }

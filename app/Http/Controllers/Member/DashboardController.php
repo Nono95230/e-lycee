@@ -13,13 +13,15 @@ class DashboardController extends Controller
 
         $dashboard = $repository->getDashboard();
 
-        return view('back.dashboard',
-         ['title'       => 'Dashboard',
-         'postsRecent'  => $dashboard['postsRecent'],
-         'qcmsRecent'   => $dashboard['qcmsRecent'],
-         'statComments' => $dashboard['statComments'],
-         'statQcms'     => $dashboard['statQcms'],
-         'statEleves'   => $dashboard['statEleves']
-         ]);
+        return view('back.dashboard',[
+            'title'         => 'Dashboard',
+            'postsRecent'   => $dashboard['postsRecent'],
+            'countPosts'    => $dashboard['countPosts'],
+            'qcmsRecent'    => $dashboard['qcmsRecent'],
+            'countQcms'     => $dashboard['countQcms'],
+            'statComments'  => $dashboard['statComments'],
+            'statQcms'      => $dashboard['statQcms'],
+            'statEleves'    => $dashboard['statEleves']
+        ]);
     }
 }

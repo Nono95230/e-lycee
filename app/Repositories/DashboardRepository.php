@@ -24,6 +24,9 @@ class DashboardRepository{
             ->orderBy('created_at', 'DESC')
             ->limit(3)
             ->get();
+
+        // requête pour le nombre de posts
+        $dashboard['countPosts'] = count(DB::table('posts')->get());
         
         // requête pour les qcms les plus récents
         $dashboard['qcmsRecent'] = DB::table('qcms')
@@ -31,6 +34,9 @@ class DashboardRepository{
             ->orderBy('created_at', 'DESC')
             ->limit(3)
             ->get();
+        
+        // requête pour le nombre de posts
+        $dashboard['countQcms'] = count(DB::table('qcms')->get());
         
         // Requête pour le nombre total de commentaire
         $dashboard['statComments'] = DB::table('comments')->count();

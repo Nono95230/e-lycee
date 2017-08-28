@@ -19,34 +19,34 @@ class FrontController extends Controller
 
     public function __construct(Request $request){
         
-        // $this->takeUser();
+        $this->takeUser();
         // $this->mg = new Mailgun("key-c772ec065d3ef77d613edd890eb342fc");
         // $this->domain = "sandbox79b4521bedeb4ea6819772e60afd970f.mailgun.org";
         
 
     }
     
-    public function index(PostRepository $post) {
+    public function index(PostRepository $repository) {
         
         return view('front.home', [
             'title' => 'Accueil',
-            'posts' => $post->getBestActus() 
+            'posts' => $repository->getBestActus() 
         ]);
 
     }
 
-    public function actus(PostRepository $post) {
+    public function actus(PostRepository $repository) {
 
         return view('front.actus-all', [
             'title' => 'Nos actualités',
-            'posts' => $post->getAllActus()
+            'posts' => $repository->getAllActus()
         ]);
 
     }
 
-    public function OneActu(PostRepository $post, $id) {
+    public function OneActu(PostRepository $repository, $id) {
         
-        $post = $post->getOneActu($id);
+        $post = $repository->getOneActu($id);
 
         return view('front.actu-one', [
             'title'         => 'Actualité',

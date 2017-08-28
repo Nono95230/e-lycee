@@ -6,8 +6,19 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+//use App\Http\Controllers\Member\UserMember;
+
 class Handler extends ExceptionHandler
 {
+
+    /*use UserMember;
+
+    public function __construct(){
+        
+        $this->takeUser();
+
+    }*/
+    
     /**
      * A list of the exception types that should not be reported.
      *

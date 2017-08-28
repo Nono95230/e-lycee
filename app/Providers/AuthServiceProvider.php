@@ -23,7 +23,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'App\Model' => 'App\Policies\ModelPolicy',
         Post::class  => PostPolicy::class,
         Qcm::class  => QcmPolicy::class,
         Question::class  => QuestionPolicy::class

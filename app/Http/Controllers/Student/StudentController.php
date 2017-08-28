@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Controllers\Member\UserMember;
+use App\Http\Traits\UserMemberTrait;
 
 use App\Repositories\StudentRepository;
 
@@ -14,7 +14,7 @@ use Auth;
 class StudentController extends Controller
 {
 
-    use UserMember;
+    use UserMemberTrait;
 
     public function __construct(Request $request)
     {

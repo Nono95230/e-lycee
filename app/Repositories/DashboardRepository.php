@@ -4,12 +4,14 @@ namespace App\Repositories;
 
 use DB;
 use App\User;
-use  App\Http\Controllers\Member\UserMember;
+use  App\Http\Controllers\Teacher\UserMember;
 use Illuminate\Http\Request;
+
+use App\Http\Traits\UserMemberTrait;
 
 class DashboardRepository{
 
-    use  UserMember;
+    use  UserMemberTrait;
 
     public function __construct(Request $request)
     {

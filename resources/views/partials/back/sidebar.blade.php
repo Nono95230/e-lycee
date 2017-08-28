@@ -4,13 +4,13 @@
 	<div id="menu-sidebar" class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav side-nav">
 	    	@if($user->isTeacher())
-		        <li class="{{ Request::is('member/dashboard') ? 'active' : '' }}">
+		        <li class="{{ Request::is('teacher/dashboard') ? 'active' : '' }}">
 		            <a href="{{ route('dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Dashboard</a>
 		        </li>
-		        <li class="{{ Request::is('member/qcm') ? 'active' : '' }}" >
+		        <li class="{{ Request::is('teacher/qcm') ? 'active' : '' }}" >
 		            <a href="{{route ('qcm.index')}}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack "></i> Qcm</a>
 		        </li>
-		        <li class="{{ Request::is('member/post') ? 'active' : '' }}" >
+		        <li class="{{ Request::is('teacher/post') ? 'active' : '' }}" >
 		            <a href="{{ route('post.index') }}"><i style="transform: rotate(45deg);" class="fa fa-fw fa-2x fa-thumb-tack"></i> Articles</a>
 		        </li>
 	        @elseif($user->isFinalClass() || $user->isFirstClass())

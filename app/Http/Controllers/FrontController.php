@@ -11,11 +11,11 @@ use App\Http\Requests\ContactRequest;
 
 use Mail;
 use App\Mail\OrderShipped;
-
+use App\Http\Traits\UserMemberTrait;
 
 class FrontController extends Controller
 {
-    use Member\UserMember;
+    use UserMemberTrait;
 
     public function __construct(Request $request){
         

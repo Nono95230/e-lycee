@@ -6,12 +6,12 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-//use App\Http\Controllers\Member\UserMember;
+//use App\Http\Traits\UserMemberTrait;
 
 class Handler extends ExceptionHandler
 {
 
-    /*use UserMember;
+    /*use UserMemberTrait;
 
     public function __construct(){
         

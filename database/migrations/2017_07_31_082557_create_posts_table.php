@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('title', 130)->unique();
             $table->text('abstract');
             $table->text('content');
-            $table->string('url_thumbnail', 100);
-            $table->enum('status', ['published', 'unpublished']);
+            $table->string('url_thumbnail', 191);
+            $table->enum('status', ['published', 'unpublished'])->default('unpublished');
             $table->dateTime('published_at')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();

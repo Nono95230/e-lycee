@@ -14,6 +14,9 @@ use App\Policies\QcmPolicy;
 use App\Question;
 use App\Policies\QuestionPolicy;
 
+use App\User;
+use App\Policies\DashboardPolicy;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,7 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Post::class  => PostPolicy::class,
         Qcm::class  => QcmPolicy::class,
-        Question::class  => QuestionPolicy::class
+        Question::class  => QuestionPolicy::class,
+        User::class  => DashboardPolicy::class
     ];
 
     /**

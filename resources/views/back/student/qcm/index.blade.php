@@ -15,7 +15,7 @@
 	<!-- Title -->
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8 text-center">
-			<h1>{{ $title }}</h1>
+			<h1>{{ $title }} - Niveau {{ ($userRole === 'premiere')? 'Première':'Terminale' }}</h1>
 		</div>
 		<div class="col-md-2">
 			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('qcm.create')}}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> Ajouter un QCM</a>
@@ -71,12 +71,15 @@
 					<td><a href="{{ route('student.qcm.respond', $qcm ) }}">{{ $qcm->title }}</a></td>
 				@endif
 				<td>{{ $qcm->questions->count() }}</td>
-				<td>Mettre score si existe</td>
 				@if($qcm->scores->where('user_id',$userId)->count() > 0)
+					<td>{{ $qcm->scores->where('user_id',$userId)[0]->note }}</td>
 					<td>
 						<span class="element-status green" title="Fait"></span>
 					</td>
 				@else
+					<td>
+						<a href="{{ route('student.qcm.respond', $qcm ) }}">Débloquer</a>
+					</td>
 					<td>
 						<span class="element-status red" title="Pas fait"></span>
 					</td>

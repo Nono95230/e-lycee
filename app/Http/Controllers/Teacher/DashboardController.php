@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\DashboardRepository;
+use App\User;
 
 
 class DashboardController extends Controller
 {
 
     public function index(DashboardRepository $repository) {
+
+        $this->authorize('teacher', User::class);
 
         $dashboard = $repository->getDashboard();
 

@@ -14,7 +14,8 @@
 
 @section('content')
 
-    <!-- Title -->
+    @include('partials.flash-message')
+    
     <div class="page-title">
       <h1>{{ $title}}</h1>
     </div>

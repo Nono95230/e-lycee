@@ -12,6 +12,7 @@ use App\Repositories\StudentRepository;
 use App\Http\Requests\StudentQcmRequest;
 use Auth;
 use App\Qcm;
+use App\User;
 
 class StudentController extends Controller
 {
@@ -26,11 +27,15 @@ class StudentController extends Controller
 
     public function index() {
 
+        $this->authorize('student', User::class);
+
         return view('back.student.dashboard',['title'=>'Dashboard Elèves']);
 
     }
 
     public function qcmIndex(Request $request, StudentRepository $repository) {
+
+        $this->authorize('student', User::class);
 
         $indexQcm = $repository->getQcmForRole($request->perPage);
 
@@ -38,12 +43,15 @@ class StudentController extends Controller
             'title'=>'Qcm Elèves',
             'qcms'=> $indexQcm['qcms'],
             'perPage'=>$indexQcm['perPage'],
-            'userId' =>$indexQcm['userId']
+            'userId' =>$indexQcm['userId'],
+            'userRole' =>$indexQcm['userRole']
         ]);
 
     }
 
     public function qcmRespond(Qcm $qcm, StudentRepository $repository) {
+
+        $this->authorize('student', User::class);
 
         $qcmRespond = $repository->qcmRespond($qcm);
 
@@ -58,7 +66,8 @@ class StudentController extends Controller
 
     public function qcmCalculateScore(Qcm $qcm, StudentQcmRequest $request, StudentRepository $repository) {
 
-        //dd($qcm->questions);
+        $this->authorize('student', User::class);
+        
         $score = $repository->qcmCalculateScore($qcm, $request);
         $getResponse = $repository->createScore($score, $qcm);
         

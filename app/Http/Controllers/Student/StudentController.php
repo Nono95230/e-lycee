@@ -49,11 +49,11 @@ class StudentController extends Controller
         $indexQcm = $repository->getQcmForRole($request->perPage);
 
         return view('back.student.qcm.index',[
-            'title'=>'Qcm Elèves',
-            'qcms'=> $indexQcm['qcms'],
-            'perPage'=>$indexQcm['perPage'],
-            'userId' =>$indexQcm['userId'],
-            'userRole' =>$indexQcm['userRole']
+            'title'     =>'Qcm Elèves',
+            'qcms'      => $indexQcm['qcms'],
+            'perPage'   => $indexQcm['perPage'],
+            'userId'    => $indexQcm['userId'],
+            'userRole'  => $indexQcm['userRole']
         ]);
 
     }
@@ -68,7 +68,8 @@ class StudentController extends Controller
             'title'         => 'QCM',
             'qcm'           => $qcm,
             'qcmTitle'      => $qcmRespond['qcmTitle'],
-            'qcmQuestion'   => $qcmRespond['qcmQuestion']
+            'qcmQuestion'   => $qcmRespond['qcmQuestion'],
+            'userRole'      => $qcmRespond['userRole']
         ]);
 
     }

@@ -15,7 +15,7 @@
 	<!-- Title -->
 	<div class="row">
 		<div class="col-xs-8">
-			<h1>{{ $title}}</h1>
+			<h1>{{ $title}} - Niveau {{ ($userRole === 'premiere')? 'Première':'Terminale' }}</h1>
 		</div>
 		<div class="col-xs-4">
 			<a id="btn-return" type="button" class="btn btn-success pull-right" href="{{route('student.qcm.index')}}"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i>

@@ -22,9 +22,15 @@
                             <li id="user-info" class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-2x fa-user"></i> Bonjour {{ $user->username }}<b class="caret"></b></a>
                                 <ul class="dropdown-menu collapse">
-                                    <li>
-                                        <a href="{{ route('dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Tableau de bord</a>
-                                    </li>
+                                    @if($user->isTeacher())
+                                        <li>
+                                            <a href="{{ route('dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Tableau de bord</a>
+                                        </li>
+                                    @elseif($user->isFinalClass() || $user->isFirstClass())
+                                        <li>
+                                            <a href="{{ route('student.dashboard') }}"><i class="fa fa-fw fa-2x fa-dashboard"></i> Tableau de bord</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{route('logout')}}"><i class="fa fa-fw fa-2x fa-power-off"></i> Log Out</a>
                                     </li>

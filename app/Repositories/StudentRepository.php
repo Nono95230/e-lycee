@@ -76,7 +76,14 @@ class StudentRepository
         $qcmTitle = $qcm->title;
         $qcmQuestion = $qcm->questions;
 
-        return ['qcmTitle'=> $qcmTitle,'qcmQuestion'=> $qcmQuestion];
+        $userRole = Auth::user()->role;
+        if ( Auth::user()->role === 'first_class' ) {
+            $userRole = 'premiere';
+        } elseif( Auth::user()->role === 'final_class' ){
+            $userRole = 'terminale';
+        }
+        
+        return ['qcmTitle'=> $qcmTitle,'qcmQuestion'=> $qcmQuestion,'userRole'=>$userRole];
     }
 
     public function qcmCalculateScore($qcm, $request)

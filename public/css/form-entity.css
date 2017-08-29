@@ -1,0 +1,25 @@
+
+/*
+* CSS REGION - CONTENT_TOP
+*/
+#btn-add,
+#btn-return{
+    margin-top:22px;
+}
+.content_second{
+    min-height:80px;
+}
+#flash-message{
+    margin-bottom:10px;
+}
+
+/*
+* CSS REGION - CONTENT
+*/
+.modal-title{
+        display: inline-block;
+}
+
+textarea {
+    resize: vertical; /* user can resize vertically, but width is fixed */
+}

@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\PostRepository;
-use App\User;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\CommentRequest;
 
-use Mail;
-use App\Mail\OrderShipped;
+use App\Repositories\PostRepository;
+use App\Repositories\ContactRepository;
+
+use App\User;
 use App\Http\Traits\UserMemberTrait;
 
 class FrontController extends Controller
@@ -21,9 +21,6 @@ class FrontController extends Controller
     public function __construct(Request $request){
         
         $this->takeUser();
-        // $this->mg = new Mailgun("key-c772ec065d3ef77d613edd890eb342fc");
-        // $this->domain = "sandbox79b4521bedeb4ea6819772e60afd970f.mailgun.org";
-        
 
     }
     
@@ -80,36 +77,16 @@ class FrontController extends Controller
 
     }
 
-    public function sendContactMessage(ContactRequest $request){
+    /**
+     * Récupère les infos saisies et valide les données, puis et envoie un mail au propriétaire du site
+     *
+     * @param ContactRequest $request => it's use for get data and validate them
+     * @param ContactRepository $repository => for controller traitement
+     * @return redirect on route home with message in Session
+    */
+    public function sendContactMessage(ContactRequest $request, ContactRepository $repository){
 
-        // $param = array( 'from' => 'JOKER <kilua.huntersx@hotmail.fr>',
-        //             'to'       => 'amine.brakni@gmail.com',
-        //            'subject' => 'premier test',
-        //             'text'    => 'test 1');
-        //             //text peut être remplacer par html si systeme de templating
-
-        // $this->mg->sendMessage($this->domain, $param);
-        $param =[];
-        $param['mailDestinataire']  = env('MAIL_FROM_ADDRESS');
-        $param['nameDestinataire']  = env('MAIL_FROM_NAME');
-        $param['mailContact']       = $request->email;
-        $param['mailSubject']       = $request->subject;
-        $param['mailContent']       = $request->commentaire;
-        $param['mailDate']          = date('\E\n\v\o\y\é \l\e Y-m-d \à H:i:s');
-        //dd($param);
-        Mail::to('amine.brakni@gmail.com')->send(new OrderShipped($param));
-        // $data = [
-        //     'email' => $request->email,
-        //     'subject' => $request->subject,
-        //     'commentaire' => $request->commentaire
-        // ];
-        // Mailgun::send('emails.orders.shipped', $data, function ($message) {
-        //     $message
-        //         ->subject('test')
-        //         ->from('email@gmail.com')
-        //         ->to('amine.brakni@gmail.com', 'John Doe');
-        // });
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message',$repository->sendContactMessage($request));
 
     }
 

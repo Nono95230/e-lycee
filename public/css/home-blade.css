@@ -1,0 +1,21 @@
+.panel-heading{
+    padding:0;
+}
+.panel-heading img{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.inline{
+    display: inline-block;
+}
+.panel-footer p{
+    margin: 0;
+}
+.panel-title{
+    margin-bottom:10px;
+    font-size:30px;
+}
+.comment_nb{
+    margin:10px 0 0;
+    text-align:right;
+}

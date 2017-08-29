@@ -4,81 +4,8 @@
 
 
 @section('stylesheet')
-	
-	<style>
-		/*
-		 * CSS TABLEAU
-		 */
-		table,th{
-		  text-align:center;
-		}
-		table thead tr th:first-child,
-		table tbody tr td:first-child,
-		table thead tr th:nth-child(2),
-		table tbody tr td:nth-child(2){
-		  text-align:left;
-		}
-		table thead tr th:last-child,
-		table tbody tr td:last-child{
-		  text-align:right;
-		}
-
-        .element-status{
-            display:inline-block;
-            width:15px;
-            height:15px;
-            cursor:pointer;
-        }
-        .green{
-            background-color:green;
-        }
-        .red{
-            background-color:red;
-        }
-
-
-		/*
-		 * CSS REGION - CONTENT_TOP
-		 */
-		#btn-add,
-		#btn-return{
-			margin-top:22px;
-		}
-		.content_second{
-			min-height:80px;
-		}
-		#flash-message{
-			margin-bottom:10px;
-		}
-		#perpage{
-			padding-left:8px;
-		}
-		#total{
-			padding-right:8px;
-		}
-		.pagination .per_page_title,
-		.pagination .total{
-			padding:6px 12px;
-			text-align: center;
-			border-top-left-radius:4px;
-			border-top-right-radius:4px;
-		}
-		.pagination .total{
-			border-bottom-left-radius:4px;
-			border-bottom-right-radius:4px;
-		}
-		.pagination#perpage li a{
-		  	margin-left:0;
-		}
-		.pagination#perpage li.first a{
-			border-top-left-radius:0px;
-			border-bottom-left-radius:4px;
-		}
-		.pagination#perpage li:last-child a{
-			border-top-right-radius:0px;
-		}
-
-	</style>
+	<!-- Pagination Student Style-->
+    <link href="{{ url('css/student-index.css')}}" rel="stylesheet">
 
 @endsection
 
@@ -167,9 +94,4 @@
 
 
 @section('javascript')
-
-    <script type="text/javascript">
-		
-    </script>
-
 @endsection

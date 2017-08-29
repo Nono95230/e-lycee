@@ -25,21 +25,23 @@
           <button class="btn btn-info" onClick="useThisRole('Alfred')">Utiliser ces informations de connexion</button>
         </div>
     </div>
+
+  @parent()
 @endsection
 
 @section('style')
   <style >
-  #form-login .help-block{
-  	margin-bottom:5px;
-  }
-  #form-login .form-group,
-  #form-login p{
-  	margin-bottom:0;
-  }
-  #form-login .checkbox{
-  	margin-top:0;
-  	text-align: center;
-  }
+    #form-login .help-block{
+      margin-bottom:5px;
+    }
+    #form-login .form-group,
+    #form-login p{
+      margin-bottom:0;
+    }
+    #form-login .checkbox{
+      margin-top:0;
+      text-align: center;
+    }
   </style>
 @endsection
 

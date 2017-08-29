@@ -7,9 +7,6 @@
 @endsection
 
 @section('stylesheet')
-    <style>
-    
-    </style>
 @endsection
 
 @section('content')
@@ -55,7 +52,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 text-center">
                 {!! Form::submitMacro(
 						'send',
 						'contact'
@@ -69,12 +66,6 @@
 @endsection
 
 @section('javascript')
-
-    <script type="text/javascript">
-
-
-    </script>
-
 @endsection
 
 

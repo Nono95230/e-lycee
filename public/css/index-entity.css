@@ -1,0 +1,78 @@
+
+/*
+* CSS TABLEAU
+*/
+table,th{
+    text-align:center;
+}
+table thead tr th:first-child,
+table tbody tr td:first-child,
+table thead tr th:nth-child(2),
+table tbody tr td:nth-child(2){
+    text-align:left;
+}
+table thead tr th:last-child,
+table tbody tr td:last-child{
+    text-align:right;
+}
+
+table thead tr th:last-child{
+    padding-right:calc(82px + 8px);
+}
+
+
+/*
+* CSS BTN PUBLISH
+*/
+.modal{
+    text-align: center
+}
+.modal-title{
+    display: inline-block;
+    width:95%;
+}
+.make-switch{
+    display: inline-block;
+}
+
+
+/*
+    * CSS REGION - CONTENT_TOP
+    */
+#btn-add,
+#btn-return{
+    margin-top:22px;
+}
+.content_second{
+    min-height:80px;
+}
+#flash-message{
+    margin-bottom:10px;
+}
+#perpage{
+    padding-left:8px;
+}
+#total{
+    padding-right:8px;
+}
+.pagination .per_page_title,
+.pagination .total{
+    padding:6px 12px;
+    text-align: center;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+}
+.pagination .total{
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+}
+.pagination#perpage li a{
+    margin-left:0;
+}
+.pagination#perpage li.first a{
+    border-top-left-radius:0px;
+    border-bottom-left-radius:4px;
+}
+.pagination#perpage li:last-child a{
+    border-top-right-radius:0px;
+}

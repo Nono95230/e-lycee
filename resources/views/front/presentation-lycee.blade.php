@@ -7,40 +7,15 @@
 @endsection
 
 @section('stylesheet')
-    <style>
-    p{
-        text-align:justify;
-    }
-    h4{
-        text-align:right;
-    }
-    img{
-        width:100%;
-    }
-    @media screen and (max-width: 375px) {
-        h1 {
-            font-size:23px;
-        }
-        h3{
-            font-size:19px;
-        }
-        h4{
-            font-size:16px;
-        }
-    }
-
-    </style>
+    <!-- CSS Présentation Lycée -->
+    <link href="{{ url('css/presentation-lycee.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
-    <!-- Title -->
-    <!--<h1>{{ $title}}</h1>-->
-
 <h1>Un établissement de tradition d'excellence d'ouverture et d'innovation</h1>
 
 <div>
-    <!--e-lycee/resources/assets/images/lycee.jpg -->
-    <img src="http://localhost:8888/e-lycee/resources/assets/images/lycee.jpg" alt="Notre lycée">
+    <img src="{{ url('image-site/lycee.jpg')}}" alt="Photo de notre lycée" title="Notre lycée">
 </div>
 <div>
     <h3>Un site lié à l'histoire de France et à celle de l'Université de Paris</h3>
@@ -87,10 +62,4 @@
 @endsection
 
 @section('javascript')
-
-    <script type="text/javascript">
-
-
-    </script>
-
 @endsection

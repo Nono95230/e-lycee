@@ -1,0 +1,41 @@
+/*
+* CSS REGION - CONTENT_TOP
+*/
+#btn-add,
+#btn-return{
+    margin-top:22px;
+}
+.content_second{
+    min-height:80px;
+}
+#flash-message{
+    margin-bottom:10px;
+}
+
+textarea {
+    resize: vertical; /* user can resize vertically, but width is fixed */
+}
+.modal-body{
+    text-align:center;
+}
+.modal-body p{
+    margin:0;
+}
+
+.note-action{
+    clear:left;
+    text-align:left;
+    padding:15px 15px 0;
+}
+.note-action p{
+    margin:0;
+    display: inline-block;
+    vertical-align: top;
+}
+.note-action p:first-child{
+    width:50px;
+    text-decoration:underline;
+}
+.note-action p{
+    width:calc(100% - 55px);
+}

@@ -1,0 +1,67 @@
+/*
+* CSS FOR EACH ELEMENT
+*/
+.element-title{
+    display:inline-block;
+    width:calc(100% - 20px);
+}
+#manage-posts ul,
+#manage-qcms ul,
+#statistiques ul{
+    list-style-type:none;
+    padding-left:20px;
+}
+.element-status{
+    display:inline-block;
+    width:15px;
+    height:15px;
+    cursor:pointer;
+}
+.green{
+    background-color:green;
+}
+.red{
+    background-color:red;
+}
+
+.element-stat i,
+.element-stat span{
+    margin:0 0 15px;
+    display:inline-block;
+    vertical-align:top;
+}
+#manage-posts .panel-heading h3,
+#manage-qcms .panel-heading h3{
+    margin:10px 0;
+    width:calc(100% - 40px);
+}
+
+@media (max-width: 991px) {
+    #manage-posts .panel-heading h3,
+    #manage-qcms .panel-heading h3{
+        text-align:center;
+    }
+}
+.panel-heading{
+    position:relative;
+}
+.panel-heading .entityCountContainer{
+    position:absolute;
+    top:-15px;
+    right:-15px;
+    width: 70px;
+    height:65px;
+    border-radius:50%;
+    background-color: white;
+}
+.panel-heading .entityCount{/*#23527c;#337ab7;foncé;clair;*/
+    width: 50px;
+    height:auto;
+    position: absolute;
+    top:20px;
+    right:16px;
+    color:#337ab7;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
+}

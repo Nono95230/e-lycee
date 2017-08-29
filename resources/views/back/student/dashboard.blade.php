@@ -4,11 +4,7 @@
 
 
 @section('stylesheet')
-    
-    <style>
-      
-        
-    </style>
+
 
 @endsection
 
@@ -32,10 +28,5 @@
 
 @section('javascript')
 
-    <script type="text/javascript">
-        
-       
-
-    </script>
 
 @endsection

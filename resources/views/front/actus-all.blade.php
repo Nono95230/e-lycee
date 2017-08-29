@@ -7,29 +7,8 @@
 @endsection
 
 @section('stylesheet')
-    <style>
-      .panel-heading{
-        padding:0;
-      }
-      .panel-heading img{
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-      }
-      .inline{
-        display: inline-block;
-      }
-      .panel-footer p{
-        margin: 0;
-      }
-      .panel-title{
-        margin-bottom:10px;
-        font-size:30px;
-      }
-      .post-pagination{
-        text-align:center;
-      }
-      
-    </style>
+    <!-- CSS Actu -->
+    <link href="{{ url('css/actu-all-blade.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -63,9 +42,5 @@
 
 @section('javascript')
 
-    <script type="text/javascript">
-
-
-    </script>
 
 @endsection

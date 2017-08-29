@@ -23,6 +23,7 @@ class StudentRepository
     public function getQcmForRole($perPage)
     {
         $userId = Auth::user()->id;
+        $userRole = Auth::user()->role;
         if ( Auth::user()->role === 'first_class' ) {
             $userRole = 'premiere';
         } elseif( Auth::user()->role === 'final_class' ){
@@ -35,7 +36,7 @@ class StudentRepository
         
         $qcms = $this->qcm->where('qcms.status', "published")->where('qcms.class_level', $userRole)->orderBy('created_at', "DESC")->paginate(10);
 
-        return ['qcms'=> $qcms,'perPage'=> $perPage,'userId'=>$userId];
+        return ['qcms'=> $qcms,'perPage'=> $perPage,'userId'=>$userId,'userRole'=>$userRole];
     }
 
     public function qcmRespond($qcm)
@@ -85,6 +86,7 @@ class StudentRepository
             'success',
             'Félicitations ! Vous avez terminé ce qcm. Votre score est de '.$score.' sur '.count($qcm->questions)
         ];
+
         return $message;
 
     }

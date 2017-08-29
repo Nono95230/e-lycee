@@ -38,7 +38,8 @@ class StudentController extends Controller
             'title'=>'Qcm Elèves',
             'qcms'=> $indexQcm['qcms'],
             'perPage'=>$indexQcm['perPage'],
-            'userId' =>$indexQcm['userId']
+            'userId' =>$indexQcm['userId'],
+            'userRole' =>$indexQcm['userRole']
         ]);
 
     }

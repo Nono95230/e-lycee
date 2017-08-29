@@ -73,7 +73,11 @@
 @endsection
 
 @section('javascript')
+
     <!-- BTN publish script -->
     <script src="{{ url('js/btn-publish.js')}}"></script>
+
+    <!-- Page JavaScript -->
+    <script src="{{ url('js/teacher-add-post.js')}}"></script>
 
 @endsection

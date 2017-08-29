@@ -75,19 +75,7 @@
 
 @section('javascript')
 
-    <script type="text/javascript">
-
-        function fadeComment(){
-            var state = $('#formAddComment').css('display');
-
-            if (state === 'none') {
-                $('#formAddComment').fadeIn('slow');
-            }
-            else if(state === 'block'){
-                $('#formAddComment').fadeOut('slow');
-            }
-        }
-
-    </script>
+    <!-- Page JavaScript -->
+    <script src="{{ url('js/actu-one.js')}}"></script>
 
 @endsection

@@ -82,5 +82,7 @@
 
     <!-- BTN publish script -->
     <script src="{{ url('js/btn-publish.js')}}"></script>
+    <!-- Page JavaScript -->
+    <script src="{{ url('js/teacher-edit-post.js')}}"></script>
 
 @endsection

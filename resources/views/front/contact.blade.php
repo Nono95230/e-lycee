@@ -10,12 +10,12 @@
 @endsection
 
 @section('content')
-    <!-- Title -->
-    <h1>{{ $title}}</h1>
+    <div class="page-title">
+      <h1>{{ $title}}</h1>
+    </div>
     
-
     <form method="POST" action="{{route('contact.send')}}">
-    {{ csrf_field() }}
+        {{ csrf_field() }}
         <div class="row">
             <div class="col-md-12">
                 {!! Form::inputMacro(
@@ -66,6 +66,10 @@
 @endsection
 
 @section('javascript')
+
+    <!-- Page JavaScript -->
+    <script src="{{ url('js/contact.js')}}"></script>
+
 @endsection
 
 

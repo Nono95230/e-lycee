@@ -35,6 +35,7 @@ class ContactRequest extends FormRequest
     {
         return [
             'email.required'        => 'Ce champs ne peut être vide',
+            'email.email'           => 'Ce champs doit être un email valide',
             'email.min'             => 'Ce champs doit avoir au moins 10 caractères',
             'subject.required'      => 'Ce champs ne peut être vide',
             'subject.max'           => 'Ce champs ne doit dépasser 100 caractères',

@@ -21,15 +21,24 @@ class StudentController extends Controller
 
     public function __construct(Request $request)
     {
-
         $this->setUser();
     }
 
-    public function index() {
+    public function index(StudentRepository $repository) {
 
         $this->authorize('student', User::class);
 
-        return view('back.student.dashboard',['title'=>'Dashboard Elèves']);
+        $seeDashboard = $repository->getDashboard();
+
+        //dd($seeDashboard['scores']);
+        //dd($seeDashboard['qcms']);
+        return view('back.student.dashboard',[
+            'title'         =>'Tableau de Bord',
+            'totalScore'    => $seeDashboard['totalScore'],
+            'totalQuestion' => $seeDashboard['totalQuestion'],
+            'totalQcm'      => $seeDashboard['totalQcm'],
+            'isNewQcm'      => $seeDashboard['isNewQcm']
+            ]);
 
     }
 

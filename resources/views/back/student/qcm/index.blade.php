@@ -14,11 +14,11 @@
 <div class="content_first">
 	<!-- Title -->
 	<div class="row">
-		<div class="col-md-offset-2 col-md-8 text-center">
+		<div class="col-xs-12 col-md-8">
 			<h1>{{ $title }} - Niveau {{ ($userRole === 'premiere')? 'Première':'Terminale' }}</h1>
 		</div>
-		<div class="col-md-2">
-			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('qcm.create')}}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> Ajouter un QCM</a>
+		<div class="col-md-offset-2col-md-2">
+			<a id="btn-add" type="button" class="btn btn-success pull-right" href="{{route('student.dashboard')}}"><i class="fa fa-dashboard fa-fw" aria-hidden="true"></i> Retour au Dashboard</a>
 		</div>
 	</div>
 </div>
@@ -54,6 +54,7 @@
 		<tr>
 			<th>N°</th>
 			<th>Titre</th>
+			<th>En ligne depuis le</th>
 			<th>Nombre de questions</th>
 			<th>Votre score</th>
 			<th>État</th>
@@ -62,7 +63,7 @@
 	<tbody>
 
 		<?php $number=1; ?>
-		@foreach ($qcms as $qcm)
+		@foreach ($qcms as $key => $qcm)
 			<tr>
 				<td>{!! ( ( $qcms->currentPage() - 1 )*$qcms->perPage() )+ $number++ !!}</td>
 				@if( $qcm->scores->where('user_id',$userId)->count() > 0 )
@@ -70,9 +71,10 @@
 				@else
 					<td><a href="{{ route('student.qcm.respond', $qcm ) }}">{{ $qcm->title }}</a></td>
 				@endif
+				<td>{{ $qcm->created_at }}</td>
 				<td>{{ $qcm->questions->count() }}</td>
 				@if($qcm->scores->where('user_id',$userId)->count() > 0)
-					<td>{{ $qcm->scores->where('user_id',$userId)[0]->note }}</td>
+					<td>{{ $qcm->scores->where('user_id',$userId)->unique()[0]->note  }}</td>
 					<td>
 						<span class="element-status green" title="Fait"></span>
 					</td>

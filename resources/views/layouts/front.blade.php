@@ -20,7 +20,7 @@
     <link href="{{ url('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
     <!-- CSS Layout -->
-    <link href="{{ url('css/layout-front-blade.css')}}" rel="stylesheet">
+    <link href="{{ url('css/layout-front.css')}}" rel="stylesheet">
 
     @yield('stylesheet')
 </head>

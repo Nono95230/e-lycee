@@ -8,16 +8,48 @@ use App\Score;
 
 use Auth;
 
-
-
 class StudentRepository
 {
 
     protected $qcm;
+    protected $score;
 
-    public function __construct(Qcm $qcm)
+    public function __construct(Qcm $qcm, Score $score)
     {
-        $this->qcm = $qcm;
+        $this->qcm      = $qcm;
+        $this->score    = $score;
+    }
+
+    public function getDashboard(){
+
+        $userId = Auth::user()->id;
+        $scores = $this->score->where('user_id',$userId)->get();
+
+        $userRole = Auth::user()->role;
+        $classLevel = ( $userRole === 'first_class')? 'premiere':'terminale';
+        $allQcmPublished = $this->qcm->where('status', 'published' )->where('class_level', $classLevel )->get()->count();
+
+        $dashboard['totalScore']    = 0;
+        $dashboard['totalQcm']      = 0;
+        $dashboard['totalQuestion'] = 0;
+        $getAllIdQcms               = array();
+
+        foreach ($scores as $index => $score) {
+            $dashboard['totalQcm']++;
+            $dashboard['totalScore'] +=$score->note;
+            array_push($getAllIdQcms, $score->qcm_id);
+        }
+
+        $dashboard['isNewQcm'] = ($dashboard['totalQcm'] < $allQcmPublished)? true : false ;
+        
+        for ($i=0; $i < $dashboard['totalQcm']; $i++) { 
+            $qcms   = $this->qcm->where('id', $getAllIdQcms[$i] )->get();
+            foreach ($qcms as $index => $qcm) {
+                $dashboard['totalQuestion'] += $qcm->questions->count();
+            }
+        }
+        
+        return $dashboard;
     }
 
     public function getQcmForRole($perPage)

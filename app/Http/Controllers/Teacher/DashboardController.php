@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $dashboard = $repository->getDashboard();
 
         return view('back.teacher.dashboard',[
-            'title'         => 'Dashboard',
+            'title'         => 'Tableau de Bord',
             'postsRecent'   => $dashboard['postsRecent'],
             'countPosts'    => $dashboard['countPosts'],
             'qcmsRecent'    => $dashboard['qcmsRecent'],

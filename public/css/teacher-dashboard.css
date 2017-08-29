@@ -54,7 +54,7 @@
     border-radius:50%;
     background-color: white;
 }
-.panel-heading .entityCount{/*#23527c;#337ab7;foncé;clair;*/
+.panel-heading .entityCount{
     width: 50px;
     height:auto;
     position: absolute;

@@ -21,7 +21,6 @@ class QuestionController extends Controller
 {
     use UserMemberTrait;
 
-
     public function __construct(Request $request)
     {
 
@@ -31,7 +30,10 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request => it's use for get data and validate them
+     * @param Question $question => it's use for get data and validate them
+     * @param QuestionRepository $repository => for controller traitement
+     * @return view create question with qcm title and number of question
      */
     public function create(Request $request, Question $question, QuestionRepository $repository)
     {
@@ -48,6 +50,8 @@ class QuestionController extends Controller
     /**
      * Add a new question in the form for creating a new resource.
      *
+     * @param Request $request => it's use for get data and validate them
+     * @param QuestionRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function addQuestion(Request $request, QuestionRepository $repository)
@@ -61,6 +65,8 @@ class QuestionController extends Controller
     /**
      * Remove a question in the form for creating a new resource.
      *
+     * @param Request $request => it's use for get data and validate them
+     * @param QuestionRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function removeQuestion(Request $request, QuestionRepository $repository)
@@ -74,7 +80,8 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request => it's use for get data and validate them
+     * @param QuestionRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function store(QuestionRequest $request, QuestionRepository $repository)

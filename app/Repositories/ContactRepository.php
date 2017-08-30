@@ -13,7 +13,7 @@ class ContactRepository{
      * Sert à envoyer un mail au propriétaire du site
      *
      * @param Request $request
-     * @return message in Session
+     * @return message in Session $message
     */
     public function sendContactMessage($request){
 
@@ -35,8 +35,6 @@ class ContactRepository{
         
         return $message;
     }
-
-
 }
 
 

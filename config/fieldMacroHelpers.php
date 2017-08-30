@@ -1,5 +1,5 @@
 <?php
-
+// retourne les noms des champs des formulaires en fonction des différentes macro tel qu'article, qcm , question, contact, commentaire
 return [
     'post' => [
         'title'         => [

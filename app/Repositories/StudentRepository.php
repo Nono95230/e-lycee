@@ -20,6 +20,11 @@ class StudentRepository
         $this->score    = $score;
     }
 
+    /**
+     * Sert à récupérer les statistiques ( QCM en cours, nombre de QCM, score)
+     *
+     * @return value in Session $dashboard
+    */
     public function getDashboard(){
 
         $userId = Auth::user()->id;
@@ -51,7 +56,12 @@ class StudentRepository
         
         return $dashboard;
     }
-
+    
+    /**
+     * permet d'afficher le dashboard avec le role de l'élève ainsi que la pagination
+     *
+     * @return array value in Session 
+    */
     public function getQcmForRole($perPage)
     {
         $userId = Auth::user()->id;
@@ -71,6 +81,11 @@ class StudentRepository
         return ['qcms'=> $qcms,'perPage'=> $perPage,'userId'=>$userId,'userRole'=>$userRole];
     }
 
+    /**
+     * Affiche le QCM en fonction du niveau de l'élève
+     *
+     * @return array value in Session 
+    */
     public function qcmRespond($qcm)
     {
         $qcmTitle = $qcm->title;
@@ -86,6 +101,11 @@ class StudentRepository
         return ['qcmTitle'=> $qcmTitle,'qcmQuestion'=> $qcmQuestion,'userRole'=>$userRole];
     }
 
+    /**
+     * Permet de de calculer et de récupérer le score 
+     *
+     * @return value in Session $dashboard
+    */
     public function qcmCalculateScore($qcm, $request)
     {
 
@@ -111,6 +131,11 @@ class StudentRepository
         return $score;
     }
 
+    /**
+     * Permet de sauvegarder le score 
+     *
+     * @return value in Session $message
+    */
     public function createScore($score,$qcm)
     {
         $newScore = new Score;

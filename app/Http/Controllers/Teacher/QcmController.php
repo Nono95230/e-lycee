@@ -25,7 +25,8 @@ class QcmController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @param Request $request => it's use for get data and validate them
+     * @param QcmRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, QcmRepository $repository)
@@ -45,7 +46,8 @@ class QcmController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * 
+     * @param Qcm $qcm => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function create(Qcm $qcm)
@@ -60,7 +62,8 @@ class QcmController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param QcmRequest $request => it's use for get data and validate them
+     * @param QcmRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function store(QcmRequest $request, QcmRepository $repository)
@@ -84,7 +87,7 @@ class QcmController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Qcm $qcm
      * @return \Illuminate\Http\Response
      */
     public function edit(Qcm $qcm)
@@ -101,8 +104,9 @@ class QcmController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Qcm $qcm
+     * @param Request $request => it's use for get data and validate them
+     * @param QcmRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function update(Qcm $qcm, Request $request, QcmRepository $repository)
@@ -126,8 +130,14 @@ class QcmController extends Controller
 
     }
 
-
-
+    /**
+     * Update the status.
+     *
+     * @param Qcm $qcm
+     * @param Request $request => it's use for get data and validate them
+     * @param QcmRepository $repository => for controller traitement
+     * @return \Illuminate\Http\Response
+     */
     public function updateStatus(Request $request, Qcm $qcm, QcmRepository $repository)
     {
         $this->authorize('status', Qcm::class);
@@ -139,7 +149,8 @@ class QcmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Qcm $qcm => it's use for get data and validate them
+     * @param QcmRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function destroy(Qcm $qcm, QcmRepository $repository)

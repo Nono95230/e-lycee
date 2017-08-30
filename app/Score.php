@@ -30,19 +30,20 @@ class Score extends Model
         'deleted_at'
     ];
 
+   /**
+     * Get the qcm associated with the score.
+     */
     public function qcm()
     {
         return $this->belongsTo('App\Qcm');
     }
 
+   /**
+     * Get the user associated with the score.
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    public function getScore()
-    {
-        return true;//a faire
     }
     
 }

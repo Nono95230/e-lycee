@@ -24,14 +24,18 @@ class StudentController extends Controller
         $this->setUser();
     }
 
+    /**
+     * Récupère les infos saisies et affiche dans la page dashboard
+     *
+     * @param StudentRepository $repository => for controller traitement
+     * @return redirect view back student with message $dasboard in Session
+    */
     public function index(StudentRepository $repository) {
 
         $this->authorize('student', User::class);
 
         $seeDashboard = $repository->getDashboard();
 
-        //dd($seeDashboard['scores']);
-        //dd($seeDashboard['qcms']);
         return view('back.student.dashboard',[
             'title'         =>'Tableau de Bord',
             'totalScore'    => $seeDashboard['totalScore'],
@@ -42,6 +46,12 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * Récupère les infos (qcm) et affiche dans la page index du qcm
+     *
+     * @param Request $request => it's use for get data and validate them
+     * @return redirect view back student with message $indexQcm in Session
+    */
     public function qcmIndex(Request $request, StudentRepository $repository) {
 
         $this->authorize('student', User::class);
@@ -58,6 +68,13 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * Récupère les réponses (qcm) et affiche dans la page index du qcm
+     *
+     * @param Qcm $qcm => QCM en cours de traitement
+     * @param Request $request => it's use for get data and validate them
+     * @return redirect view back student with message $indexQcm in Session
+    */
     public function qcmRespond(Qcm $qcm, StudentRepository $repository) {
 
         $this->authorize('student', User::class);
@@ -74,6 +91,14 @@ class StudentController extends Controller
 
     }
 
+   /**
+     * Récupère le score du QCM
+     *
+     * @param Qcm $qcm => QCM en cours de traitement
+     * @param Request $request => it's use for get data and validate them
+     * @param StudentRepository $repository => for controller traitement
+     * @return redirect view back student with message $indexQcm in Session
+    */
     public function qcmCalculateScore(Qcm $qcm, StudentQcmRequest $request, StudentRepository $repository) {
 
         $this->authorize('student', User::class);
@@ -82,12 +107,6 @@ class StudentController extends Controller
         $getResponse = $repository->createScore($score, $qcm);
         
         return redirect()->route('student.qcm.index')->with('message', $getResponse);
-    
 
     }
-
-
-
-
-
 }

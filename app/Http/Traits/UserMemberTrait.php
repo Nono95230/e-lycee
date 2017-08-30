@@ -5,7 +5,11 @@ use Auth;
 
 trait UserMemberTrait{
 	
-
+     /**
+     * Retourne le rôle de l'user
+     *
+     * @return view userStatut
+    */
     public function setUser(){
     
         view()->composer('layouts.back', function ($view) {
@@ -24,11 +28,14 @@ trait UserMemberTrait{
             
             $view->with('userStatut', $userStatut);
 
-        
         });
-    
     }
 
+     /**
+     * Retourne le rôle de l'user
+     *
+     * @return view userStatut
+    */
     public function takeUser(){
     
         view()->composer('layouts.front', function ($view) {

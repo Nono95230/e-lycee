@@ -10,6 +10,12 @@ use App\User;
 class DashboardController extends Controller
 {
 
+    /**
+     * Retourne la vue avec les infos nécessaire (stats articles, stats QCM, stats commentaire)
+     *
+     * @param DashboardRepository $repository => for controller traitement
+     * @return redirect view dashboard teacher 
+    */
     public function index(DashboardRepository $repository) {
 
         $this->authorize('teacher', User::class);

@@ -34,13 +34,18 @@ class QuestionRequest extends FormRequest{
         return $rules;
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array $message
+     */
     public function messages()
     {
         foreach ($this->request as $key => $value) {
             if (strpos($key,'content') !== false ) {
                 $messages[$key.'.required'] = 'Vous devez définir cette question';
-                $messages[$key.'.string'] = 'La question doit être une phrase';
-                $messages[$key.'.max'] = 'La question ne doit pas être supérieure à 160 caractères';
+                $messages[$key.'.string']   = 'La question doit être une phrase';
+                $messages[$key.'.max']      = 'La question ne doit pas être supérieure à 160 caractères';
             }
             if(strpos($key,'answer') !== false ){
                 $messages[$key.'.in'] = 'Vous devez choisir une réponse';

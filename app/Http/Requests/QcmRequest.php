@@ -15,7 +15,7 @@ class QcmRequest extends FormRequest{
         return true;
     }
 
-    /**
+     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,12 +24,17 @@ class QcmRequest extends FormRequest{
     {
         
         return [
-            'title'       => 'bail|required|string|min:5|max:50', 
-            'class_level' => 'in:premiere,terminale',
+            'title'         => 'bail|required|string|min:5|max:50', 
+            'class_level'   => 'in:premiere,terminale',
             'nb_question'   => 'bail|required|numeric|min:5|max:30'
         ];
     }
     
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
@@ -37,10 +42,10 @@ class QcmRequest extends FormRequest{
             'title.string'          => 'Le titre doit être une phrase',
             'title.min'             => 'Le titre doit avoir minimum 5 caractères',
             'title.max'             => 'Le titre doit avoir maximum 50 caractères',
-            'nb_question.required' => 'Ce champs ne peut être vide',
-            'nb_question.numeric'  => 'Ce champs doit être un entier numérique',
-            'nb_question.min'      => 'Le minimum de question doit être de 5',
-            'nb_question.max'      => 'Le maximum de question doit être de 30',
+            'nb_question.required'  => 'Ce champs ne peut être vide',
+            'nb_question.numeric'   => 'Ce champs doit être un entier numérique',
+            'nb_question.min'       => 'Le minimum de question doit être de 5',
+            'nb_question.max'       => 'Le maximum de question doit être de 30',
             'class_level.in'        => 'Veuillez choisir le bon niveau'
         ];
     }

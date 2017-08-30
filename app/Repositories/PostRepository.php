@@ -17,13 +17,15 @@ class PostRepository
         $this->post = $post;
     }
 
-
-
-
     /*
      * FOR FRONT PAGE
      */
-
+    
+    /**
+     * Sert à récupérer les actu les plus commentés
+     *
+     * @return OBJECT
+    */
     public function getBestActus()
     {
         $bestActus = DB::table('posts')
@@ -39,15 +41,33 @@ class PostRepository
         return $bestActus;
     }
 
+    /**
+     * Sert à récupérer les actualités publiées et de prendre en compte la pagination
+     *
+     * @return array
+    */
     public function getAllActus()
     {
         return $this->post->where('posts.status', "published")->orderBy('published_at', "DESC")->paginate(10);
     }
 
+    /**
+     * Sert à récupérer une actualité
+     *
+     * @return OBJECT
+    */
     public function getOneActu($value)
     {
         return $this->post->findOrFail($value);
     }
+
+    /**
+     * Permet d'ajouter un commentaire
+     *
+     * @param $id 
+     * @param Request $request
+     * @return Array $message
+    */
     public function addCOmment($id,$request){
 
         $request->offsetUnset('_token');
@@ -62,11 +82,16 @@ class PostRepository
         return $message;
     }
 
-
     /*
      * FOR BACK PAGE
      */
-
+    
+    /**
+     * Permet de récupérer les posts publiées et de prendre en compte la pagination
+     *
+     * @param $perPage, if exist, it's an integer number
+     * @return Array
+    */
     public function getIndexPosts($perPage)
     {
         if ( !isset($perPage)) {
@@ -79,7 +104,12 @@ class PostRepository
         return ['posts' => $posts, 'nb_posts' => $nb_posts, 'perPage' => $perPage];
     }
 
-
+    /**
+     * Permet d'enregistrer un post 
+     *
+     * @param Request $request
+     * @return Array $message
+    */
     public function makeActionStore($request)
     {
 
@@ -89,8 +119,6 @@ class PostRepository
 
         $post->updateStatus($request->status);
         
-
-
         if ($request->hasFile('url_thumbnail') && $request->file('url_thumbnail')->isValid() ) {
 
             $file = $request->url_thumbnail;
@@ -120,7 +148,13 @@ class PostRepository
         return $message;
     }
 
-
+    /**
+     * Permet de modifier un post existant
+     *
+     * @param Request $request
+     * @param Post $post
+     * @return Array $message
+    */
     public function makeActionUpdate($request, $post)
     {
         $oldFile = $post->getUrlThumbnailAttribute();
@@ -165,7 +199,13 @@ class PostRepository
         return $message;
     }
 
-
+    /**
+     * Permet de modifier le statut du post
+     *
+     * @param Request $request
+     * @param Post $post
+     * @return Array $message
+    */
     public function makeActionUpdateStatus($request, $post)
     {
 
@@ -185,7 +225,12 @@ class PostRepository
         return $message;
     }
 
-
+    /**
+     * Permet de supprimer un post
+     *
+     * @param Post $post
+     * @return Array $message
+    */
     public function makeActionDelete($post)
     {
 

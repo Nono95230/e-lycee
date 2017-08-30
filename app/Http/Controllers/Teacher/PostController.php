@@ -28,9 +28,12 @@ class PostController extends Controller
 
         $this->setUser();
     }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request => it's use for get data and validate them
+     * @param PostRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, PostRepository $repository)
@@ -63,7 +66,8 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param PostRequest $request => it's use for get data and validate them
+     * @param PostRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request, PostRepository $repository)
@@ -102,6 +106,7 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Post  $post
+     * @param  PostRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function update(PostRequest $request, Post $post, PostRepository $repository)
@@ -112,7 +117,9 @@ class PostController extends Controller
     /**
      * Update the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Post  $post
+     * @param  PostRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function updateStatus(Request $request, Post $post, PostRepository $repository )
@@ -127,6 +134,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Post  $post
+     * @param  PostRepository $repository => for controller traitement
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post, PostRepository $repository )
@@ -136,6 +144,4 @@ class PostController extends Controller
         return redirect()->route('post.index')->with('message', $repository->makeActionDelete($post));
 
     }
-
-
 }

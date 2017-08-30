@@ -20,7 +20,13 @@ class QcmRepository
     /*
      * FOR BACK PAGE
      */
-
+    
+    /**
+     * Permet d'afficher les QCM et de prendre en compte la pagination
+     *
+     * $perPage
+     * @return Array
+    */
     public function getIndexQcms($perPage)
     {
     	if ( !isset($perPage)) {
@@ -33,7 +39,12 @@ class QcmRepository
         return ['qcms' => $qcms, 'nb_qcms' => $nb_qcms, 'perPage' => $perPage];
     }
 
-
+    /**
+     * Permet d'enregistrer un QCM
+     *
+     * @param Request $request
+     * @return Array value in session
+    */
     public function makeActionStore($request)
     {
         
@@ -46,15 +57,21 @@ class QcmRepository
 
     }
 
-
+    /**
+     * Vérifie s'il y a pas d'erreur avant validation
+     *
+     * @param Qcm $qcm
+     * @param Requets $request
+     * @return Array 
+    */
     public function validationBeforeUpdate($qcm, $request)
     {
-        //Name and Value Field Qcm
+        // Name and Value Field Qcm
         $inputQcm = [
             'title'=> $request->title,
             'class_level'=>$request->class_level
         ];
-        //Name and Value Field Question
+        // Name and Value Field Question
         $inputQuestion = array();
         foreach ($request->all() as $key => $value) {
             if (strpos($key,'content') !== false ) {
@@ -65,12 +82,13 @@ class QcmRepository
             }
         }
 
-        //Rules for Field Qcm
+        // Rules for Field Qcm
         $rulesQcm = array(
             'title'       => 'bail|required|string|min:5|max:50', 
             'class_level' => 'in:premiere,terminale'
         );
-        //Rules for Field Question
+
+        // Rules for Field Question
         $rulesQuestion=array();
         foreach ($request->all() as $key => $value) {
             if (strpos($key,'content') !== false ) {
@@ -81,7 +99,7 @@ class QcmRepository
             }
         }
 
-        //Messages for Field Qcm
+        // Messages for Field Qcm
         $messagesQcm = array(
             'title.required'        => 'Vous devez définir un titre',
             'title.string'          => 'Le titre doit être une phrase',
@@ -90,7 +108,7 @@ class QcmRepository
             'class_level.in'        => 'Veuillez choisir le bon niveau'
         );
 
-        //Messages for Field Question
+        // Messages for Field Question
         $messagesQuestion=array();
         foreach ($request->all() as $key => $value) {
             if (strpos($key,'content') !== false ) {
@@ -103,7 +121,6 @@ class QcmRepository
             }
         }
 
-
         $validatorQcm = Validator::make($inputQcm, $rulesQcm, $messagesQcm );
         
         $validatorQuestion = Validator::make($inputQuestion, $rulesQuestion, $messagesQuestion );
@@ -114,7 +131,13 @@ class QcmRepository
         ];
 
     }
-
+    
+    /**
+     * Permet de détecter s'il y a une erreur
+     *
+     * @param $testData
+     * @return $testData
+    */
     public function detectErrors($testData){
 
       if( $testData['qcm']->fails() || $testData['question']->fails() ){
@@ -123,14 +146,17 @@ class QcmRepository
       }
     }
 
+    /**
+     * Permet de modifier un QCM
+     *
+     * @param Qcm $qcm => qcm en question
+     * @param Requets $request
+     * @return Array $message
+    */
     public function makeActionUpdate($qcm, $request){
 
         //Update The Qcm
         $qcm->updateThisQcm($request);
-        // $qcm->title = $request->title;
-        // $qcm->class_level = $request->class_level;
-        // $qcm->status = isset($request->status) ? 'on' : 'off' ;
-        // $qcm->update();
 
         //Remove the useless field
         $request->offsetUnset('_token');
@@ -169,7 +195,13 @@ class QcmRepository
 
     }
 
-
+    /**
+     * Permet de modifier le status du QCM
+     *
+     * @param Request $request
+     * @param Qcm $qcm
+     * @return Array $message
+    */
     public function makeActionUpdateStatus($request, $qcm)
     {
 
@@ -188,7 +220,12 @@ class QcmRepository
         return $message;
     }
 
-
+    /**
+     * Permet de supprimer un QCM
+     *
+     * @param Qcm $qcm
+     * @return Array $message
+    */
     public function makeActionDelete($qcm)
     {
 

@@ -33,6 +33,11 @@ class StudentQcmRequest extends FormRequest
         return $rules;
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array $message
+     */ 
     public function messages()
     {
         foreach ($this->request as $key => $value) {

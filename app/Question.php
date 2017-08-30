@@ -26,12 +26,18 @@ class Question extends Model
         'updated_at',
         'deleted_at'
     ];
-    //
+
+   /**
+     * Get the qcm associated with the question.
+     */
     public function qcm()
     {
         return $this->belongsTo('App\Qcm');
     }
 
+   /**
+     * Mets à jour la question 
+     */
     public function updateThisQuestion($value)
     {
         $this->attributes['content'] = $value['content'];

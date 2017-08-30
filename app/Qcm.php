@@ -40,16 +40,25 @@ class Qcm extends Model
         'deleted_at'
     ];
     
+    /**
+     * Get all scores associated with the qcm.
+     */
     public function scores()
     {
         return $this->hasMany('App\Score');
     }
 
+    /**
+     * Get all questions associated with the qcm.
+     */
     public function questions()
     {
         return $this->hasMany('App\Question');
     }
 
+    /**
+     * Lorsqu'on enregistre un QCM ceci attribue une valeur au statut
+     */
     public function setStatusAttribute($value){
         if ( $value === 'on' ) {
             $this->attributes['status'] = 'published';
@@ -58,6 +67,9 @@ class Qcm extends Model
         }
     }
     
+    /**
+     * Modifie le status du QCM
+     */
     public function updateStatus($value){
         if ( $value === 'on' ) {
             $this->attributes['status'] = 'published';
@@ -65,7 +77,10 @@ class Qcm extends Model
             $this->attributes['status'] = 'unpublished';
         }
     }
-
+   
+    /**
+     * Modifie le QCM
+     */
     public function updateThisQcm($value)
     {
         $this->attributes['title'] = $value->title;

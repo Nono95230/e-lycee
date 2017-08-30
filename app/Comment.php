@@ -32,11 +32,19 @@ class Comment extends Model
         'deleted_at'
     ];
     
-    public function posts()
+    /**
+     * Get the post associated with the comment.
+     */
+    public function post()
     {
         return $this->belongsTo('App\Post');
     }
 
+   /**
+     * Set the post id
+     *
+     * @param $value
+     */
     public function setPostId($value){
         $this->attributes['post_id'] = $value;
     }

@@ -17,6 +17,11 @@ class DashboardRepository{
         $this->setUser();
     }
 
+    /**
+     * Sert à récupérer les statistiques (Articles récent, nombre d'article, QCM récent, nombre de QCM, nombre de commentaire)
+     *
+     * @return OBJECT 
+    */
     public function getDashboard(){
 
         // requête pour les posts les plus récents
@@ -59,8 +64,6 @@ class DashboardRepository{
          
         return $dashboard;
     }
-
-
 }
 
 

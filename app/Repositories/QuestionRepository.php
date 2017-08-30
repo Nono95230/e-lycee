@@ -21,6 +21,12 @@ class QuestionRepository
      * FOR BACK PAGE
      */
 
+   /**
+     * Permet de Créer les questions 
+     *
+     * @param $request => it's use for get data and validate them
+     * @return array [nom du qcm et nombre de question au qcm]
+    */
     public function makeActionCreate($request)
     {
         $qcm = $request->session()->get('new_qcm');
@@ -32,6 +38,12 @@ class QuestionRepository
     }
 
 
+    /**
+     * Permet d'ajouter une nouvelle question
+     *
+     * @param $request => it's use for get data and validate them
+     * @return value in Session
+    */
     public function addNewQuestion($request)
     {
         $qcm = $request->session()->get('new_qcm');
@@ -44,6 +56,12 @@ class QuestionRepository
 
     }
 
+   /**
+     * Permet de retirer une question du QCM 
+     *
+     * @param $request => it's use for get data and validate them
+     * @return value in Session
+    */
     public function removeLastQuestion($request)
     {
         $qcm = $request->session()->get('new_qcm');
@@ -55,7 +73,12 @@ class QuestionRepository
         return session(['new_qcm' =>  $qcm ]);
     }
 
-
+   /**
+     * Permet d'enregistrer les questions ainsi que le QCM 
+     *
+     * @param Request $request => it's use for get data and validate them
+     * @return $message
+    */
     public function makeActionStore($request)
     {
 

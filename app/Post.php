@@ -47,53 +47,55 @@ class Post extends Model
         'updated_at',
         'deleted_at'
     ];
-    
+
+    /**
+     * Get all comments related with the post
+     */
     public function comments()
     {
         return $this->hasMany('App\Comment');
     }
 
+    /**
+     * Get the user related with the post
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function getUserId(){
-        return Auth::user()->id;
-    }
 
+    /**
+     * Get the url_thumbnail
+     */
     public function getUrlThumbnailAttribute() {
         return $this->attributes['url_thumbnail'];
     }
 
+    /**
+     * Get the user id
+     */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
+
+    /**
+     * Set the user id
+     */
     public function setUserId($value){
         $this->attributes['user_id'] = $value;
     }
 
+    /**
+     * Set the title
+     */
     public function setTitleAttribute($value) {
         $this->attributes['title'] = $value;
     }
 
-
-    /*public function setStatusAttribute($value){
-        if ( $value === 'on' ) {
-            $this->attributes['status'] = 'published';
-        }
-        else{
-            $this->attributes['status'] = 'unpublished';
-        }
-    }*/
-
-
-    /*public function setPublishedAtAttribute($value){
-        if ( $this->attributes['status'] === 'published' ) {
-            if ($this->attributes['published_at'] === null) {
-                $this->attributes['published_at'] = Carbon::now();
-            }
-        }
-    }*/
-    
-    
+    /**
+     * Update the status and the published_at
+     */
     public function updateStatus($value){
         if ( $value === 'on' ) {
             $this->attributes['status'] = 'published';
@@ -104,7 +106,4 @@ class Post extends Model
             $this->attributes['status'] = 'unpublished';
         }
     }
-
-    
-    
 }

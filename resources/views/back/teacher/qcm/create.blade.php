@@ -99,4 +99,7 @@
      <!-- BTN publish script -->
     <script src="{{ url('js/btn-publish.js')}}"></script>
 
+    <!-- Page JavaScript -->
+    <script src="{{ url('js/teacher-add-qcm.js')}}"></script>
+
 @endsection

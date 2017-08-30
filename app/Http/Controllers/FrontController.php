@@ -18,7 +18,7 @@ class FrontController extends Controller
 {
     use UserMemberTrait;
 
-    public function __construct(Request $request){
+    public function __construct(){
         
         $this->takeUser();
 
@@ -99,7 +99,7 @@ class FrontController extends Controller
     */
     public function presentationLycee() {
 
-        return view('front.presentation-lycee', ['title' => 'Le lycée']);
+        return view('front.presentation-lycee', ['title' => 'Notre lycée']);
 
     }
 

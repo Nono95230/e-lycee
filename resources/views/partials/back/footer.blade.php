@@ -12,7 +12,7 @@
                     <a href="{{route('contact')}}">Contact</a>
                 </li>
                 </ul>
-                <p>Copyright &copy; Your Website 2014</p>
+                <p>Copyright &copy; E-Lycee 2017</p>
             </div>
         </div>
         <!-- /.row -->

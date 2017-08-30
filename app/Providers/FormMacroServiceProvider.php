@@ -29,14 +29,6 @@ class FormMacroServiceProvider extends HtmlServiceProvider
     {
         parent::register();
 
-
-        /*$this->app->singleton('form', function($app)
-        {
-            $form = new FormMacros($app['html'], $app['url'], $app['session.store']->token());
-            return $form->setSessionStore($app['session.store']);
-        });*/
-
-
         Form::macro('submitMacro', function( $action, $entity)
         {
             $field = '<div class="form-group">';
